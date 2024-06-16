@@ -9,7 +9,7 @@
 summon minecraft:armor_stand ~ ~ ~ {attributes:[{base:0.0d,id:"minecraft:generic.gravity"},{base:0.5d,id:"minecraft:generic.scale"},{base:1.0d,id:"minecraft:generic.step_height"}],Tags:["vehicle.submarine","vehicle.base","vehicle.new_base"],Small:1b,Invisible:1b}
 
 # Summon and mount display
-summon minecraft:item_display ~ ~ ~ {Tags:["vehicle.submarine","vehicle.model","vehicle.new_model"],transformation:[3.5f,0.0f,0.0f,0.0f,0.0f,3.5f,0.0f,1.5f,0.0f,0.0f,3.5f,-0.4f,0.0f,0.0f,0.0f,1.0f],item:{id:"minecraft:glass"}}
+summon minecraft:item_display ~ ~ ~ {Tags:["vehicle.submarine","vehicle.model","vehicle.new_model"],teleport_duration:2,transformation:[3.5f,0.0f,0.0f,0.0f,0.0f,3.5f,0.0f,1.5f,0.0f,0.0f,3.5f,-0.4f,0.0f,0.0f,0.0f,1.0f],item:{id:"minecraft:glass"}}
 item replace entity @e[tag=vehicle.new_model,limit=1] container.0 with minecraft:glass[minecraft:custom_model_data=1414716]
 ride @e[tag=vehicle.new_model,limit=1] mount @e[tag=vehicle.new_base,limit=1]
 
