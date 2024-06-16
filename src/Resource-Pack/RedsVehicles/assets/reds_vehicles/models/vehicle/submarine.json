@@ -2,10 +2,10 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [4, 4],
 	"textures": {
-		"0": "vehicle/submarine",
-		"1": "vehicle/submarine_propeller",
-		"2": "vehicle/submarine_lights",
-		"particle": "vehicle/submarine"
+		"0": "reds_vehicles:vehicle/submarine",
+		"1": "reds_vehicles:vehicle/submarine_propeller",
+		"2": "reds_vehicles:vehicle/submarine_lights",
+		"particle": "reds_vehicles:vehicle/submarine"
 	},
 	"elements": [
 		{
@@ -372,11 +372,26 @@
 	],
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [67, 0, 0]
+			"translation": [0, 5.25, 0]
 		},
-		"head": {
-			"translation": [0, 6, 7.5],
-			"scale": [4, 4, 4]
+		"thirdperson_lefthand": {
+			"translation": [0, 5.25, 0]
+		},
+		"firstperson_righthand": {
+			"rotation": [0, 46, 0],
+			"translation": [0, 6.5, 0]
+		},
+		"firstperson_lefthand": {
+			"rotation": [0, 46, 0],
+			"translation": [0, 6.5, 0]
+		},
+		"ground": {
+			"translation": [0, 4, 0]
+		},
+		"gui": {
+			"rotation": [30, 145, 0],
+			"translation": [-0.75, 3.25, 0],
+			"scale": [0.875, 0.875, 0.875]
 		}
 	},
 	"groups": [

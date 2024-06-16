@@ -1,6 +1,6 @@
 {
     "parent": "block/glass",
     "overrides": [
-        {"predicate": {"custom_model_data": 1414716}, "model": "vehicle/submarine"}
+        {"predicate": {"custom_model_data": 1414716}, "model": "reds_vehicles:vehicle/submarine"}
     ]
 }
