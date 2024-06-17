@@ -11,6 +11,7 @@ execute unless score config vehicle.config.show_vehicle_count_on_reload matches 
 # Constants
 scoreboard objectives add vehicle.constants dummy
 scoreboard players set 2 vehicle.constants 2
+scoreboard players set 4 vehicle.constants 4
 scoreboard players set 10 vehicle.constants 10
 scoreboard players set 100 vehicle.constants 100
 
