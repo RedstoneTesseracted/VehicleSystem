@@ -1,0 +1,6 @@
+# This function redeclares a global table that maps scale source type strings to numeric IDs
+# IDs must start at 1, since 0 typically represents an error elsewhere
+#
+# This function is part of the #reds_vehicles:declare_enums function tag, and is called upon reload
+
+data modify storage reds_vehicles:enums scale_source set value [{type: "constant", id: 1}, {type: "score", id: 2}]

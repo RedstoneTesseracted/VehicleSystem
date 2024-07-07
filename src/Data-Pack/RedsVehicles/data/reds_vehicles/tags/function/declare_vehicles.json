@@ -1,6 +1,6 @@
 {
    "values": [
-		"reds_vehicles:definitions/orb",
-		"reds_vehicles:definitions/submarine"
+		"reds_vehicles:vehicles/orb",
+		"reds_vehicles:vehicles/submarine"
    ]
 }

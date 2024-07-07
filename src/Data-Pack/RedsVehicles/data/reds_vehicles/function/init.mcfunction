@@ -6,13 +6,16 @@ scoreboard objectives add vehicle.local dummy
 # Global configuration
 # Show number of vehicles upon reload [0=no,1=yes; default=0 (no)]
 scoreboard objectives add vehicle.config.show_vehicle_count_on_reload dummy
+scoreboard objectives add vehicle.config.notify_errors_on_reload dummy
 execute unless score config vehicle.config.show_vehicle_count_on_reload matches -2147483648..2147483647 run scoreboard players set config vehicle.config.show_vehicle_count_on_reload 0
+execute unless score config vehicle.config.notify_errors_on_reload matches -2147483648..2147483647 run scoreboard players set config vehicle.config.notify_errors_on_reload 1
 
 # Constants
 scoreboard objectives add vehicle.constants dummy
 scoreboard players set 2 vehicle.constants 2
 scoreboard players set 4 vehicle.constants 4
 scoreboard players set 10 vehicle.constants 10
+scoreboard players set 20 vehicle.constants 20
 scoreboard players set 100 vehicle.constants 100
 
 # Vehicle control/movement scores
@@ -69,16 +72,14 @@ scoreboard objectives add vehicle.environment_type dummy
 scoreboard objectives add vehicle.environment_penalty_type dummy
 
 
-# Vehicle state variables
-#scoreboard objectives add vehicle.in_air dummy
-#scoreboard objectives add vehicle.in_water dummy
-#scoreboard objectives add vehicle.engine_on dummy
+# Schedule periodic functions
+schedule function reds_vehicles:20t 1s replace
 
-# Vehicle definitions
-function #reds_vehicles:declare_vehicles
+# Trigger variables
+scoreboard objectives add vehicle.showlog trigger
 
-# Message creative players about defined vehicle count (if enabled)
-execute if score config vehicle.config.show_vehicle_count_on_reload matches 1 run function reds_vehicles:announce_vehicle_count
+# Reload the vehicle definition table
+function reds_vehicles:define/reload
 
-# Ensure advancement trigger is reset for all players
-advancement revoke @a only reds_vehicles:hidden/seat_interact
+# Reset triggers for all players
+function reds_vehicles:fixes
