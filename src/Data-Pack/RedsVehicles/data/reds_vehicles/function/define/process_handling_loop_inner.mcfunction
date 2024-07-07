@@ -16,7 +16,7 @@ execute unless data storage reds_vehicles:definitions working_handling.operation
 execute unless data storage reds_vehicles:definitions working_handling.scale run function reds_vehicles:define/assert_working_fail {source: 'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing scale compound field in handling tag"}]'}
 execute unless data storage reds_vehicles:definitions working_handling.scale run return fail
 # Scale source field
-execute unless data storage reds_vehicles:definitions working_handling.scale.source run function reds_vehicles:define/assert_working_fail {source: 'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing source field in handling tag\'s scale compound"}]'}
+execute unless data storage reds_vehicles:definitions working_handling.scale.source run function reds_vehicles:define/assert_working_fail {source: 'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing source field in handling tag’s scale compound"}]'}
 execute unless data storage reds_vehicles:definitions working_handling.scale.source run return fail
 # Variable field
 execute unless data storage reds_vehicles:definitions working_handling.variable run function reds_vehicles:define/assert_working_fail {source: 'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing variable field in handling tag"}]'}
@@ -29,7 +29,7 @@ data modify storage reds_vehicles:enums args.key set from storage reds_vehicles:
 execute store result score vehicle.input_id vehicle.local run function reds_vehicles:define/enums/lookup_id with storage reds_vehicles:enums args
 
 # The lookup function should NEVER return a zero unless it failed to compile
-execute if score vehicle.input_id vehicle.local matches 0 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"An unknown error occurred while looking up the input type that caused the macro in reds_vehicles:define/enums/lookup_id to fail.  Please double-check your input type"}]'}
+execute if score vehicle.input_id vehicle.local matches 0 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"An unknown error occurred while looking up the input type that caused the macro in reds_vehicles:define/enums/lookup_id to fail.  Either there’s a bug in the macro or an invalid string was provided"}]'}
 execute if score vehicle.input_id vehicle.local matches 0 run return fail
 # Invalid type
 execute if score vehicle.input_id vehicle.local matches -1 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Encountered an unrecognized input type.  See documentation for list of input types."}]'}
@@ -40,7 +40,7 @@ execute if score vehicle.input_id vehicle.local matches -1 run return fail
 execute store success score vehicle.success vehicle.local run function reds_vehicles:define/enums/lookup_group with storage reds_vehicles:enums args
 data remove storage reds_vehicles:enums args
 # Failed to compile (somehow?)
-execute if score vehicle.success vehicle.local matches 0 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"An unknown error occurred while looking up the input group that caused the macro in reds_vehicles:define/enums/lookup_group to fail.  If we\'ve made it this far, the input type is probably fine and something else is causing problems."}]'}
+execute if score vehicle.success vehicle.local matches 0 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"An unknown error occurred while looking up the input group that caused the macro in reds_vehicles:define/enums/lookup_group to fail.  If we’ve made it this far, the input type is probably fine and something else is causing problems."}]'}
 execute if score vehicle.success vehicle.local matches 0 run return fail
 # Mark the corresponding group flag
 data modify storage reds_vehicles:enums args.group set from storage reds_vehicles:definitions returned_group
@@ -56,7 +56,7 @@ data merge storage reds_vehicles:enums {args: {table: "scale_source"}}
 data modify storage reds_vehicles:enums args.key set from storage reds_vehicles:definitions working_handling.scale.source
 execute store result score vehicle.source_id vehicle.local run function reds_vehicles:define/enums/lookup_id with storage reds_vehicles:enums args
 # Compile fail
-execute if score vehicle.source_id vehicle.local matches 0 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"An unknown error occurred while looking up the scale source type that caused the macro in reds_vehicles:define/enums/lookup_id to fail.  Please double-check your scale source type"}]'}
+execute if score vehicle.source_id vehicle.local matches 0 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"An unknown error occurred while looking up the scale source type that caused the macro in reds_vehicles:define/enums/lookup_id to fail.  Either there’s a bug in the macro or an invalid string was provided"}]'}
 execute if score vehicle.source_id vehicle.local matches 0 run return fail
 # Invalid type
 execute if score vehicle.source_id vehicle.local matches -1 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Encountered an unrecognized scale source type; valid scale sources are constant and score"}]'}
@@ -64,10 +64,10 @@ execute if score vehicle.source_id vehicle.local matches -1 run return fail
 
 # Make sure we have the corresponding fields for this source type
 # Constant - requires value
-execute if score vehicle.source_id vehicle.local matches 1 unless data storage reds_vehicles:definitions working_handling.scale.value run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing required \'value\' field for source type \'constant\'"}]'}
+execute if score vehicle.source_id vehicle.local matches 1 unless data storage reds_vehicles:definitions working_handling.scale.value run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing required “value” field for source type “constant”"}]'}
 execute if score vehicle.source_id vehicle.local matches 1 unless data storage reds_vehicles:definitions working_handling.scale.value run return fail
 
 # Score - requires name
-execute if score vehicle.source_id vehicle.local matches 2 unless data storage reds_vehicles:definitions working_handling.scale.value run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing required \'name\' field for source type \'score\'"}]'}
-execute if score vehicle.source_id vehicle.local matches 2 unless data storage reds_vehicles:definitions working_handling.scale.value run return fail
+execute if score vehicle.source_id vehicle.local matches 2 unless data storage reds_vehicles:definitions working_handling.scale.name run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing required “name” field for source type “score”"}]'}
+execute if score vehicle.source_id vehicle.local matches 2 unless data storage reds_vehicles:definitions working_handling.scale.name run return fail
 

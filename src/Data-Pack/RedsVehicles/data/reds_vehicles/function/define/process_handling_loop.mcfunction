@@ -12,7 +12,8 @@ data modify storage reds_vehicles:definitions working_handling set from storage 
 data remove storage reds_vehicles:definitions unprocessed_handling[0]
 
 # Run the inner part of the loop
-function reds_vehicles:define/process_handling_loop_inner
+execute store success score vehicle.success vehicle.local run function reds_vehicles:define/process_handling_loop_inner
+execute if score vehicle.success vehicle.local matches 0 run scoreboard players set vehicle.error vehicle.local 1
 
 # Reset temporary scores
 scoreboard players reset vehicle.asserted_local vehicle.local

@@ -12,7 +12,8 @@ data modify storage reds_vehicles:definitions working_part set from storage reds
 data remove storage reds_vehicles:definitions unprocessed_parts[0]
 
 # Run inner function that we can terminate upon failure
-function reds_vehicles:define/process_parts_loop_inner
+execute store success score vehicle.success vehicle.local run function reds_vehicles:define/process_parts_loop_inner
+execute if score vehicle.success vehicle.local matches 0 run scoreboard players set vehicle.error vehicle.local 1
 
 # Remove temporary NBT data
 data remove storage reds_vehicles:definitions working_entity

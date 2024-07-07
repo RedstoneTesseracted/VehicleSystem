@@ -12,7 +12,8 @@ data modify storage reds_vehicles:definitions working_physics set from storage r
 data remove storage reds_vehicles:definitions unprocessed_physics[0]
 
 # Run inner function that we can terminate upon failure
-function reds_vehicles:define/process_physics_loop_inner
+execute store success score vehicle.success vehicle.local run function reds_vehicles:define/process_physics_loop_inner
+execute if score vehicle.success vehicle.local matches 0 run scoreboard players set vehicle.error vehicle.local 1
 
 # Reset temporary scores
 scoreboard players reset vehicle.environment_id vehicle.local

@@ -18,7 +18,7 @@ execute store result score vehicle.physics_id vehicle.local run function reds_ve
 data remove storage reds_vehicles:enums args
 
 # The lookup function should NEVER return a zero unless it failed to compile
-execute if score vehicle.physics_id vehicle.local matches 0 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_physics_loop_inner', description: '[{"text":"An unknown error occurred while looking up the physics type that caused the macro in reds_vehicles:define/enums/lookup_id to fail.  Please double-check your physics type; valid physics types are: gravity, buoyant, simple_lift, and planar_drag"}]'}
+execute if score vehicle.physics_id vehicle.local matches 0 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_physics_loop_inner', description: '[{"text":"An unknown error occurred while looking up the physics type that caused the macro in reds_vehicles:define/enums/lookup_id to fail.  Either there’s a bug in the macro or an invalid string was provided"}]'}
 execute if score vehicle.physics_id vehicle.local matches 0 run return fail
 
 # Invalid type
@@ -28,8 +28,8 @@ execute if score vehicle.physics_id vehicle.local matches -1 run return fail
 # Type gravity - handle specially
 execute if score vehicle.physics_id vehicle.local matches 1 run data modify storage reds_vehicles:definitions working.base_gravity set from storage reds_vehicles:definitions working_physics.value
 # Type buoyant - has an extra field "environment"
-execute if score vehicle.physics_id vehicle.local matches 2 run function reds_vehicles:define/assert_buoyant_valid
-execute unless score vehicle.asserted_local vehicle.local matches 0 run return fail
+execute if score vehicle.physics_id vehicle.local matches 2 store success score vehicle.success vehicle.local run function reds_vehicles:define/assert_buoyant_valid
+execute if score vehicle.success vehicle.local matches 0 run return fail
 # Type simple_lift - fine as-is
 # Type planar_drag - fine as-is
 
