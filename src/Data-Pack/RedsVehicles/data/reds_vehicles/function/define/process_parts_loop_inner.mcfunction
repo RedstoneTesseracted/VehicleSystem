@@ -6,7 +6,7 @@
 # It is called from reds_vehicles:define/process_parts_loop so that we can terminate early upon failure
 # without interrupting the loop
 
-data merge storage reds_vehicles:definitions {working_entity: {type: "minecraft:item_display"}}
+data merge storage reds_vehicles:definitions {working_entity: {type: "item_display"}}
 
 # Check for required fields (item, model, name)
 execute unless data storage reds_vehicles:definitions working_part.item run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_parts_loop_inner', description: '[{"text":"Missing item field from parts tag"}]'}

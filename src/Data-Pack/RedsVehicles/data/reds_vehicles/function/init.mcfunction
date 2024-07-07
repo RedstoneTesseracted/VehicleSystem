@@ -25,43 +25,71 @@ scoreboard objectives add vehicle.last_interaction_uuid2 dummy
 scoreboard objectives add vehicle.last_interaction_uuid3 dummy
 scoreboard objectives add vehicle.last_interaction_uuid4 dummy
 
+# scoreboard objectives add vehicle.vel.x dummy
+# scoreboard objectives add vehicle.vel.y dummy
+# scoreboard objectives add vehicle.vel.z dummy
+
+# scoreboard objectives add vehicle.acc.x dummy
+# scoreboard objectives add vehicle.acc.y dummy
+# scoreboard objectives add vehicle.acc.z dummy
+
+# scoreboard objectives add vehicle.input.x dummy
+# scoreboard objectives add vehicle.input.y dummy
+# scoreboard objectives add vehicle.input.z dummy
+
+
+
+# Standard vehicle scoreboards
+# Rotation
+scoreboard objectives add vehicle.rot.yaw dummy
+scoreboard objectives add vehicle.rot.pitch dummy
+scoreboard objectives add vehicle.rot.roll dummy
+
+# Velocity
 scoreboard objectives add vehicle.vel.x dummy
 scoreboard objectives add vehicle.vel.y dummy
 scoreboard objectives add vehicle.vel.z dummy
 
-scoreboard objectives add vehicle.acc.x dummy
-scoreboard objectives add vehicle.acc.y dummy
-scoreboard objectives add vehicle.acc.z dummy
+# Motion control
+scoreboard objectives add vehicle.accel.forward dummy
 
-scoreboard objectives add vehicle.input.x dummy
-scoreboard objectives add vehicle.input.y dummy
-scoreboard objectives add vehicle.input.z dummy
+# State
+scoreboard objectives add vehicle.engine dummy
+scoreboard objectives add vehicle.event.firework dummy
+scoreboard objectives add vehicle.event.honk dummy
+scoreboard objectives add vehicle.event.shoot dummy
+scoreboard objectives add vehicle.event.cooldown dummy
+
+# Attributes
+scoreboard objectives add vehicle.thrust dummy
+scoreboard objectives add vehicle.version dummy
+
 
 
 # Vehicle attributes
 # Thrust multiplier (x100 FP)
-scoreboard objectives add vehicle.max_thrust dummy
-scoreboard objectives add vehicle.applied_thrust dummy
+#scoreboard objectives add vehicle.max_thrust dummy
+#scoreboard objectives add vehicle.applied_thrust dummy
 
 # Control types:
 #  1: Full 3D motion in space
 #  2: 2D motion confined to XZ plane
 #  3: Full 3D motion in space, input vector based on player's direction instead of Motion tag
 #  4: 2D motion confined to XZ plane, input vector based on player's direction instead of Motion tag
-scoreboard objectives add vehicle.control_type dummy
+#scoreboard objectives add vehicle.control_type dummy
 
 # Physics types:
 #  1: Vehicle accelerates in direction of input vector, scaled by thrust
 #  2: Vehicle instantly moves in direction of input vector with a speed determined by thrust
 #  3: Vehicle accelerates in direction of input vector and experiences lift (i.e. plane)
-scoreboard objectives add vehicle.physics_type dummy
+#scoreboard objectives add vehicle.physics_type dummy
 
 # Environment types:
 #  0: Any non-solid environment is allowed
 #  1: Only air is allowed
 #  2: Only water is allowed
 #  3: Only lava is allowed
-scoreboard objectives add vehicle.environment_type dummy
+#scoreboard objectives add vehicle.environment_type dummy
 
 # Environment penalty types:
 #  0: No penalty for being in incorrect environment
@@ -69,7 +97,7 @@ scoreboard objectives add vehicle.environment_type dummy
 #  2: Sinking, zero movement speed
 #  3: Disable vehicle functionality permanently
 #  4: Explode vehicle
-scoreboard objectives add vehicle.environment_penalty_type dummy
+#scoreboard objectives add vehicle.environment_penalty_type dummy
 
 
 # Schedule periodic functions

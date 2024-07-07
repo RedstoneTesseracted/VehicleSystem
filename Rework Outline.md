@@ -676,19 +676,19 @@ Automatic evaluation only occurs upon reload.
   ],
   entities: [      # A list of entities to summon that will be riding the root vehicle entity
     {
-      type: "minecraft:interaction",  # The interaction representing the pilot seat.  Automatically added in
-      pilot: true,                    # Whether this interaction is the primary cockpit
-      tags: {                         # NBT tags to add to entity
-        width: float,                 # Defaults to 1.0, or set to seat.width if provided
-        height: float                 # Defaults to 1.0, or set to seat.width if provided
+      type: "interaction",  # The interaction representing the pilot seat.  Automatically added in
+      pilot: true,          # Whether this interaction is the primary cockpit
+      tags: {
+        width: float,       # Defaults to 1.0, or set to seat.width if provided
+        height: float       # Defaults to 1.0, or set to seat.width if provided
       }
     },
     {
-      type: "minecraft:item_display",  # One of the item display entities specified in "parts"
-      transform: float[16],            # An array of floats representing the display's initial 4x4 transformation matrix
-      item: str,                       # Name of the item displayed by the entity
-      model: int,                      # Item's custom model
-      name: str                        # Name assigned to display entity
+      type: "item_display",  # One of the item display entities specified in "parts"
+      transform: float[16],  # An array of floats representing the display's initial 4x4 transformation matrix
+      item: str,             # Name of the item displayed by the entity
+      model: int,            # Item's custom model
+      name: str              # Name assigned to display entity
     }
   ],
   scale: float,         # Base entity scale attribute

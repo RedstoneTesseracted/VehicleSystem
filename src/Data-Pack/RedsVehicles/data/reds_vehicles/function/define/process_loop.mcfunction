@@ -79,7 +79,7 @@ data remove storage reds_vehicles:definitions working_physics
 data modify storage reds_vehicles:definitions working.entities set value []
 
 # Add seat interaction entity
-data merge storage reds_vehicles:definitions {working_seat: {type: "minecraft:interaction", pilot: true, tags:{width: 1.0f, height: 1.0f}}}
+data merge storage reds_vehicles:definitions {working_seat: {type: "interaction", pilot: true, tags:{width: 1.0f, height: 1.0f}}}
 execute if data storage reds_vehicles:definitions working.seat.width run data modify storage reds_vehicles:definitions working_seat.tags.width set from storage reds_vehicles:definitions working.seat.width
 execute if data storage reds_vehicles:definitions working.seat.height run data modify storage reds_vehicles:definitions working_seat.tags.height set from storage reds_vehicles:definitions working.seat.height
 data modify storage reds_vehicles:definitions working.entities append from storage reds_vehicles:definitions working_seat

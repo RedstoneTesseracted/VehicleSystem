@@ -1,0 +1,10 @@
+{
+    "condition": "minecraft:value_check",
+    "value": {
+      "type": "minecraft:storage",
+      "storage": "reds_vehicles:definitions",
+      "path": "working_entity.pilot"
+    },
+    "range": 1
+  }
+  
