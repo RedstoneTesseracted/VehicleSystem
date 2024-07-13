@@ -531,6 +531,10 @@ These fields serve as inputs for vehicle actions/responses.  These are rebuilt f
     y: float,   # y-component of player look vector
     z: float    # z-component of player look vector
   },
+  look_xz: {
+    x: float,   # x-component of normalized 2D look vector
+    z: float    # z-component of normalized 2D look vector
+  },
   motion: {
     x: float,   # x-component of player motion tag.  Responds to WASD while player is mounted
     z: float    # z-component of player motion tag
@@ -558,6 +562,20 @@ These fields serve as inputs for vehicle actions/responses.  These are rebuilt f
   }
 }
 ```
+
+Inputs are gathered as a group, that is: requesting `look.x` will also gather `look.y` and `look.z`.  Additionally, certain groups will automatically cause other groups to be gathered as well to prevent regathering the same information:
+
+|     Group     |   Dependencies  |
+| ------------- | --------------- |
+| look          |        -        |
+| look_xz       |        -        |
+| motion        |        -        |
+| directed      | look, motion    |
+| rotation      |        -        |
+| rotation_diff | rotation        |
+| click         |        -        |
+| input         | look_xz, motion |
+
 
 ## Vehicle Scoreboards
 
@@ -648,6 +666,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
     height: float       # Height of seat entity (default=1.0)
   },
   ground_offset: float, # The offset between the root entity's base and the seat (default=1.0)
+  step_height: float,   # The maximum block height that a vehicle can climb
   min_version: int,     # The minimum datapack version required for this definition to be loaded (required)
   do_not_update: bool   # If true, the vehicle will NEVER be updated
 }
@@ -752,7 +771,10 @@ The second method using `/function`:
 
 Error messages will have the following format:
 ```
-
+---------------------------------------------
+Function: "%s"
+Vehicle: "%s"
+Description: %s
 ```
 
 

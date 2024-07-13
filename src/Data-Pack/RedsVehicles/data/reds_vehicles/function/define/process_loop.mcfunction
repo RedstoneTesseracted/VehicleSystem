@@ -45,6 +45,7 @@ data remove storage reds_vehicles:definitions working_handling
 data modify storage reds_vehicles:definitions working.inputs set value []
 # TODO: Make flag declaration here automatic
 execute if score vehicle.uses_input.look vehicle.local matches 1 run data modify storage reds_vehicles:definitions working.inputs append value 'look'
+execute if score vehicle.uses_input.look_xz vehicle.local matches 1 run data modify storage reds_vehicles:definitions working.inputs append value 'look_xz'
 execute if score vehicle.uses_input.motion vehicle.local matches 1 run data modify storage reds_vehicles:definitions working.inputs append value 'motion'
 execute if score vehicle.uses_input.directed vehicle.local matches 1 run data modify storage reds_vehicles:definitions working.inputs append value 'directed'
 execute if score vehicle.uses_input.rotation vehicle.local matches 1 run data modify storage reds_vehicles:definitions working.inputs append value 'rotation'
@@ -53,6 +54,7 @@ execute if score vehicle.uses_input.click vehicle.local matches 1 run data modif
 execute if score vehicle.uses_input.input vehicle.local matches 1 run data modify storage reds_vehicles:definitions working.inputs append value 'input'
 
 scoreboard players reset vehicle.uses_input.look vehicle.local
+scoreboard players reset vehicle.uses_input.look_xz vehicle.local
 scoreboard players reset vehicle.uses_input.motion vehicle.local
 scoreboard players reset vehicle.uses_input.directed vehicle.local
 scoreboard players reset vehicle.uses_input.rotation vehicle.local
@@ -97,11 +99,15 @@ data remove storage reds_vehicles:definitions working_part
 
 
 # Convert "ground_offset" to "scale" by dividing by 0.9875 and remove "ground_offset" tag
-# FIXME: Add default value
 execute store result score vehicle.ground_offset vehicle.local run data get storage reds_vehicles:definitions working.ground_offset 10000
+execute unless data storage reds_vehicles:definitions working.ground_offset run scoreboard players set vehicle.ground_offset vehicle.local 10000
 execute store result storage reds_vehicles:definitions working.scale float 0.00010126582278481013 run scoreboard players get vehicle.ground_offset vehicle.local
 scoreboard players reset vehicle.ground_offset vehicle.local
 data remove storage reds_vehicles:definitions working.ground_offset
+
+
+# Set default value for step height if not present
+execute unless data storage reds_vehicles:definitions working.step_height run data modify storage reds_vehicles:definitions working.step_height set value 0.0
 
 
 # Manually set seat count to 1

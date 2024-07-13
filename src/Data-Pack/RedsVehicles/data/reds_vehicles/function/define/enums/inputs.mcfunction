@@ -7,6 +7,8 @@ data modify storage reds_vehicles:enums inputs set value [\
 {type: "look.x", id: 1, group: "look"}, \
 {type: "look.y", id: 2, group: "look"}, \
 {type: "look.z", id: 3, group: "look"}, \
+{type: "look_xz.x", id: 1, group: "look_xz"}, \
+{type: "look_xz.z", id: 3, group: "look_xz"}, \
 {type: "motion.x", id: 4, group: "motion"}, \
 {type: "motion.z", id: 5, group: "motion"}, \
 {type: "directed.x", id: 6, group: "directed"}, \
