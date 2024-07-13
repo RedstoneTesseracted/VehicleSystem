@@ -105,6 +105,7 @@ schedule function reds_vehicles:20t 1s replace
 
 # Trigger variables
 scoreboard objectives add vehicle.showlog trigger
+scoreboard objectives add vehicle.listvehicles trigger
 
 # Reload the vehicle definition table
 function reds_vehicles:define/reload
