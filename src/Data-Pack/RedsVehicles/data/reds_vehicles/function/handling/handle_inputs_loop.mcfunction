@@ -8,9 +8,11 @@ data remove storage reds_vehicles:handling unprocessed_handlers[0]
 
 # Copy the value at the input path
 function reds_vehicles:handling/get_input with storage reds_vehicles:handling current_handler
+#tellraw @a [{"nbt": "current_handler", "storage": "reds_vehicles:handling"}, {"text": " | "}, {"nbt": "input", "storage": "reds_vehicles:handling"}]
 
 # Apply the scaling operation
 function reds_vehicles:handling/apply_scale with storage reds_vehicles:handling current_handler.scale
+
 
 # Execute the operation defined by the current handler
 function reds_vehicles:handling/apply_operation with storage reds_vehicles:handling current_handler

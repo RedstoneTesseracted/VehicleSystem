@@ -23,6 +23,9 @@ execute unless data storage reds_vehicles:definitions working_handling.scale run
 execute unless data storage reds_vehicles:definitions working_handling.scale.source run function reds_vehicles:define/assert_working_fail {source: 'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing source field in handling tag’s scale compound"}]'}
 execute unless data storage reds_vehicles:definitions working_handling.scale.source run return fail
 
+# Scale score_scale field (optional, defaults to 1.0)
+execute unless data storage reds_vehicles:definitions working_handling.scale.score_scale run data modify storage reds_vehicles:definitions working_handling.scale.score_scale set value 1.0
+
 # Precision field (optional, defaults to 1)
 execute unless data storage reds_vehicles:definitions working_handling.precision run data modify storage reds_vehicles:definitions working_handling.precision set value 1
 

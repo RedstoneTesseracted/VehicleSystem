@@ -5,7 +5,7 @@
 # It is run BY and AT the base vehicle entity
 
 
-# Obtain current velocity (x100 fixed-point)
+# Obtain current velocity (x100000 fixed-point)
 execute store result score vehicle.vel.x vehicle.local run data get entity @s Motion[0] 100000
 execute store result score vehicle.vel.y vehicle.local run data get entity @s Motion[1] 100000
 execute store result score vehicle.vel.z vehicle.local run data get entity @s Motion[2] 100000

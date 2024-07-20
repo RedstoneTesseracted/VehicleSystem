@@ -611,7 +611,8 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
       scale: {                # Information regarding how the input value is scaled.  Defaults to a scale of source "none" if absent
         source: str,          # Where to obtain the scale factor from.  May be "constant", "score", or "none"
         value: float,         # Amount to scale the input value by when source is "constant"
-        name: str             # Name of the score to obtain when source is "score"
+        name: str,            # Name of the score to obtain when source is "score"
+        score_scale: float    # Multipled against scoreboard value when source is "score"
       },
       variable: "vel.x",      # Name of the affected score
       precision: 100          # Multiplier used to treat variable as a fixed-point decimal

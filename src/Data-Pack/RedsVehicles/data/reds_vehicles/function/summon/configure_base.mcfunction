@@ -35,7 +35,7 @@ scoreboard players set @s vehicle.accel.forward 0
 scoreboard players set @s vehicle.engine 1
 
 # Declare user-provided scores (if provided)
-execute if data storage reds_vehicles:definitions summon.default_scores
+execute if data storage reds_vehicles:definitions summon.default_scores run function reds_vehicles:summon/set_default_scores
 
 
 # Configure events
