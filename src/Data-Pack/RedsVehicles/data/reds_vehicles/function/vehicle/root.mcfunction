@@ -12,7 +12,7 @@ data modify storage reds_vehicles:inputs input set value {}
 execute if predicate reds_vehicles:has_passenger run function reds_vehicles:input/gather_input_groups
 
 # Modify scoreboards with input
-function reds_vehicles:handling/handle_inputs
+execute if predicate reds_vehicles:has_passenger run function reds_vehicles:handling/handle_inputs
 
 # Apply physics
 function reds_vehicles:physics/apply

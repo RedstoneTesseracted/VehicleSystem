@@ -40,6 +40,18 @@ handling: [\
         },\
         variable: "vehicle.dvel.z",\
         precision: 1000\
+    },\
+    {\
+        input: "rotation.pitch",\
+        operation: "set",\
+        variable: "vehicle.rot.pitch",\
+        precision: 10000\
+    },\
+    {\
+        input: "rotation.yaw",\
+        operation: "set",\
+        variable: "vehicle.rot.yaw",\
+        precision: 10000\
     }\
 ],\
 physics: [\
