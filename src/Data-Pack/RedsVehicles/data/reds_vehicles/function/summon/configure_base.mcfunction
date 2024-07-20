@@ -21,17 +21,22 @@ $attribute @s minecraft:generic.gravity base set $(base_gravity)
 $attribute @s minecraft:generic.scale base set $(scale)
 
 # Set up scoreboards
+# Declare required scoreboards
 scoreboard players set @s vehicle.rot.yaw 0
 scoreboard players set @s vehicle.rot.pitch 0
 scoreboard players set @s vehicle.rot.roll 0
 
-scoreboard players set @s vehicle.vel.x 0
-scoreboard players set @s vehicle.vel.y 0
-scoreboard players set @s vehicle.vel.z 0
+scoreboard players set @s vehicle.dvel.x 0
+scoreboard players set @s vehicle.dvel.y 0
+scoreboard players set @s vehicle.dvel.z 0
 
 scoreboard players set @s vehicle.accel.forward 0
 
 scoreboard players set @s vehicle.engine 1
+
+# Declare user-provided scores (if provided)
+execute if data storage reds_vehicles:definitions summon.default_scores
+
 
 # Configure events
 #$function reds_vehicles:summon/configure_events $(events)

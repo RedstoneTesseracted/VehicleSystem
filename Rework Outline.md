@@ -665,6 +665,12 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
     width: float,       # Width of seat entity (default=1.0)
     height: float       # Height of seat entity (default=1.0)
   },
+  default_scores: [     # A list of key-value default scores applied to newly spawned vehicles (optional)
+    {
+      name: str,        # Name of scoreboard objective
+      value: int        # Value to set
+    }
+  ],
   ground_offset: float, # The offset between the root entity's base and the seat (default=1.0)
   step_height: float,   # The maximum block height that a vehicle can climb
   min_version: int,     # The minimum datapack version required for this definition to be loaded (required)
