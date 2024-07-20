@@ -45,10 +45,10 @@ scoreboard objectives add vehicle.rot.yaw dummy
 scoreboard objectives add vehicle.rot.pitch dummy
 scoreboard objectives add vehicle.rot.roll dummy
 
-# Velocity
-scoreboard objectives add vehicle.vel.x dummy
-scoreboard objectives add vehicle.vel.y dummy
-scoreboard objectives add vehicle.vel.z dummy
+# Motion control
+scoreboard objectives add vehicle.dvel.x dummy
+scoreboard objectives add vehicle.dvel.y dummy
+scoreboard objectives add vehicle.dvel.z dummy
 
 # Motion control
 scoreboard objectives add vehicle.accel.forward dummy

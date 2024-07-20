@@ -2,7 +2,7 @@
 # It is run BY and AT the base vehicle entity
 #
 # This works by looping over the groups listed in the
-# reds_vehicles:input.current storage, and using function macros 
+# reds_vehicles:input.requested_inputs storage, and using function macros 
 # to execute the corresponding function
 
 # Copy the requested input groups to a temporary buffer

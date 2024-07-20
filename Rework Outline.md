@@ -580,22 +580,22 @@ Inputs are gathered as a group, that is: requesting `look.x` will also gather `l
 
 All vehicles will have common set of scoreboard values (stored by the root vehicle entity) that contain pertinent information about their state/motion.  These include:
 
-|          Name          |         Format        |                    Description                       |
-| ---------------------- | --------------------- | ---------------------------------------------------- |
-| vehicle.rot.yaw        | x10000 fixed-precision | Yaw (↔️)                                              |
-| vehicle.rot.pitch      | x10000 fixed-precision | Pitch (↕️)                                            |
-| vehicle.rot.roll       | x10000 fixed-precision | Roll (↺)                                             |
-| vehicle.vel.x          | x100 fixed-precision  | x-velocity                                           |
-| vehicle.vel.y          | x100 fixed-precision  | y-velocity                                           |
-| vehicle.vel.z          | x100 fixed-precision  | z-velocity                                           |
-| vehicle.engine         | boolean 0 or 1        | Engine state                                         |
-| vehicle.version        | integer               | Datapack version number vehicle was summoned with    |
-| vehicle.accel.forward  | x100 fixed-precision  | Amount to change velocity in the vehicle's direction.  Reset to zero each tick |
-| vehicle.thrust         | x1000 fixed-precision | Used in physics calculations to determine vehicle thrust |
-| vehicle.event.firework | boolean 0 or 1        | Summon a firework once                               |
-| vehicle.event.honk     | boolean 0 or 1        | Honk the horn                                        |
-| vehicle.event.shoot    | boolean 0 or 1        | Fire a projectile                                    |
-| vehicle.event.cooldown | integer               | Cooldown between event triggers in ticks             |
+|          Name          |         Format         |                    Description                           |
+| ---------------------- | ---------------------- | -------------------------------------------------------- |
+| vehicle.rot.yaw        | x10000 fixed-precision | Yaw (↔️)                                                  |
+| vehicle.rot.pitch      | x10000 fixed-precision | Pitch (↕️)                                                |
+| vehicle.rot.roll       | x10000 fixed-precision | Roll (↺)                                                 |
+| vehicle.dvel.x         | x100 fixed-precision   | Amount to change x-velocity by.  Reset to zero each tick |
+| vehicle.dvel.y         | x100 fixed-precision   | Amount to change y-velocity by.  Reset to zero each tick |
+| vehicle.dvel.z         | x100 fixed-precision   | Amount to change z-velocity by.  Reset to zero each tick |
+| vehicle.engine         | boolean 0 or 1         | Engine state                                             |
+| vehicle.version        | integer                | Datapack version number vehicle was summoned with        |
+| vehicle.accel.forward  | x100 fixed-precision   | Amount to change velocity in the vehicle's direction.  Reset to zero each tick |
+| vehicle.thrust         | x1000 fixed-precision  | Used in physics calculations to determine vehicle thrust |
+| vehicle.event.firework | boolean 0 or 1         | Summon a firework once                                   |
+| vehicle.event.honk     | boolean 0 or 1         | Honk the horn                                            |
+| vehicle.event.shoot    | boolean 0 or 1         | Fire a projectile                                        |
+| vehicle.event.cooldown | integer                | Cooldown between event triggers in ticks                 |
 
 
 ## Vehicle Definition Data Structure
@@ -608,12 +608,13 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
     {
       input: "look.x",        # Path to the input value in the user input NBT tag
       operation: "increase",  # Operation to apply to vehicle variable.  May be "increase", "decrease", "set", or "toggle"
-      scale: {                # Information regarding how the input value is scaled
-        source: str,          # Where to obtain the scale factor from.  May be "constant," or "score"
+      scale: {                # Information regarding how the input value is scaled.  Defaults to a scale of source "none" if absent
+        source: str,          # Where to obtain the scale factor from.  May be "constant", "score", or "none"
         value: float,         # Amount to scale the input value by when source is "constant"
         name: str             # Name of the score to obtain when source is "score"
       },
-      variable: "vel.x"       # Name of the affected score
+      variable: "vel.x",      # Name of the affected score
+      precision: 100          # Multiplier used to treat variable as a fixed-point decimal
     }
   ],
   physics: [  # A collection of tags that define what physics forces the vehicle is subject to (optional)

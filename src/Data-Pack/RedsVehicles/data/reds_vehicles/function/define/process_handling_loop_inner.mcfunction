@@ -12,15 +12,20 @@ execute unless data storage reds_vehicles:definitions working_handling.input run
 # Operation field
 execute unless data storage reds_vehicles:definitions working_handling.operation run function reds_vehicles:define/assert_working_fail {source: 'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing operation field in handling tag"}]'}
 execute unless data storage reds_vehicles:definitions working_handling.operation run return fail
-# Scale field
-execute unless data storage reds_vehicles:definitions working_handling.scale run function reds_vehicles:define/assert_working_fail {source: 'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing scale compound field in handling tag"}]'}
-execute unless data storage reds_vehicles:definitions working_handling.scale run return fail
-# Scale source field
-execute unless data storage reds_vehicles:definitions working_handling.scale.source run function reds_vehicles:define/assert_working_fail {source: 'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing source field in handling tag’s scale compound"}]'}
-execute unless data storage reds_vehicles:definitions working_handling.scale.source run return fail
 # Variable field
 execute unless data storage reds_vehicles:definitions working_handling.variable run function reds_vehicles:define/assert_working_fail {source: 'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing variable field in handling tag"}]'}
 execute unless data storage reds_vehicles:definitions working_handling.variable run return fail
+
+# Scale field (optional, defaults to no scale)
+execute unless data storage reds_vehicles:definitions working_handling.scale run data modify storage reds_vehicles:definitions working_handling.scale set value {source:"none"}
+
+# Scale source field (should be present by now, even if scale tag wasn't provided)
+execute unless data storage reds_vehicles:definitions working_handling.scale.source run function reds_vehicles:define/assert_working_fail {source: 'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing source field in handling tag’s scale compound"}]'}
+execute unless data storage reds_vehicles:definitions working_handling.scale.source run return fail
+
+# Precision field (optional, defaults to 1)
+execute unless data storage reds_vehicles:definitions working_handling.precision run data modify storage reds_vehicles:definitions working_handling.precision set value 1
+
 
 
 # Validate input field by getting its numeric ID
@@ -70,4 +75,6 @@ execute if score vehicle.source_id vehicle.local matches 1 unless data storage r
 # Score - requires name
 execute if score vehicle.source_id vehicle.local matches 2 unless data storage reds_vehicles:definitions working_handling.scale.name run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_handling_loop_inner', description: '[{"text":"Missing required “name” field for source type “score”"}]'}
 execute if score vehicle.source_id vehicle.local matches 2 unless data storage reds_vehicles:definitions working_handling.scale.name run return fail
+
+# None - no required values
 
