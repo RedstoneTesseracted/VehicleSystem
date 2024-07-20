@@ -9,6 +9,4 @@ scoreboard players reset @s vehicle.listvehicles
 scoreboard players enable @s vehicle.listvehicles
 
 # Reset advancement-based triggers
-advancement revoke @s only reds_vehicles:hidden/seat_interact
-advancement revoke @s only reds_vehicles:hidden/showlog_trigger
-advancement revoke @s only reds_vehicles:hidden/listvehicles_trigger
+advancement revoke @s from reds_vehicles:hidden/trigger_root

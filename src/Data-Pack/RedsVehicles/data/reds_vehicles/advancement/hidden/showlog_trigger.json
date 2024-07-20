@@ -1,4 +1,5 @@
 {
+  "parent": "reds_vehicles:hidden/trigger_root",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:tick",

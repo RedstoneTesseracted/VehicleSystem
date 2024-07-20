@@ -510,8 +510,7 @@ In game, however, we generalize this under a single "applied force" term.  There
 1) Force in direction player is looking
 2) Force in direction vehicle is pointing
 
-The first scheme is easily handled by input-handling system we've developed thus far.  The second... not so much.
-
+The first scheme is easily handled by input-handling system we've developed thus far.  The second... not so much.  For that, we add a scoreboard, `vehicle.accel.forward`, that is automatically handled by the physics system as an acceleration in the direction the vehicle is pointing.
 
 
 
@@ -570,9 +569,9 @@ Inputs are gathered as a group, that is: requesting `look.x` will also gather `l
 | look          |        -        |
 | look_xz       |        -        |
 | motion        |        -        |
-| directed      | look, motion    |
+| directed      | motion          |
 | rotation      |        -        |
-| rotation_diff | rotation        |
+| rotation_diff |        -        |
 | click         |        -        |
 | input         | look_xz, motion |
 
@@ -583,9 +582,9 @@ All vehicles will have common set of scoreboard values (stored by the root vehic
 
 |          Name          |         Format        |                    Description                       |
 | ---------------------- | --------------------- | ---------------------------------------------------- |
-| vehicle.rot.yaw        | x1000 fixed-precision | Yaw (↔️)                                              |
-| vehicle.rot.pitch      | x1000 fixed-precision | Pitch (↕️)                                            |
-| vehicle.rot.roll       | x1000 fixed-precision | Roll (↺)                                             |
+| vehicle.rot.yaw        | x10000 fixed-precision | Yaw (↔️)                                              |
+| vehicle.rot.pitch      | x10000 fixed-precision | Pitch (↕️)                                            |
+| vehicle.rot.roll       | x10000 fixed-precision | Roll (↺)                                             |
 | vehicle.vel.x          | x100 fixed-precision  | x-velocity                                           |
 | vehicle.vel.y          | x100 fixed-precision  | y-velocity                                           |
 | vehicle.vel.z          | x100 fixed-precision  | z-velocity                                           |
@@ -811,3 +810,59 @@ Put simply: this is untenable.  I do not have the time or resources to test upgr
 
 * Pretend older versions don't exist and don't worry about it.
 
+
+---
+
+# Some Coordinate Shenanigans
+
+In Minecraft, the unit vector in the direction of ($\theta$, $\phi$) is given by:
+$$
+\hat{r}(\theta,\phi) = -\sin\theta \cos\phi \hat{x} - \sin\phi \hat{y} + \cos\theta \cos\phi \hat{z}
+$$
+
+The player's relative coordinate system is given by:
+$$
+\hat{u} = \hat{r}(\theta,\phi)
+\\
+\hat{v} = \hat{r}(\theta,\phi-90^o)
+\\
+\hat{w} = \hat{r}(\theta-90^o,0)
+$$
+
+Where:
+* $\hat{u}$ is forward relative to the camera
+* $\hat{v}$ is vertical relative to the camera
+* $\hat{w}$ is left relative to the camera
+
+Additionally, the player's XZ-snapped look vector is given by:
+$$
+\hat{u}_{xz} = \hat{r}(\theta,0)
+\\
+\hat{w}_{xz} = \hat{r}(\theta-90^o,0)
+$$
+
+Now, imagine the player is attempting to move in some direction.  We can obtain a vector, $\vec{m}$ that represents the XZ-snapped direction of travel:
+$$
+\vec{m} = -m\sin\alpha \hat{x} + m\cos\alpha \hat{z}
+$$
+
+Our goal is to convert this into a vector, $\vec{m}'$, that is *not* XZ-snapped.  Instead, it should correspond to WASD in the direction, $\hat{u}$, the player is looking.
+
+For this, our first step is to decompose $\vec{m}$ with respect to $\{\hat{u}_{xz},\hat{w}_{xz}\}$:
+$$
+\vec{m} = (\vec{m} \cdot \hat{u}_{xz})\hat{u}_{xz} + (\vec{m} \cdot \hat{w}_{xz})\hat{w}_{xz}
+$$
+
+Next, we replace the basis vectors $\{\hat{u}_{xz},\hat{w}_{xz}\}$ with $\{\hat{u},\hat{w}\}$:
+$$
+\boxed{\vec{m}' = (\vec{m} \cdot \hat{u}_{xz})\hat{u} + (\vec{m} \cdot \hat{w}_{xz})\hat{w}}
+$$
+
+Finally, we convert back to a $\{\hat{x}, \hat{y}, \hat{z}\}$ basis.  This step is trivially performed in-game using carrot notation.
+
+So, we need to calculate $\vec{m} \cdot \hat{u}_{xz}$ and $\vec{m} \cdot \hat{w}_{xz}$, and then use carrot notation to obtain $\vec{m}'$.
+
+Is there a faster way of obtaining $\vec{m} \cdot \hat{u}_{xz}$ and $\vec{m} \cdot \hat{w}_{xz}$ than using the dot product?
+$$
+\vec{m} \cdot \hat{u}_{xz} = (m_x\hat{x} + m_z\hat {z}) \cdot (\hat{u}_{xz}) = 
+$$
