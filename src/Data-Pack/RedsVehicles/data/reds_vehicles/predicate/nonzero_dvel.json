@@ -1,0 +1,35 @@
+{
+    "condition": "minecraft:any_of",
+    "terms": [
+        {
+            "condition": "minecraft:inverted",
+            "term": {
+                "condition": "minecraft:entity_scores",
+                "entity": "this",
+                "scores": {
+                    "vehicle.dvel.x": 0
+                }
+            }
+        },
+        {
+            "condition": "minecraft:inverted",
+            "term": {
+                "condition": "minecraft:entity_scores",
+                "entity": "this",
+                "scores": {
+                    "vehicle.dvel.y": 0
+                }
+            }
+        },
+        {
+            "condition": "minecraft:inverted",
+            "term": {
+                "condition": "minecraft:entity_scores",
+                "entity": "this",
+                "scores": {
+                    "vehicle.dvel.z": 0
+                }
+            }
+        }
+    ]
+}

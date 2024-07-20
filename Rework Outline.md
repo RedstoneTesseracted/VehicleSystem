@@ -585,12 +585,12 @@ All vehicles will have common set of scoreboard values (stored by the root vehic
 | vehicle.rot.yaw        | x10000 fixed-precision | Yaw (↔️)                                                  |
 | vehicle.rot.pitch      | x10000 fixed-precision | Pitch (↕️)                                                |
 | vehicle.rot.roll       | x10000 fixed-precision | Roll (↺)                                                 |
-| vehicle.dvel.x         | x100 fixed-precision   | Amount to change x-velocity by.  Reset to zero each tick |
-| vehicle.dvel.y         | x100 fixed-precision   | Amount to change y-velocity by.  Reset to zero each tick |
-| vehicle.dvel.z         | x100 fixed-precision   | Amount to change z-velocity by.  Reset to zero each tick |
+| vehicle.dvel.x         | x1000 fixed-precision  | Amount to change x-velocity by.  Reset to zero each tick |
+| vehicle.dvel.y         | x1000 fixed-precision  | Amount to change y-velocity by.  Reset to zero each tick |
+| vehicle.dvel.z         | x1000 fixed-precision  | Amount to change z-velocity by.  Reset to zero each tick |
 | vehicle.engine         | boolean 0 or 1         | Engine state                                             |
 | vehicle.version        | integer                | Datapack version number vehicle was summoned with        |
-| vehicle.accel.forward  | x100 fixed-precision   | Amount to change velocity in the vehicle's direction.  Reset to zero each tick |
+| vehicle.accel.forward  | x1000 fixed-precision  | Amount to change velocity in the vehicle's direction.  Reset to zero each tick |
 | vehicle.thrust         | x1000 fixed-precision  | Used in physics calculations to determine vehicle thrust |
 | vehicle.event.firework | boolean 0 or 1         | Summon a firework once                                   |
 | vehicle.event.honk     | boolean 0 or 1         | Honk the horn                                            |

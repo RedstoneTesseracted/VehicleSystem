@@ -15,7 +15,7 @@ execute if predicate reds_vehicles:has_passenger run function reds_vehicles:inpu
 function reds_vehicles:handling/handle_inputs
 
 # Apply physics
-
+function reds_vehicles:physics/apply
 
 # Process events
 
