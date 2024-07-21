@@ -4,11 +4,6 @@ data modify storage reds_vehicles:definitions vehicles append value \
 name: submarine,\
 handling: [\
     {\
-        input: "click.left",\
-        operation: "set",\
-        variable: "vehicle.event.horn"\
-    },\
-    {\
         input: "directed.x",\
         operation: "increase",\
         scale: {\
