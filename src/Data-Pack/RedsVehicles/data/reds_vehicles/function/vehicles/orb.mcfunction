@@ -41,6 +41,9 @@ physics: [\
     },\
     {\
         type: "applied",\
+        predicates: [\
+            "reds_vehicles:has_passenger"\
+        ],\
         value: 1.0f\
     }\
 ],\

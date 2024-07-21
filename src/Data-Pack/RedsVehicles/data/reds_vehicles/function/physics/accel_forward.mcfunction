@@ -17,6 +17,11 @@ scoreboard players operation vehicle.p2.x vehicle.local -= vehicle.p1.x vehicle.
 scoreboard players operation vehicle.p2.y vehicle.local -= vehicle.p1.y vehicle.local
 scoreboard players operation vehicle.p2.z vehicle.local -= vehicle.p1.z vehicle.local
 
+# Apply scale factor to score
+$execute store result storage reds_vehicles:physics temp.u double $(scale) run scoreboard players get @s vehicle.accel.forward
+execute store result score @s vehicle.accel.forward run data get storage reds_vehicles:physics temp.u
+data remove storage reds_vehicles:physics temp
+
 # Multiply by magnitude and correct precision
 #   vehicle.p2.x          - x100 fixed-point
 #   vehicle.accel.forward - x1000 fixed-point

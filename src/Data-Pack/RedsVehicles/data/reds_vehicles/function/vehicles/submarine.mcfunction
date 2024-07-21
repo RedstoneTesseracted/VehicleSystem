@@ -60,12 +60,16 @@ physics: [\
     {\
         type: "applied",\
         predicates: [\
+            "reds_vehicles:has_passenger",\
             "reds_vehicles:environment/in_water"\
         ],\
         value: 1.0\
     },\
     {\
         type: "applied",\
+        predicates: [\
+            "reds_vehicles:has_passenger"\
+        ],\
         value: 0.1\
     },\
 ],\
