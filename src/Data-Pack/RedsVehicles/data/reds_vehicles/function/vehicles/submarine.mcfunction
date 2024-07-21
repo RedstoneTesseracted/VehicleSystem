@@ -52,9 +52,22 @@ handling: [\
 physics: [\
     {\
         type: "buoyant",\
-        environment: "water",\
+        predicates: [\
+            "reds_vehicles:environment/in_water"\
+        ],\
         value: 1.0\
-    }\
+    },\
+    {\
+        type: "applied",\
+        predicates: [\
+            "reds_vehicles:environment/in_water"\
+        ],\
+        value: 1.0\
+    },\
+    {\
+        type: "applied",\
+        value: 0.1\
+    },\
 ],\
 bonuses: [\
     {\

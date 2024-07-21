@@ -16,7 +16,6 @@ execute store success score vehicle.success vehicle.local run function reds_vehi
 execute if score vehicle.success vehicle.local matches 0 run scoreboard players set vehicle.error vehicle.local 1
 
 # Reset temporary scores
-scoreboard players reset vehicle.environment_id vehicle.local
 scoreboard players reset vehicle.physics_id vehicle.local
 scoreboard players reset vehicle.asserted_local vehicle.local
 

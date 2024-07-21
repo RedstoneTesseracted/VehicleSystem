@@ -38,6 +38,10 @@ physics: [\
     {\
         type: "gravity",\
         value: 0.0f\
+    },\
+    {\
+        type: "applied",\
+        value: 1.0f\
     }\
 ],\
 parts: [\

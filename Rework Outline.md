@@ -427,7 +427,11 @@ Where:
 * $k_y$ = Vertical drag ($0.02$ by default)
 * $k_h$ = Horizontal drag ($0.02$ in air, $0.454$ on land)
 
-
+Should we wish to counteract the affects of drag:
+$$
+v_{y}' = \frac{v_y-g}{1-k_y}+g = \frac{v_{y} - k_y g}{1-k_y} \\
+\vec{v}_{h}' = \frac{\vec{v}_{h}}{1-k_h}
+$$
 
 ## Buoyant Force
 
@@ -619,29 +623,44 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
     }
   ],
   physics: [  # A collection of tags that define what physics forces the vehicle is subject to (optional)
-    {
+    {                   # Gravity component is handled specially, and does not accept predicates
       type: "gravity",  # Base acceleration due to gravity.  This is handled specially using attributes
       value: float      # Defaults to 0.08 if this tag is not present
     },
     {
-      type: "buoyant",       # Vehicle is subject to buoyancy
-      environment: "water",  # Environment vehicle is buoyant in.  May be "water", "lava", or "air"
-      value: float           # Ratio between medium and vehicle densities
+      type: "buoyant",                        # Vehicle is subject to buoyancy
+      predicates: [                           # List of predicates required for this force to apply (optional)
+        "reds_vehicles:environment/in_water"
+      ],
+      value: float                            # Ratio between medium and vehicle densities
     },
     {
-      type: "simple_lift",   # Vehicle experiences lift proportional to velocity squared
-      value: float           # Lift constant
+      type: "simple_lift",                    # Vehicle experiences lift proportional to velocity squared
+      predicates: [                           # List of predicates required for this force to apply (optional)
+        "reds_vehicles:environment/in_air"
+      ],
+      value: float                            # Lift constant
     },
     {
-      type: "planar_drag",   # Vehicle experiences |v|² drag in its relative horizontal plane
-      value: float           # Drag constant
+      type: "planar_drag",                    # Vehicle experiences |v|² drag in its relative horizontal plane
+      predicates: [                           # List of predicates required for this force to apply (optional)
+        "reds_vehicles:environment/in_air"
+      ],
+      value: float                            # Drag constant
+    },
+    {
+      type: "applied",                        # Vehicle responds applied force scores
+      predicates: [                           # List of predicates required for this force to apply (optional)
+        "reds_vehicles:state/engine_on"
+      ],
+      value: float                            # Amount to scale applied force by.  Defaults to 1.0
     }
   ],
   bonuses: [  # A list of tags that enable certain bonuses (such as potion effects) when in certain environments (optional)
     {
-      environment: "underwater",  # Environment that bonus applies to
-      type: "effect",             # Type of bonus to apply.  May be "effect"
-      value: str                  # Extra argument depending on effect type
+      predicate: "reds_vehicles:environment/under_water",  # Environment predicate that bonus applies to
+      type: "effect",                                      # Type of bonus to apply.  May be "effect"
+      value: str                                           # Extra argument depending on effect type
     }
   ],
   events: {   # A collection of tags for configuring various event triggers (optional)
@@ -681,6 +700,26 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
 
 To ensure consistency in vehicle definitions from one version to the next, this specification will be made *immutable* once ready: tags can never be removed, only added.  Existing tags *may* be marked as "deprecated," though they will be automatically translated into applicable replacement tags.
 
+Several of these tags have an option to specify a predicate.  These allow certain effects/physics to apply only in certain environments.  The standard set of predicates that come with the datapack are:
+|                 Name                       |                         Description                           |
+| ------------------------------------------ | ------------------------------------------------------------- |
+| reds_vehicles:environment/in_air           | Passes when the current fluid is air                          |
+| reds_vehicles:environment/in_lava          | Passes when the current fluid is lava                         |
+| reds_vehicles:environment/in_water         | Passes when the current fluid is water                        |
+| reds_vehicles:environment/mid_air          | Passes when the current block is air AND when stepping on air |
+| reds_vehicles:environment/on_dry_land      | Passes when standing on ground and current fluid is air       |
+| reds_vehicles:environment/landed           | Passes when standing on ground                                |
+| reds_vehicles:environment/on_lava_surface  | Passes when current fluid is air AND stepping on lava         |
+| reds_vehicles:environment/on_water_surface | Passes when current fluid is air AND stepping on water        |
+| reds_vehicles:state/engine_on              | Passes when the vehicle's `vehicle.engine` score is 1         |
+| reds_vehicles:state/engine_off             | Passes when the vehicle's `vehicle.engine` score is 0         |
+| reds_vehicles:has_passenger                | Passes when any player is a passenger in the vehicle          |
+
+Additional predicates are available that represent combinations of the above environment and state predicates.
+This is necessary to avoid having complicated logic for 
+Additionally, we have special predicate combinations.  Currently, these only include:
+*
+
 
 
 ## Automatic Vehicle Definition Components
@@ -699,6 +738,12 @@ Automatic evaluation only occurs upon reload.
     "rotation_diff",  # Gather the rotation_diff.pitch and rotation_diff.yaw tags
     "click",          # Gather the click.left and click.right tags
     "input"           # Gather the input.forward and input.side tags
+  ],
+  physics: [
+    {   # The predicates list is combined into a single statement compatible with /execute
+      type: "buoyant",
+      predicate: "if predicate reds_vehicles:environment/in_air if predicate reds_vehicles:state/engine_on"
+    }
   ],
   entities: [      # A list of entities to summon that will be riding the root vehicle entity
     {
@@ -874,3 +919,58 @@ Is there a faster way of obtaining $\vec{m} \cdot \hat{u}_{xz}$ and $\vec{m} \cd
 $$
 \vec{m} \cdot \hat{u}_{xz} = (m_x\hat{x} + m_z\hat {z}) \cdot (\hat{u}_{xz}) = 
 $$
+
+
+# Complete List of Standard Predicates
+
+* reds_vehicles:environment/in_air
+* reds_vehicles:environment/in_air
+* reds_vehicles:environment/in_lava
+* reds_vehicles:environment/in_lava
+* reds_vehicles:environment/in_water
+* reds_vehicles:environment/in_water
+* reds_vehicles:environment/mid_air
+* reds_vehicles:environment/mid_air
+* reds_vehicles:environment/on_dry_land
+* reds_vehicles:environment/on_dry_land
+* reds_vehicles:environment/on_land
+* reds_vehicles:environment/on_land
+* reds_vehicles:environment/on_lava_surface
+* reds_vehicles:environment/on_lava_surface
+* reds_vehicles:environment/on_water_surface
+* reds_vehicles:environment/on_water_surface
+* reds_vehicles:state/engine_off
+* reds_vehicles:state/engine_on
+* reds_vehicles:environment/in_air/engine_off
+* reds_vehicles:environment/in_air/engine_on
+* reds_vehicles:environment/in_air/engine_off
+* reds_vehicles:environment/in_air/engine_on
+* reds_vehicles:environment/in_lava/engine_off
+* reds_vehicles:environment/in_lava/engine_on
+* reds_vehicles:environment/in_lava/engine_off
+* reds_vehicles:environment/in_lava/engine_on
+* reds_vehicles:environment/in_water/engine_off
+* reds_vehicles:environment/in_water/engine_on
+* reds_vehicles:environment/in_water/engine_off
+* reds_vehicles:environment/in_water/engine_on
+* reds_vehicles:environment/mid_air/engine_off
+* reds_vehicles:environment/mid_air/engine_on
+* reds_vehicles:environment/mid_air/engine_off
+* reds_vehicles:environment/mid_air/engine_on
+* reds_vehicles:environment/on_dry_land/engine_off
+* reds_vehicles:environment/on_dry_land/engine_on
+* reds_vehicles:environment/on_dry_land/engine_off
+* reds_vehicles:environment/on_dry_land/engine_on
+* reds_vehicles:environment/on_land/engine_off
+* reds_vehicles:environment/on_land/engine_on
+* reds_vehicles:environment/on_land/engine_off
+* reds_vehicles:environment/on_land/engine_on
+* reds_vehicles:environment/on_lava_surface/engine_off
+* reds_vehicles:environment/on_lava_surface/engine_on
+* reds_vehicles:environment/on_lava_surface/engine_off
+* reds_vehicles:environment/on_lava_surface/engine_on
+* reds_vehicles:environment/on_water_surface/engine_off
+* reds_vehicles:environment/on_water_surface/engine_on
+* reds_vehicles:environment/on_water_surface/engine_off
+* reds_vehicles:environment/on_water_surface/engine_on
+

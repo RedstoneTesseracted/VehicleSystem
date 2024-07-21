@@ -1,6 +1,5 @@
 {
     "values": [
-        "reds_vehicles:define/enums/environment_types",
         "reds_vehicles:define/enums/inputs",
         "reds_vehicles:define/enums/operation_types",
         "reds_vehicles:define/enums/physics_types",
