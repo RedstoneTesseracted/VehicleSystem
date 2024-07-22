@@ -27,8 +27,8 @@ execute if score vehicle.physics_id vehicle.local matches -1 run return fail
 
 # Type gravity - handle specially
 execute if score vehicle.physics_id vehicle.local matches 1 run data modify storage reds_vehicles:definitions working.base_gravity set from storage reds_vehicles:definitions working_physics.value
-# Type buoyant - fine as-is
-execute if score vehicle.success vehicle.local matches 0 run return fail
+# Type buoyant - multiply value by -1.0 to invert direction
+execute if score vehicle.physics_id vehicle.local matches 2 store result storage reds_vehicles:definitions working_physics.value double -0.000001 run data get storage reds_vehicles:definitions working_physics.value 1000000.0
 # Type simple_lift - fine as-is
 # Type planar_drag - fine as-is
 # Type applied     - value is optional and defaults to 1.0
@@ -38,6 +38,9 @@ execute if score vehicles.physics_id vehicle.local matches 5 unless data storage
 execute unless data storage reds_vehicles:definitions working_physics.predicates run data modify storage reds_vehicles:definitions working_physics.predicate set value ""
 execute if data storage reds_vehicles:definitions working_physics.predicates unless data storage reds_vehicles:definitions working_physics.predicates[0] run data modify storage reds_vehicles:definitions working_physics.predicate set value ""
 execute if data storage reds_vehicles:definitions working_physics.predicates[0] unless function reds_vehicles:define/process_physics_predicates run return fail
+
+# Add UID parameter
+execute store result storage reds_vehicles:definitions working_physics.uid int 1 run random value 0..2147483646
 
 # Only add physics tag to final result if valid AND not gravity
 execute unless score vehicle.physics_id vehicle.local matches 1 if score vehicle.asserted_local vehicle.local matches 0 run data modify storage reds_vehicles:definitions processed_physics append from storage reds_vehicles:definitions working_physics

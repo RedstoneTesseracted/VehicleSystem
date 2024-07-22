@@ -1,0 +1,1 @@
+say applied force disabled

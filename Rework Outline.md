@@ -742,6 +742,8 @@ Automatic evaluation only occurs upon reload.
   physics: [
     {   # The predicates list is combined into a single statement compatible with /execute
       type: "buoyant",
+      value: -1.0,       # The sign is inverted in order to invert the direction of the force
+      uid: int,          # Randomly-generated integer used to differentiate two forces of the same type
       predicate: "if predicate reds_vehicles:environment/in_air if predicate reds_vehicles:state/engine_on"
     }
   ],

@@ -1,5 +1,4 @@
 * Implement physics forces
-    * `buoyant`
     * `simple_lift`
     * `planar_drag`
 * Flesh out event system

@@ -4,6 +4,9 @@
 # It is called from reds_vehicles:vehicle/root
 # It is run BY and AT the base vehicle entity
 
+# Reset gravity-affecting attributes modifiers
+# I REALLY don't like this, but it's the least-broken way of doing things
+execute if data entity @s attributes[{id:"minecraft:generic.gravity"}].modifiers run function reds_vehicles:physics/reset_gravity
 
 # Obtain current velocity (x100000 fixed-point)
 execute store result score vehicle.vel.x vehicle.local run data get entity @s Motion[0] 100000
@@ -22,4 +25,4 @@ execute store result entity @s Motion[0] double 0.00001 run scoreboard players g
 execute store result entity @s Motion[1] double 0.00001 run scoreboard players get vehicle.vel.y vehicle.local
 execute store result entity @s Motion[2] double 0.00001 run scoreboard players get vehicle.vel.z vehicle.local
 
-
+#say ===============================================
