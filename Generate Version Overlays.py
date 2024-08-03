@@ -45,5 +45,5 @@ for version in range(min_version, max_version+1):
     os.makedirs(functions_path, exist_ok=True)
 
     # Add mcfunction file
-    with open(path.join(functions_path, 'datapack_version.mcfunction'), mode='w') as wf:
+    with open(path.join(functions_path, 'datapack_format.mcfunction'), mode='w') as wf:
         wf.write(f'return {version}\n')

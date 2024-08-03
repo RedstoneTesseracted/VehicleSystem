@@ -18,6 +18,7 @@ scoreboard players set 10 vehicle.constants 10
 scoreboard players set 20 vehicle.constants 20
 scoreboard players set 100 vehicle.constants 100
 scoreboard players set 1000 vehicle.constants 1000
+execute store result score vehicle.datapack_format vehicle.constants run function reds_vehicles:datapack_format
 
 # Vehicle control/movement scores
 scoreboard objectives add vehicle.last_interaction_time dummy
