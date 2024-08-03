@@ -1,6 +1,35 @@
 {
    "pack": {
       "pack_format": 48,
-      "description": [{"text":"Redstone⁴'s","color":"red"},{"text":" vehicle system","color":"gold"}]
+      "supported_formats": {
+         "min_inclusive": 46,
+         "max_inclusive": 48
+      },
+      "description": [
+         {
+            "text": "Redstone⁴'s",
+            "color": "red"
+         },
+         {
+            "text": " vehicle system",
+            "color": "gold"
+         }
+      ]
+   },
+   "overlays": {
+      "entries": [
+         {
+            "formats": 46,
+            "directory": "46"
+         },
+         {
+            "formats": 47,
+            "directory": "47"
+         },
+         {
+            "formats": 48,
+            "directory": "48"
+         }
+      ]
    }
 }
