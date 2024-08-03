@@ -714,6 +714,8 @@ Several of these tags have an option to specify a predicate.  These allow certai
 | reds_vehicles:state/engine_on              | Passes when the vehicle's `vehicle.engine` score is 1         |
 | reds_vehicles:state/engine_off             | Passes when the vehicle's `vehicle.engine` score is 0         |
 | reds_vehicles:has_passenger                | Passes when any player is a passenger in the vehicle          |
+| reds_vehicles:is_moving                    | Passes when the vehicle is moving                             |
+| reds_vehicles:has_applied_force            | Passes when any of the applied force variables are nonzero    |
 
 Additional predicates are available that represent combinations of the above environment and state predicates.
 This is necessary to avoid having complicated logic for 
@@ -831,6 +833,16 @@ Vehicle: "%s"
 Description: %s
 ```
 
+## Animations
+
+There are three types of animations we might want for our vehicles:
+
+* Dynamic/procedural: animations that take some data as input and produce some transformation
+* Keyframed: animations comprised of static keyframes that are parameterized by some variable (such as time)
+* Particle: animations that generate particle effects at certain well-defined positions
+
+Simlar to the force system, we can assign our animations a predicate (or list of predicates) that control when they're applied.
+
 
 ## Additional Remarks
 
@@ -923,56 +935,5 @@ $$
 $$
 
 
-# Complete List of Standard Predicates
 
-* reds_vehicles:environment/in_air
-* reds_vehicles:environment/in_air
-* reds_vehicles:environment/in_lava
-* reds_vehicles:environment/in_lava
-* reds_vehicles:environment/in_water
-* reds_vehicles:environment/in_water
-* reds_vehicles:environment/mid_air
-* reds_vehicles:environment/mid_air
-* reds_vehicles:environment/on_dry_land
-* reds_vehicles:environment/on_dry_land
-* reds_vehicles:environment/on_land
-* reds_vehicles:environment/on_land
-* reds_vehicles:environment/on_lava_surface
-* reds_vehicles:environment/on_lava_surface
-* reds_vehicles:environment/on_water_surface
-* reds_vehicles:environment/on_water_surface
-* reds_vehicles:state/engine_off
-* reds_vehicles:state/engine_on
-* reds_vehicles:environment/in_air/engine_off
-* reds_vehicles:environment/in_air/engine_on
-* reds_vehicles:environment/in_air/engine_off
-* reds_vehicles:environment/in_air/engine_on
-* reds_vehicles:environment/in_lava/engine_off
-* reds_vehicles:environment/in_lava/engine_on
-* reds_vehicles:environment/in_lava/engine_off
-* reds_vehicles:environment/in_lava/engine_on
-* reds_vehicles:environment/in_water/engine_off
-* reds_vehicles:environment/in_water/engine_on
-* reds_vehicles:environment/in_water/engine_off
-* reds_vehicles:environment/in_water/engine_on
-* reds_vehicles:environment/mid_air/engine_off
-* reds_vehicles:environment/mid_air/engine_on
-* reds_vehicles:environment/mid_air/engine_off
-* reds_vehicles:environment/mid_air/engine_on
-* reds_vehicles:environment/on_dry_land/engine_off
-* reds_vehicles:environment/on_dry_land/engine_on
-* reds_vehicles:environment/on_dry_land/engine_off
-* reds_vehicles:environment/on_dry_land/engine_on
-* reds_vehicles:environment/on_land/engine_off
-* reds_vehicles:environment/on_land/engine_on
-* reds_vehicles:environment/on_land/engine_off
-* reds_vehicles:environment/on_land/engine_on
-* reds_vehicles:environment/on_lava_surface/engine_off
-* reds_vehicles:environment/on_lava_surface/engine_on
-* reds_vehicles:environment/on_lava_surface/engine_off
-* reds_vehicles:environment/on_lava_surface/engine_on
-* reds_vehicles:environment/on_water_surface/engine_off
-* reds_vehicles:environment/on_water_surface/engine_on
-* reds_vehicles:environment/on_water_surface/engine_off
-* reds_vehicles:environment/on_water_surface/engine_on
 

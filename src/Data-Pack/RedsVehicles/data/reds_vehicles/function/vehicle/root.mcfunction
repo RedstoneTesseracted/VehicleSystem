@@ -21,5 +21,5 @@ function reds_vehicles:physics/apply
 
 
 # Reset seat triggers
-execute on passengers run tag @s remove vehicle.left_clicked_by_pilot
-execute on passengers run tag @s remove vehicle.right_clicked_by_pilot
+execute on passengers if entity @s[type=minecraft:interaction] run tag @s remove vehicle.left_clicked_by_pilot
+execute on passengers if entity @s[type=minecraft:interaction] run tag @s remove vehicle.right_clicked_by_pilot
