@@ -10,7 +10,7 @@ scoreboard players reset @s vehicle.listvehicles
 scoreboard players enable @s vehicle.listvehicles
 
 # Print header
-tellraw @s {"translate":"reds_vehicles.list_vehicles.header","fallback":"Loaded Vehicles:","color":"#00FF00","underlined":true}
+tellraw @s [{"translate":"reds_vehicles.list_vehicles.header","fallback":"Loaded Vehicles:","color":"#00FF00","underlined":true},{"text":"\n"}]
 
 # Copy the processed vehicles table for iteration
 data modify storage reds_vehicles:definitions unshown_vehicles set from storage reds_vehicles:definitions processed

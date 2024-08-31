@@ -1,0 +1,10 @@
+{
+    "reds_vehicles.list_vehicles.header": "Loaded Vehicles:",
+    "reds_vehicles.notify.errors": "%1$s vehicles could not be loaded.  Use %2$s for more information",
+    "reds_vehicles.notify.errors_weak": "All vehicles were loaded, but %1$s errors were raised.  Use %2$s for more information",
+    "reds_vehicles.notify.errors.header": "%s errors logged while reloading vehicle definitions",
+    "reds_vehicles.notify.errors.function": "Function: \"%s\"",
+    "reds_vehicles.notify.errors.vehicle": "Vehicle: \"%s\"",
+    "reds_vehicles.notify.errors.description": "Description: %s",
+    "reds_vehicles.notify.errors.header_none": "No errors logged while reloading vehicle definitions!"
+}
