@@ -14,17 +14,18 @@
 # Initialize /execute condition
 data modify storage reds_vehicles:definitions predicate set value ""
 
-# Add trigger into condition, if specified
+# Add trigger into condition, if provided
 execute if data storage reds_vehicles:definitions working_event.trigger store result score vehicle.success vehicle.local run function reds_vehicles:define/__process_events_loop_inner_append_trigger with storage reds_vehicles:definitions working_event
 execute if data storage reds_vehicles:definitions working_event.trigger if score vehicle.success vehicle.local matches 0 run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_events_loop_inner', description: '[{"text":"An unknown error occurred that caused the macro in reds_vehicles:define/__process_events_loop_inner_append_trigger to fail.  Either there’s a bug in the macro or an invalid trigger string was provided"}]'}
 execute if data storage reds_vehicles:definitions working_event.trigger if score vehicle.success vehicle.local matches 0 run return fail
 
-# Process predicates list, if specified
+# Process predicates list, if provided
 data modify storage reds_vehicles:definitions compiled_predicate set value ""
 execute if data storage reds_vehicles:definitions working_event.predicates[0] run data modify storage reds_vehicles:definitions unprocessed_predicates set from storage reds_vehicles:definitions working_event.predicates
 execute if data storage reds_vehicles:definitions working_event.predicates[0] unless function reds_vehicles:define/process_generic_predicates run return fail
 data remove storage reds_vehicles:definitions unprocessed_predicates
 
+# Append to master predicate
 data modify storage reds_vehicles:definitions args.predicate set from storage reds_vehicles:definitions predicate
 data modify storage reds_vehicles:definitions args.compiled_predicate set from storage reds_vehicles:definitions compiled_predicate
 execute if data storage reds_vehicles:definitions working_event.predicates[0] store result score vehicle.success vehicle.local run function reds_vehicles:define/__process_events_loop_inner_append_compiled_predicate with storage reds_vehicles:definitions args

@@ -12,8 +12,8 @@ execute unless score vehicle.macro_ok_flag vehicle.local matches 1 run function 
 execute unless score vehicle.macro_ok_flag vehicle.local matches 1 run return fail
 
 # Remove element and run again if any remain
-data remove storage reds_vehicles:definitions unprocessed_predicates
-execute if data storage reds_vehicles:definitions unprocessed_predicates run return run function reds_vehicles:define/process_generic_predicates_loop
+data remove storage reds_vehicles:definitions unprocessed_predicates[0]
+execute if data storage reds_vehicles:definitions unprocessed_predicates[0] run return run function reds_vehicles:define/process_generic_predicates_loop
 
 # Return success
 return 1
