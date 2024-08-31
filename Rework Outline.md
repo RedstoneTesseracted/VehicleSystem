@@ -658,19 +658,60 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
   ],
   bonuses: [  # A list of tags that enable certain bonuses (such as potion effects) when in certain environments (optional)
     {
-      predicate: "reds_vehicles:environment/under_water",  # Environment predicate that bonus applies to
+      predicates: [                                        # List of predicates required to apply bonus
+        "reds_vehicles:environment/under_water"
+      ],
       type: "effect",                                      # Type of bonus to apply.  May be "effect"
       value: str                                           # Extra argument depending on effect type
     }
   ],
-  events: {   # A collection of tags for configuring various event triggers (optional)
-    cooldown: int,   # Cooldown, in ticks, between successive events
-    horn: str,       # Sound played when horn is honked
-    projectile: {    # What projectile to shoot
-      direction: str,  # Direction to fire projectile in.  May be "forward" or "down"
-      type: str        # Entity to summon as the projectile
+  events: [                     # A list of events that trigger special behavior
+    {
+      trigger: str,             # Scoreboard used to trigger this event (optional)
+      predicates: [],           # A list of predicates required for this event to trigger (optional)
+      actions: [                # List of actions to take when this event is triggered
+        {
+          action: "playsound",  # Plays a sound
+          arguments: {
+            sound: str,         # Name of sound to play (required)
+            pitch: float,       # Pitch of sound (optional, defaults to 1.0)
+            volume: float       # Volume of sound (optional, defaults to 1.0)
+          }
+        },
+        {
+          action: "particle",   # Show particles
+          arguments: {
+            name: str,          # Name of particle to show
+            offset: float[3],   # Offset of particles relative to vehicle (defaults to [0.0, 0.0, 0.0])
+            delta: float[3],    # Spread of particles (defaults to [0.0, 0.0, 0.0])
+            count: int,         # Number of particles to show with invocation (defaults to 1)
+            speed: float        # Speed of particle animation (default to 1.0)
+          }
+        },
+        {
+          action: "set_model",  # Modify a display entity's custom model data
+          arguments: {
+            name: str,          # Name of display entitiy(ies) to affect
+            value: int          # New custom model number
+          }
+        },
+        {
+          action: "set_score",  # Set a score
+          arguments: {
+            name: str,          # Name of scoreboard
+            value: int          # Value to set
+          }
+        },
+        {
+          action: "projectile", # Fire a projectile
+          arguments: {
+            type: str,          # Type of projectile (arrow|missile|fireball|bullet)
+            direction: str      # Direction to fire projectile in (forwards|down)
+          }
+        }
+      ]
     }
-  },
+  ],
   parts: [    # A collection of tags describing the display entities that make up the visual model
     {
       scale: float[3],       # Model scale factors in the x, y, and z directions.  Overidden by transform.
@@ -833,15 +874,574 @@ Vehicle: "%s"
 Description: %s
 ```
 
-## Animations
+## Visuals and Animations
 
-There are three types of animations we might want for our vehicles:
+Here are examples of visuals we would like to handle:
+* Vehicle model points in direction
+* Plane rolls to compensate for changes in direction of travel
+* Submarine propellers emit bubbles when craft is moving
+* Rotating helicopter blades
+* Helicopter leans in direction of travel
+* Wheels on a car roll while moving
+* Tank cannon matches player's direction, while body matches vehicle's direction
+* Show a different item model if vehicle's engine is on/off
 
-* Dynamic/procedural: animations that take some data as input and produce some transformation
-* Keyframed: animations comprised of static keyframes that are parameterized by some variable (such as time)
-* Particle: animations that generate particle effects at certain well-defined positions
+We can break this down in terms of:
+1) What drives a visual?
+2) What does the visual do?
 
-Simlar to the force system, we can assign our animations a predicate (or list of predicates) that control when they're applied.
+For the former:
+* Change in state (engine turning on/off, firing a projectile, etc.)
+* Progression in time
+* A dynamic variable after some computation
+* A predicate that can either pass or fail
+
+For the latter, here are all the actions we can take to create a visual:
+* Show particle effects
+* Set the display entity's rotation NBT
+* Set the display entity's model transform
+  * Translation
+  * Left rotation
+  * Right rotation
+  * Scale
+* Set the display entity's custom model data
+
+
+So, we basically have multiple different types of visuals:
+* Procedural animations - model transformations update based on some variables
+* Keyframed animations - model transformations set to one of several static states based on some variable
+* Model changes - change in the custom item model(s)
+* Particle effects
+
+
+
+Simlar to the force system, we can assign our animations a predicate (or list of predicates) to control when they're applied.
+
+## How Display Transformations Work
+
+Item display transformations are handled via the composition of several transformations:
+* Right rotation
+* Left rotation
+* Translation
+* Scale
+
+These transformations are modelled using 4x4 matrices and homogeneous coordinates.
+
+### A Vector in Homogeneous Coordinates:
+
+In homogeneous coordinates, 3D vectors are given an extra fourth element that's always equal to one:
+$$
+\vec{v} = \left[\begin{matrix} x \\ y \\ z \\ 1 \end{matrix}\right]
+$$
+
+This allows transformations such as translation and perspective projection to be performed using matrix multiplication.
+
+
+### Axis-Angle-Form Rotation Matrix:
+
+$$
+\bold{R}_{\vec{u}}(\theta) = \left[\begin{matrix}
+u_x^2 (1-\cos\theta) + \cos\theta & u_x u_y(1-\cos\theta) - u_z\sin\theta & u_x u_z (1-\cos\theta) + u_y\sin\theta & 0 \\
+u_x u_y(1-\cos\theta) + u_z\sin\theta & u_y^2 (1-\cos\theta) + \cos\theta & u_y u_z (1-\cos\theta) - u_x\sin\theta & 0 \\
+u_x u_z (1-\cos\theta) - u_y\sin\theta & u_y u_z (1-\cos\theta) + u_x\sin\theta & u_z^2 (1-\cos\theta) + \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+### Quaternion-Form Rotation Matrix:
+
+$$
+\bold{R}(w + x\bold{i} + y\bold{j} + z\bold{k}) = \left[\begin{matrix}
+1-2y^2-2x^2 & 2xy - 2zw & 2xz + 2yw & 0 \\
+2xy + 2zw & 1-2x^2-2z^2 & 2yz-2xw & 0 \\
+2xz-2yw & 2yz+2xw & 1-2x^2 - 2y^2 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+We can relate this to axis-angle form using:
+$$
+w + x\bold{i} + y\bold{j} + z\bold{k} = \cos\left(\frac{\theta}{2}\right) + (u_x\bold{i} + u_y\bold{j} + u_z\bold{k})\sin\left(\frac{\theta}{2}\right)
+\\ \downarrow \\
+\bold{q} = \cos\left(\frac{\theta}{2}\right) + \bold{u}\sin\left(\frac{\theta}{2}\right)
+$$
+
+### Axes Rotation Matrices:
+
+For the special case of rotation about the (x,y,z) axes, the above rotation matrices simplify down to:
+$$
+\bold{R}_{x}(\theta) = \left[\begin{matrix}
+1 & 0 & 0 & 0 \\
+0 & \cos\theta & -\sin\theta & 0 \\
+0 & \sin\theta & \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+$$
+\bold{R}_{y}(\theta) = \left[\begin{matrix}
+\cos\theta & 0 & \sin\theta & 0 \\
+0 & 1 & 0 & 0 \\
+-\sin\theta & 0 & \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+$$
+\bold{R}_{z}(\theta) = \left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+In Minecraft's coordinate system:
+* $\bold{R}_{x} \rightarrow $ Pitch
+* $\bold{R}_{y} \rightarrow $ Yaw
+* $\bold{R}_{z} \rightarrow $ Roll
+
+### Translation Matrix:
+
+$$
+\bold{T}(\vec{u}) = \left[\begin{matrix}
+1 & 0 & 0 & u_x \\
+0 & 1 & 0 & u_y \\
+0 & 0 & 1 & u_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+### Scaling Matrix:
+
+$$
+\bold{S}(\vec{u}) = \left[\begin{matrix}
+u_x & 0 & 0 & 0 \\
+0 & u_y & 0 & 0 \\
+0 & 0 & u_z & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+### Display Entity Transformations
+
+Display entities follow these order of operations:
+1) Right rotation
+2) Left rotation
+3) Scale
+4) Translation
+
+Or:
+$$
+\bold{M} = \bold{T}\bold{S}\bold{R_L}\bold{R_R}
+$$
+
+The transformed vector on a point on the model is then obtained with:
+$$
+\vec{v} \ ' = \bold{M}\vec{v}
+$$
+
+Besides these transformations unique to the display entity, we also have the entity's yaw rotation, pitch rotation, and world position.  These are applied AFTER the above transformations:
+$$
+\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{M}\vec{v}
+\\
+\boxed{\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{T}\bold{S}\bold{R_L}\bold{R_R}\vec{v}}
+$$
+
+Unfortunately, this leads to an awkward situation when we want to include "roll" in a vehicle's transformations: the display's translation ($\bold{T}$) and roll ($\bold{R}$) matrices are in the way!  Ideally, we'd want the yaw, pitch, and roll matrices grouped together:
+$$
+\bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_{roll}}
+$$
+
+At this point, we may have to admit that certain arbitrary animations are impossible...  But, just for kicks and giggles, what would it take to the get the transformation sequence we want?
+$$
+\cancel{\bold{T_{pos}}}\cancel{\bold{R_{yaw}}}\cancel{\bold{R_{pitch}}}\bold{T}\bold{S}\bold{R_L}\cancel{\bold{R_R}}
+=
+\cancel{\bold{T_{pos}}}\cancel{\bold{R_{yaw}}}\cancel{\bold{R_{pitch}}}\bold{R_{roll}}\bold{T}\bold{S}\cancel{\bold{R_R}}
+\\
+\bold{T}\bold{S}\bold{R_L}
+=
+\bold{R_{roll}}\bold{T}\bold{S}
+\\
+\bold{R_L} = \bold{S}^{-1}\bold{T}^{-1}\bold{R_{roll}}\bold{T}\bold{S}
+$$
+
+In this case, $\bold{R_L}$ couldn't be a "rotation" matrix anymore, but we might still be able to pull some trickery using the quaternion-form:
+$$
+\bold{R_L} = 
+\left[\begin{matrix}
+\frac{1}{s_x} & 0 & 0 & 0 \\
+0 & \frac{1}{s_y} & 0 & 0 \\
+0 & 0 & \frac{1}{s_z} & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+1 & 0 & 0 & -t_x \\
+0 & 1 & 0 & -t_y \\
+0 & 0 & 1 & -t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+1 & 0 & 0 & t_x \\
+0 & 1 & 0 & t_y \\
+0 & 0 & 1 & t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+s_x & 0 & 0 & 0 \\
+0 & s_y & 0 & 0 \\
+0 & 0 & s_z & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+$$
+=
+\left[\begin{matrix}
+\frac{1}{s_x} & 0 & 0 & -t_x/s_x \\
+0 & \frac{1}{s_y} & 0 & -t_y/s_y \\
+0 & 0 & \frac{1}{s_z} & -t_z/s_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+s_x & 0 & 0 & t_x \\
+0 & s_y & 0 & t_y \\
+0 & 0 & s_z & t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+$$
+=
+\left[\begin{matrix}
+\cos\theta & -\frac{s_y}{s_x}\sin\theta & 0 & \frac{t_x}{s_x}(\cos\theta - 1) - \frac{t_y}{s_x}\sin\theta \\
+\frac{s_x}{s_y}\sin\theta & \cos\theta & 0 & \frac{t_x}{s_y}(\sin\theta - 1) - \frac{t_y}{s_y}\cos\theta \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+Now, using the quaternion form:
+$$
+\left[\begin{matrix}
+1-2y^2-2x^2 & 2xy - 2zw & 2xz + 2yw & 0 \\
+2xy + 2zw & 1-2x^2-2z^2 & 2yz-2xw & 0 \\
+2xz-2yw & 2yz+2xw & 1-2x^2 - 2y^2 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+\cos\theta & -\frac{s_y}{s_x}\sin\theta & 0 & \frac{t_x}{s_x}(\cos\theta - 1) - \frac{t_y}{s_x}\sin\theta \\
+\frac{s_x}{s_y}\sin\theta & \cos\theta & 0 & \frac{t_x}{s_y}(\sin\theta - 1) - \frac{t_y}{s_y}\cos\theta \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+However, from this we obtain:
+$$
+\cancel{1}-2x^2 - 2y^2 = \cancel{1} \rightarrow \cancel{-2}x^2 + \cancel{- 2}y^2 = 0 \rightarrow x^2 + y^2 = 0 \rightarrow x=y=0 \ \ \text{(Since x and y are real)}
+$$
+
+Which reduces things to:
+$$
+\left[\begin{matrix}
+1 & -2zw & 0 & 0 \\
+2zw & 1-2z^2 & 0 & 0 \\
+0 & 2xw & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+\cos\theta & -\frac{s_y}{s_x}\sin\theta & 0 & \frac{t_x}{s_x}(\cos\theta - 1) - \frac{t_y}{s_x}\sin\theta \\
+\frac{s_x}{s_y}\sin\theta & \cos\theta & 0 & \frac{t_x}{s_y}(\sin\theta - 1) - \frac{t_y}{s_y}\cos\theta \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+Which is an overconstrained equation.
+
+So, the only way we can have the desired transformation sequence of:
+$$
+\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_{roll}}\bold{T}\bold{S}\bold{R}\vec{v}
+$$
+
+Is if we perform the matrix multiplication ourselves:
+$$
+\bold{M} = \bold{R_{roll}}\bold{T}\bold{S}\bold{R}
+$$
+
+And then manually set the display entity's transformation to that.  Unfortunately, it takes 112 operations to compute the product of two 4x4 matrices (64 multiplications, 48 additions).  That's highly impractical in a datapack, leaving us at an impass.
+
+Is there a way to reduce the number of operations given what we know about the matrices?  Computing the product $\bold{T}\bold{S}$, for example, is quite easy:
+$$
+\bold{T}\bold{S} = 
+\left[\begin{matrix}
+s_x & 0 & 0 & t_x \\
+0 & s_y & 0 & t_y \\
+0 & 0 & s_z & t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+Taking roll into account:
+$$
+\bold{R_{roll}}\bold{T}\bold{S} = 
+\left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+s_x & 0 & 0 & t_x \\
+0 & s_y & 0 & t_y \\
+0 & 0 & s_z & t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+s_x\cos\theta & -s_y\sin\theta & 0 & t_x \cos\theta - t_y\sin\theta \\
+s_x\sin\theta &  s_y\cos\theta & 0 & t_x \sin\theta + t_y\cos\theta \\
+0 & 0 & s_z & t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+Note that the z-component remains unchanged.  We can extract the scaling and translation out as two submatrices:
+$$
+\left[\begin{matrix}
+s_x\cos\theta & -s_y\sin\theta \\
+s_x\sin\theta &  s_y\cos\theta
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+\cos\theta & -\sin\theta \\
+\sin\theta &  \cos\theta
+\end{matrix}\right]
+\left[\begin{matrix}
+s_x & 0 \\
+0 & s_y
+\end{matrix}\right]
+$$
+
+$$
+\left[\begin{matrix}
+t_x \cos\theta - t_y\sin\theta \\
+t_x \sin\theta + t_y\cos\theta
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+\cos\theta & -\sin\theta \\
+\sin\theta &  \cos\theta
+\end{matrix}\right]
+\left[\begin{matrix}t_x \\ t_y\end{matrix}\right]
+$$
+
+All of these can be calculated by applying a rotation $\theta$:
+$$
+R_2(\theta)\left[\begin{matrix}s_x \\ 0\end{matrix}\right]
+\ \ \ \ \ \ \ 
+R_2(\theta)\left[\begin{matrix}0 \\ s_y\end{matrix}\right]
+\ \ \ \ \ \ \ 
+R_2(\theta)\left[\begin{matrix}t_x \\ t_y\end{matrix}\right]
+$$
+
+To improve efficiency, let:
+$$
+\vec{w}_1 = R_2(\theta)\left[\begin{matrix}1 \\ 0\end{matrix}\right]
+\ \ \ \ \ \ \ 
+\vec{w}_2 = R_2(\theta)\left[\begin{matrix}0 \\ 1\end{matrix}\right]
+$$
+
+In which case:
+$$
+R_2(\theta)\left[\begin{matrix}s_x \\ 0\end{matrix}\right] = s_x \vec{w}_1
+\ \ \ \ \ \ \ 
+R_2(\theta)\left[\begin{matrix}0 \\ s_y\end{matrix}\right] = s_y \vec{w}_2
+\ \ \ \ \ \ \ 
+R_2(\theta)\left[\begin{matrix}t_x \\ t_y\end{matrix}\right] = t_x\vec{w}_1 + t_y\vec{w}_2
+$$
+
+In the case of $\bold{R}=\bold{I}$, we can now calculate $\bold{M}$ using only a change of basis.  Unfortunately, attempting to factor in an arbitrary angle-axis rotation matrix might be too much.
+
+
+### Ok Minecraft, I'll Start Eliminating Stuff:
+
+To make things simpler, we could try to limit the kinds of transformations we can do.  If we set $\bold{T}=\bold{I}$ (no translation) and $\bold{S}=s\bold{I}$ (same scale factor across all dimensions), we *can* achieve the order we're after:
+$$
+\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{T}\bold{S}\bold{R_L}\bold{R_R}\vec{v}
+\\
+ = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}(s\bold{I})\bold{R_L}\bold{R_R}\vec{v}
+\\
+ = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_L}(s\bold{I})\bold{R_R}\vec{v}
+ \\
+\boxed{\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_{roll}}(s\bold{I})\bold{R}\vec{v}}
+$$
+
+Unfortunately, this is not a trivial limitation...
+
+Rather than imposing arbitrary limitations ourselves, it may be best to design a system that leaves this up to the vehicle maker.  That way, they can decide whether roll is important.
+
+
+### This is Hard
+
+Maybe, Minecraft datapacks *aren't ready* for a data-driven visuals/animation system.  Most of this is basically just data manipulation and math, which datapacks historically *suck* at.
+
+Perhaps it would be better to implement a bunch of hard-coded presets that might, one day, be replaced with a better system?
+
+
+### Dynamic/Procedural Animations:
+
+
+### Keyframed Animations:
+
+Keyframed animations consist of a list of model transformations that are applied to appropriate models.  The current model is chosen by converting some variable into an index
+
+The proposed spec for this would be:
+```yaml
+{
+  type: "keyframed", # This is a "keyframed" type animation
+  source: str,       # Name of vehicle scoreboard to use as indexing variable
+  divisor: int,      # Value that scoreboard is divided by.  This can be used to determine the frame duration
+  frames: [          # A list of NBT compounds containing each frame's display transformation
+    {left_rotation:{angle: 0.0000000000000000, axis: [0.0f, 1.0f, 0.0f]}},
+    {left_rotation:{angle: 0.7853981633974483, axis: [0.0f, 1.0f, 0.0f]}},
+    {left_rotation:{angle: 1.5707963267948966, axis: [0.0f, 1.0f, 0.0f]}},
+    {left_rotation:{angle: 2.3561944901923450, axis: [0.0f, 1.0f, 0.0f]}},
+    {left_rotation:{angle: 3.1415926535897939, axis: [0.0f, 1.0f, 0.0f]}},
+    {left_rotation:{angle: 3.9269908169872414, axis: [0.0f, 1.0f, 0.0f]}},
+    {left_rotation:{angle: 4.7123889803846900, axis: [0.0f, 1.0f, 0.0f]}},
+    {left_rotation:{angle: 5.4977871437821380, axis: [0.0f, 1.0f, 0.0f]}}
+  ],
+  predicates: str[]  # List of all predicates that must be met for this animation to play.  Optional, defaults to []
+}
+```
+
+Additional properties generated by the datapack:
+```yaml
+{
+  length: int   # The frame count
+}
+```
+
+
+### Particle Animations:
+
+Particle animations are the simplest to implement, as they only require a handful of clear parameters:
+* Particle name (str)
+* Particle offset (double[3])
+* Relative (^) or absolute (~) offset (bool)
+* Spread (double[3])
+* Speed (float)
+* Count (int)
+* Force visibility (bool)
+* Predicates (str[])
+
+Which, after some data processing, can be compiled into a single command string like so:
+```mcfunction
+particle $(name) $(fmt)$(dx) $(fmt)$(dy) $(fmt)$(dz) $(sx) $(sy) $(sz) $(speed) $(count) $(force_string)
+```
+
+So, the proposed spec for this would be:
+```yaml
+{
+  type: "particle",  # This is a "particle" type animation
+  name: str,         # Particle name string
+  offset: double[3], # Particle offset 3-vector
+  relative: bool,    # Whether to use relative (^) or absolute (~) coordinate offset.  Optional, defaults to 1b
+  spread: double[3], # Particle spread 3-vector.  Optional, defaults to [0.0d, 0.0d, 0.0d]
+  speed: float,      # Particle animation speed.  Optional, defautls to 1.0
+  count: int,        # Particle count per tick.  Optional, defaults to 1
+  force: bool,       # Whether to disable distance culling.  Optional, defaults to 0b
+  predicates: str[]  # List of all predicates that must be met for this animation to play.  Optional, defaults to []
+}
+```
+
+Which is processed into:
+```yaml
+{
+  type: "particle",      # This is a "particle" type animation
+  name: str,             # Particle name string
+  offset: double[3],     # Particle offset 3-vector
+  fmt: str,              # Either "^" or "~"
+  spread: double[3],     # Particle spread 3-vector
+  speed: float,          # Particle animation speed
+  count: int,            # Particle count per tick
+  force: str,           # Either "force" or ""
+  predicate_string: str  # /execute-compatible string representing the full predicate
+}
+```
+
+Which is substituted into a function using macros like so:
+```mcfunction
+execute $(predicate)run particle $(name) $(fmt)$(dx) $(fmt)$(dy) $(fmt)$(dz) $(sx) $(sy) $(sz) $(speed) $(count) $(force)
+```
+
+Unfortunately, pre-compiling the arguments into a full /particle command is not practical, since one layer of quotes are removed at each macro substitution, and some particle effects allow for quotes in their name.
+
+
+### State Machines
+
+Another option for handling animations is to use *state machines*.  Briefly, a state machine describes a discrete set of possible states a system might be in, as well as how one state leads into another.
+
+We can have multiple of these state machines that all act at the same time
+
+### Concept: Event-Triggered Animations
+
+Certain animations only make sense to occur following some "event."  For example: helicopter blades start spinning after the engine turns on.  What if, instead of checking for a predicate every tick, me made the animation list itself *dynamic*?  That is, events can add or remove active animations?
+
+This, of course, *would* require that every display entity in the vehicle have a data holder entity.  Additionally, it would require some sort of update mechanism to ensure vehicles stay in line with the global definitions.
+
+Perhaps it would be better to implement some sort of event system first and come back to visuals later.
+
+## Event System
+
+The event system allows vehicles to react to certain conditions.  Event tags consist of the following attributes:
+* Actions: a list of actions to perform when the event is triggered
+* Trigger: a score that active for event to trigger
+* Predicates: a list of predicates that must be met for an event to trigger
+
+```yaml
+{
+  actions: [],   # An action to take
+  trigger: str,  # Name of score used to trigger this event
+  predicates: [] # Predicates that must be met for this event to trigger
+}
+```
+
+Here, we have two different fields for specifying an event's conditions.  The first, `trigger`, checks that the specified score is *nonzero* for the vehicle.  This allows, for example, for custom scores outside the spec to trigger events without needing to add extra predicates.  The second, `predicates`, is a list of predicates to be met similar to the physics system.  Predicates allow for a more general set of conditions to be met, so long as the needed predicate has actually been implemented.
+
+Several action types are possible, including:
+* playsound: plays a sound
+  * Sound (str)
+  * Pitch (default 1.0)
+  * Volume (default 1.0)
+* particle: shows a particle at a location
+  * Name (str)
+  * Offset (float[3])
+  * Delta (float[3])
+  * Count (default 1)
+  * Speed (default 1.0)
+* set_model: sets the custom model data of one of the item displays
+  * Display entity name (str)
+  * New value (int)
+* set_score:
+  * Name of scoreboard (str)
+  * Value (int)
 
 
 ## Additional Remarks

@@ -47,6 +47,12 @@ handling: [\
         operation: "set",\
         variable: "vehicle.rot.yaw",\
         precision: 10000\
+    },\
+    {\
+        input: "click.right",\
+        operation: "set",\
+        variable: "vehicle.event.honk",\
+        precision: 1\
     }\
 ],\
 physics: [\
@@ -97,6 +103,19 @@ default_scores: [\
     {\
         name: "vehicle.thrust",\
         value: 100\
+    }\
+],\
+events: [\
+    {\
+        trigger: "vehicle.event.honk",\
+        actions: [\
+            {\
+                action: "playsound",\
+                arguments: {\
+                    sound: "minecraft:entity.generic.splash"\
+                }\
+            }\
+        ]\
     }\
 ],\
 seat: {\

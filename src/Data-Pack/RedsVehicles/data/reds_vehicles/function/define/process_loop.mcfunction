@@ -77,6 +77,17 @@ data remove storage reds_vehicles:definitions processed_physics
 data remove storage reds_vehicles:definitions unprocessed_physics
 data remove storage reds_vehicles:definitions working_physics
 
+# Process events list
+data modify storage reds_vehicles:definitions processed_events set value []
+data modify storage reds_vehicles:definitions unprocessed_events set from storage reds_vehicles:definitions working.events
+execute if data storage reds_vehicles:definitions unprocessed_events[0] run function reds_vehicles:define/process_events_loop
+
+data modify storage reds_vehicles:definitions working.events set from storage reds_vehicles:definitions processed_events
+data remove storage reds_vehicles:definitions processed_events
+data remove storage reds_vehicles:definitions unprocessed_events
+data remove storage reds_vehicles:definitions working_event
+
+
 # Create entities list
 data modify storage reds_vehicles:definitions working.entities set value []
 

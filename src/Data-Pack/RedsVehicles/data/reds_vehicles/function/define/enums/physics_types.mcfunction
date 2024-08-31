@@ -1,5 +1,5 @@
 # This function redeclares a global table that maps physics type strings to numeric IDs
-# IDs must start at 1, since 0 typically represents an error elsewhere
+# IDs must start at 1, since 0 is the easiest way to detect errors
 #
 # This function is part of the #reds_vehicles:declare_enums function tag, and is called upon reload
 
