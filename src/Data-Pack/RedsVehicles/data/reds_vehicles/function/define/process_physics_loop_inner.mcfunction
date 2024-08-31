@@ -37,7 +37,11 @@ execute if score vehicles.physics_id vehicle.local matches 5 unless data storage
 # Process predicates list
 execute unless data storage reds_vehicles:definitions working_physics.predicates run data modify storage reds_vehicles:definitions working_physics.predicate set value ""
 execute if data storage reds_vehicles:definitions working_physics.predicates unless data storage reds_vehicles:definitions working_physics.predicates[0] run data modify storage reds_vehicles:definitions working_physics.predicate set value ""
-execute if data storage reds_vehicles:definitions working_physics.predicates[0] unless function reds_vehicles:define/process_physics_predicates run return fail
+execute if data storage reds_vehicles:definitions working_physics.predicates[0] run data modify storage reds_vehicles:definitions unprocessed_predicates set from storage reds_vehicles:definitions working_physics.predicates
+execute if data storage reds_vehicles:definitions working_physics.predicates[0] unless function reds_vehicles:define/process_generic_predicates run return fail
+execute if data storage reds_vehicles:definitions working_physics.predicates[0] run data modify storage reds_vehicles:definitions working_physics.predicate set from storage reds_vehicles:definitions compiled_predicate
+data remove storage reds_vehicles:definitions working_physics.predicates
+data remove storage reds_vehicles:definitions compiled_predicate
 
 # Add UID parameter
 execute store result storage reds_vehicles:definitions working_physics.uid int 1 run random value 0..2147483646
