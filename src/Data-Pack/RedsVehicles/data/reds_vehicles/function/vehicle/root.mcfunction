@@ -18,7 +18,7 @@ execute if predicate reds_vehicles:has_passenger run function reds_vehicles:hand
 function reds_vehicles:physics/apply
 
 # Process events
-
+execute if data storage reds_vehicles:definitions current.events[0] run function reds_vehicles:events/process
 
 # Reset seat triggers
 execute on passengers if entity @s[type=minecraft:interaction] run tag @s remove vehicle.left_clicked_by_pilot

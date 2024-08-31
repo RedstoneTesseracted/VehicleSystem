@@ -783,11 +783,11 @@ Automatic evaluation only occurs upon reload.
     "input"           # Gather the input.forward and input.side tags
   ],
   physics: [
-    {   # The predicates list is combined into a single statement compatible with /execute
+    {   # The predicates list is combined into a single statement compatable with /execute
       type: "buoyant",
       value: -1.0,       # The sign is inverted in order to invert the direction of the force
       uid: int,          # Randomly-generated integer used to differentiate two forces of the same type
-      predicate: "if predicate reds_vehicles:environment/in_air if predicate reds_vehicles:state/engine_on"
+      predicate: "if predicate reds_vehicles:environment/in_air if predicate reds_vehicles:state/engine_on "
     }
   ],
   entities: [      # A list of entities to summon that will be riding the root vehicle entity
@@ -805,6 +805,24 @@ Automatic evaluation only occurs upon reload.
       item: str,             # Name of the item displayed by the entity
       model: int,            # Item's custom model
       name: str              # Name assigned to display entity
+    }
+  ],
+  events: [
+    {  # The trigger and predicates list are combined into a single statement compatable with /execute
+      predicate: "if predicate reds_vehicles:state/engine_on ",
+      actions: [
+        {
+          action: "particle",
+          arguments: {
+            offsetU: float,  # Offset is converted from an array to tags due to function macro limitations
+            offsetV: float,
+            offsetW: float,
+            deltaX: float,   # Delta is converted from an array to tags due to function macro limitations
+            deltaY: float,
+            deltaZ: float
+          }
+        }
+      ]
     }
   ],
   scale: float,         # Base entity scale attribute

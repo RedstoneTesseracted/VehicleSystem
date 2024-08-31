@@ -35,7 +35,15 @@ execute if score vehicle.action_id vehicle.local matches 1 unless data storage r
 # Type: particle
 execute if score vehicle.action_id vehicle.local matches 2 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.name run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_actions_loop', description: '[{"text":"An action of type “particle” requires a name field"}]'}
 execute if score vehicle.action_id vehicle.local matches 2 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset set value [0.0, 0.0, 0.0]
+execute if score vehicle.action_id vehicle.local matches 2 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.offsetU set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset[0]
+execute if score vehicle.action_id vehicle.local matches 2 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.offsetV set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset[1]
+execute if score vehicle.action_id vehicle.local matches 2 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.offsetW set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset[2]
+execute if score vehicle.action_id vehicle.local matches 2 run data remove storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset
 execute if score vehicle.action_id vehicle.local matches 2 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta set value [0.0, 0.0, 0.0]
+execute if score vehicle.action_id vehicle.local matches 2 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.deltaX set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta[0]
+execute if score vehicle.action_id vehicle.local matches 2 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.deltaY set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta[1]
+execute if score vehicle.action_id vehicle.local matches 2 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.deltaZ set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta[2]
+execute if score vehicle.action_id vehicle.local matches 2 run data remove storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta
 execute if score vehicle.action_id vehicle.local matches 2 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.count run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.count set value 1
 execute if score vehicle.action_id vehicle.local matches 2 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.speed run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.speed set value 0.0
 

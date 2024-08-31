@@ -116,6 +116,25 @@ events: [\
                 }\
             }\
         ]\
+    },\
+    {\
+        predicates: [\
+            "reds_vehicles:is_moving",\
+            "reds_vehicles:has_passenger",\
+            "reds_vehicles:environment/in_water"\
+        ],\
+        actions: [\
+            {\
+                action: "particle",\
+                arguments: {\
+                    name: "minecraft:bubble",\
+                    offset: [0.0f, 0.5f, -1.0f],\
+                    delta: [1.0f, 1.0f, 1.0f],\
+                    speed: 0.01,\
+                    count: 2\
+                }\
+            }\
+        ]\
     }\
 ],\
 seat: {\
