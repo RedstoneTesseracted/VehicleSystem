@@ -1,4 +1,4 @@
-# This function shows the vehicle loading error log to all players that ran it
+# This function shows the vehicle loading error log to the players that ran it
 
 # Get the total number of errors
 execute store result score vehicle.error_count vehicle.local run data get storage reds_vehicles:definitions errors
