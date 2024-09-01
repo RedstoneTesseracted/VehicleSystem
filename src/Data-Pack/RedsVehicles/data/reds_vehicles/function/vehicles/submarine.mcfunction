@@ -96,7 +96,8 @@ parts: [\
         scale: [3.5f, 3.5f, 3.5f],\
         translation: [0.0f, 1.5f, -0.4f],\
         item: "minecraft:glass",\
-        model: 1414716,name: display\
+        model: 1414716,\
+        name: display\
     }\
 ],\
 default_scores: [\
@@ -107,17 +108,6 @@ default_scores: [\
 ],\
 events: [\
     {\
-        trigger: "vehicle.event.honk",\
-        actions: [\
-            {\
-                action: "playsound",\
-                arguments: {\
-                    sound: "minecraft:entity.generic.splash"\
-                }\
-            }\
-        ]\
-    },\
-    {\
         predicates: [\
             "reds_vehicles:is_moving",\
             "reds_vehicles:has_passenger",\
@@ -125,11 +115,23 @@ events: [\
         ],\
         actions: [\
             {\
-                action: "particle",\
+                action: "relative_particle",\
                 arguments: {\
                     name: "minecraft:bubble",\
-                    offset: [0.0f, 0.5f, -1.0f],\
-                    delta: [1.0f, 1.0f, 1.0f],\
+                    relative_to: "display",\
+                    offset: [1.3f, 0.25f, -1.0f],\
+                    delta: [0.1f, 0.1f, 0.1f],\
+                    speed: 0.01,\
+                    count: 2\
+                }\
+            },\
+            {\
+                action: "relative_particle",\
+                arguments: {\
+                    name: "minecraft:bubble",\
+                    relative_to: "display",\
+                    offset: [-1.3f, 0.25f, -1.0f],\
+                    delta: [0.1f, 0.1f, 0.1f],\
                     speed: 0.01,\
                     count: 2\
                 }\
@@ -144,3 +146,4 @@ seat: {\
 ground_offset: 0.7f,\
 min_version: 1\
 }
+

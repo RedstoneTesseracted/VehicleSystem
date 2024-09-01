@@ -59,6 +59,22 @@ execute if score vehicle.action_id vehicle.local matches 4 unless data storage r
 execute if score vehicle.action_id vehicle.local matches 5 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.name run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_actions_loop', description: '[{"text":"An action of type “projectile” requires a type field"}]'}
 execute if score vehicle.action_id vehicle.local matches 5 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.value run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_actions_loop', description: '[{"text":"An action of type “projectile” requires a direction field"}]'}
 
+# Type: relative particle
+execute if score vehicle.action_id vehicle.local matches 6 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.name run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_actions_loop', description: '[{"text":"An action of type “relative_particle” requires a name field"}]'}
+execute if score vehicle.action_id vehicle.local matches 6 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.relative_to run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_actions_loop', description: '[{"text":"An action of type “relative_particle” requires a relative_to field"}]'}
+execute if score vehicle.action_id vehicle.local matches 6 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset set value [0.0, 0.0, 0.0]
+execute if score vehicle.action_id vehicle.local matches 6 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.offsetU set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset[0]
+execute if score vehicle.action_id vehicle.local matches 6 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.offsetV set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset[1]
+execute if score vehicle.action_id vehicle.local matches 6 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.offsetW set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset[2]
+execute if score vehicle.action_id vehicle.local matches 6 run data remove storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset
+execute if score vehicle.action_id vehicle.local matches 6 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta set value [0.0, 0.0, 0.0]
+execute if score vehicle.action_id vehicle.local matches 6 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.deltaX set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta[0]
+execute if score vehicle.action_id vehicle.local matches 6 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.deltaY set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta[1]
+execute if score vehicle.action_id vehicle.local matches 6 run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.deltaZ set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta[2]
+execute if score vehicle.action_id vehicle.local matches 6 run data remove storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta
+execute if score vehicle.action_id vehicle.local matches 6 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.count run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.count set value 1
+execute if score vehicle.action_id vehicle.local matches 6 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.speed run data modify storage reds_vehicles:definitions unprocessed_actions[0].arguments.speed set value 0.0
+
 # Fail if an error occurred
 execute unless score vehicle.asserted_local vehicle.local matches 0 run return fail
 

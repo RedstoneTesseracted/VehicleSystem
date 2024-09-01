@@ -8,5 +8,6 @@ data modify storage reds_vehicles:enums actions set value [\
 {type: "particle", id: 2},\
 {type: "set_model", id: 3},\
 {type: "set_score", id: 4},\
-{type: "projectile", id: 4}\
+{type: "projectile", id: 5},\
+{type: "relative_particle", id: 6}\
 ]

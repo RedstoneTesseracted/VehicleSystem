@@ -689,6 +689,17 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
           }
         },
         {
+          action: "relative_particle",   # Show particles relative to a display entity
+          arguments: {
+            name: str,          # Name of particle to show
+            relative_to: str,   # Name of display entity that we're relative to
+            offset: float[3],   # Offset of particles relative to vehicle (defaults to [0.0, 0.0, 0.0])
+            delta: float[3],    # Spread of particles (defaults to [0.0, 0.0, 0.0])
+            count: int,         # Number of particles to show with invocation (defaults to 1)
+            speed: float        # Speed of particle animation (default to 1.0)
+          }
+        },
+        {
           action: "set_model",  # Modify a display entity's custom model data
           arguments: {
             name: str,          # Name of display entitiy(ies) to affect
@@ -1460,6 +1471,8 @@ Several action types are possible, including:
 * set_score:
   * Name of scoreboard (str)
   * Value (int)
+
+## 
 
 
 ## Additional Remarks
