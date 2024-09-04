@@ -1052,290 +1052,6 @@ u_x & 0 & 0 & 0 \\
 \end{matrix}\right]
 $$
 
-### Display Entity Transformations
-
-Display entities follow these order of operations:
-1) Right rotation
-2) Left rotation
-3) Scale
-4) Translation
-
-Or:
-$$
-\bold{M} = \bold{T}\bold{S}\bold{R_L}\bold{R_R}
-$$
-
-The transformed vector on a point on the model is then obtained with:
-$$
-\vec{v} \ ' = \bold{M}\vec{v}
-$$
-
-Besides these transformations unique to the display entity, we also have the entity's yaw rotation, pitch rotation, and world position.  These are applied AFTER the above transformations:
-$$
-\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{M}\vec{v}
-\\
-\boxed{\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{T}\bold{S}\bold{R_L}\bold{R_R}\vec{v}}
-$$
-
-Unfortunately, this leads to an awkward situation when we want to include "roll" in a vehicle's transformations: the display's translation ($\bold{T}$) and roll ($\bold{R}$) matrices are in the way!  Ideally, we'd want the yaw, pitch, and roll matrices grouped together:
-$$
-\bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_{roll}}
-$$
-
-At this point, we may have to admit that certain arbitrary animations are impossible...  But, just for kicks and giggles, what would it take to the get the transformation sequence we want?
-$$
-\cancel{\bold{T_{pos}}}\cancel{\bold{R_{yaw}}}\cancel{\bold{R_{pitch}}}\bold{T}\bold{S}\bold{R_L}\cancel{\bold{R_R}}
-=
-\cancel{\bold{T_{pos}}}\cancel{\bold{R_{yaw}}}\cancel{\bold{R_{pitch}}}\bold{R_{roll}}\bold{T}\bold{S}\cancel{\bold{R_R}}
-\\
-\bold{T}\bold{S}\bold{R_L}
-=
-\bold{R_{roll}}\bold{T}\bold{S}
-\\
-\bold{R_L} = \bold{S}^{-1}\bold{T}^{-1}\bold{R_{roll}}\bold{T}\bold{S}
-$$
-
-In this case, $\bold{R_L}$ couldn't be a "rotation" matrix anymore, but we might still be able to pull some trickery using the quaternion-form:
-$$
-\bold{R_L} = 
-\left[\begin{matrix}
-\frac{1}{s_x} & 0 & 0 & 0 \\
-0 & \frac{1}{s_y} & 0 & 0 \\
-0 & 0 & \frac{1}{s_z} & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-\left[\begin{matrix}
-1 & 0 & 0 & -t_x \\
-0 & 1 & 0 & -t_y \\
-0 & 0 & 1 & -t_z \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-\left[\begin{matrix}
-\cos\theta & -\sin\theta & 0 & 0 \\
-\sin\theta & \cos\theta & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-\left[\begin{matrix}
-1 & 0 & 0 & t_x \\
-0 & 1 & 0 & t_y \\
-0 & 0 & 1 & t_z \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-\left[\begin{matrix}
-s_x & 0 & 0 & 0 \\
-0 & s_y & 0 & 0 \\
-0 & 0 & s_z & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-$$
-=
-\left[\begin{matrix}
-\frac{1}{s_x} & 0 & 0 & -t_x/s_x \\
-0 & \frac{1}{s_y} & 0 & -t_y/s_y \\
-0 & 0 & \frac{1}{s_z} & -t_z/s_z \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-\left[\begin{matrix}
-\cos\theta & -\sin\theta & 0 & 0 \\
-\sin\theta & \cos\theta & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-\left[\begin{matrix}
-s_x & 0 & 0 & t_x \\
-0 & s_y & 0 & t_y \\
-0 & 0 & s_z & t_z \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-$$
-=
-\left[\begin{matrix}
-\cos\theta & -\frac{s_y}{s_x}\sin\theta & 0 & \frac{t_x}{s_x}(\cos\theta - 1) - \frac{t_y}{s_x}\sin\theta \\
-\frac{s_x}{s_y}\sin\theta & \cos\theta & 0 & \frac{t_x}{s_y}(\sin\theta - 1) - \frac{t_y}{s_y}\cos\theta \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-Now, using the quaternion form:
-$$
-\left[\begin{matrix}
-1-2y^2-2x^2 & 2xy - 2zw & 2xz + 2yw & 0 \\
-2xy + 2zw & 1-2x^2-2z^2 & 2yz-2xw & 0 \\
-2xz-2yw & 2yz+2xw & 1-2x^2 - 2y^2 & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-=
-\left[\begin{matrix}
-\cos\theta & -\frac{s_y}{s_x}\sin\theta & 0 & \frac{t_x}{s_x}(\cos\theta - 1) - \frac{t_y}{s_x}\sin\theta \\
-\frac{s_x}{s_y}\sin\theta & \cos\theta & 0 & \frac{t_x}{s_y}(\sin\theta - 1) - \frac{t_y}{s_y}\cos\theta \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-However, from this we obtain:
-$$
-\cancel{1}-2x^2 - 2y^2 = \cancel{1} \rightarrow \cancel{-2}x^2 + \cancel{- 2}y^2 = 0 \rightarrow x^2 + y^2 = 0 \rightarrow x=y=0 \ \ \text{(Since x and y are real)}
-$$
-
-Which reduces things to:
-$$
-\left[\begin{matrix}
-1 & -2zw & 0 & 0 \\
-2zw & 1-2z^2 & 0 & 0 \\
-0 & 2xw & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-=
-\left[\begin{matrix}
-\cos\theta & -\frac{s_y}{s_x}\sin\theta & 0 & \frac{t_x}{s_x}(\cos\theta - 1) - \frac{t_y}{s_x}\sin\theta \\
-\frac{s_x}{s_y}\sin\theta & \cos\theta & 0 & \frac{t_x}{s_y}(\sin\theta - 1) - \frac{t_y}{s_y}\cos\theta \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-Which is an overconstrained equation.
-
-So, the only way we can have the desired transformation sequence of:
-$$
-\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_{roll}}\bold{T}\bold{S}\bold{R}\vec{v}
-$$
-
-Is if we perform the matrix multiplication ourselves:
-$$
-\bold{M} = \bold{R_{roll}}\bold{T}\bold{S}\bold{R}
-$$
-
-And then manually set the display entity's transformation to that.  Unfortunately, it takes 112 operations to compute the product of two 4x4 matrices (64 multiplications, 48 additions).  That's highly impractical in a datapack, leaving us at an impass.
-
-Is there a way to reduce the number of operations given what we know about the matrices?  Computing the product $\bold{T}\bold{S}$, for example, is quite easy:
-$$
-\bold{T}\bold{S} = 
-\left[\begin{matrix}
-s_x & 0 & 0 & t_x \\
-0 & s_y & 0 & t_y \\
-0 & 0 & s_z & t_z \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-Taking roll into account:
-$$
-\bold{R_{roll}}\bold{T}\bold{S} = 
-\left[\begin{matrix}
-\cos\theta & -\sin\theta & 0 & 0 \\
-\sin\theta & \cos\theta & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-\left[\begin{matrix}
-s_x & 0 & 0 & t_x \\
-0 & s_y & 0 & t_y \\
-0 & 0 & s_z & t_z \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-=
-\left[\begin{matrix}
-s_x\cos\theta & -s_y\sin\theta & 0 & t_x \cos\theta - t_y\sin\theta \\
-s_x\sin\theta &  s_y\cos\theta & 0 & t_x \sin\theta + t_y\cos\theta \\
-0 & 0 & s_z & t_z \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-Note that the z-component remains unchanged.  We can extract the scaling and translation out as two submatrices:
-$$
-\left[\begin{matrix}
-s_x\cos\theta & -s_y\sin\theta \\
-s_x\sin\theta &  s_y\cos\theta
-\end{matrix}\right]
-=
-\left[\begin{matrix}
-\cos\theta & -\sin\theta \\
-\sin\theta &  \cos\theta
-\end{matrix}\right]
-\left[\begin{matrix}
-s_x & 0 \\
-0 & s_y
-\end{matrix}\right]
-$$
-
-$$
-\left[\begin{matrix}
-t_x \cos\theta - t_y\sin\theta \\
-t_x \sin\theta + t_y\cos\theta
-\end{matrix}\right]
-=
-\left[\begin{matrix}
-\cos\theta & -\sin\theta \\
-\sin\theta &  \cos\theta
-\end{matrix}\right]
-\left[\begin{matrix}t_x \\ t_y\end{matrix}\right]
-$$
-
-All of these can be calculated by applying a rotation $\theta$:
-$$
-R_2(\theta)\left[\begin{matrix}s_x \\ 0\end{matrix}\right]
-\ \ \ \ \ \ \ 
-R_2(\theta)\left[\begin{matrix}0 \\ s_y\end{matrix}\right]
-\ \ \ \ \ \ \ 
-R_2(\theta)\left[\begin{matrix}t_x \\ t_y\end{matrix}\right]
-$$
-
-To improve efficiency, let:
-$$
-\vec{w}_1 = R_2(\theta)\left[\begin{matrix}1 \\ 0\end{matrix}\right]
-\ \ \ \ \ \ \ 
-\vec{w}_2 = R_2(\theta)\left[\begin{matrix}0 \\ 1\end{matrix}\right]
-$$
-
-In which case:
-$$
-R_2(\theta)\left[\begin{matrix}s_x \\ 0\end{matrix}\right] = s_x \vec{w}_1
-\ \ \ \ \ \ \ 
-R_2(\theta)\left[\begin{matrix}0 \\ s_y\end{matrix}\right] = s_y \vec{w}_2
-\ \ \ \ \ \ \ 
-R_2(\theta)\left[\begin{matrix}t_x \\ t_y\end{matrix}\right] = t_x\vec{w}_1 + t_y\vec{w}_2
-$$
-
-In the case of $\bold{R}=\bold{I}$, we can now calculate $\bold{M}$ using only a change of basis.  Unfortunately, attempting to factor in an arbitrary angle-axis rotation matrix might be too much.
-
-
-### Ok Minecraft, I'll Start Eliminating Stuff:
-
-To make things simpler, we could try to limit the kinds of transformations we can do.  If we set $\bold{T}=\bold{I}$ (no translation) and $\bold{S}=s\bold{I}$ (same scale factor across all dimensions), we *can* achieve the order we're after:
-$$
-\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{T}\bold{S}\bold{R_L}\bold{R_R}\vec{v}
-\\
- = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}(s\bold{I})\bold{R_L}\bold{R_R}\vec{v}
-\\
- = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_L}(s\bold{I})\bold{R_R}\vec{v}
- \\
-\boxed{\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_{roll}}(s\bold{I})\bold{R}\vec{v}}
-$$
-
-Unfortunately, this is not a trivial limitation...
-
-Rather than imposing arbitrary limitations ourselves, it may be best to design a system that leaves this up to the vehicle maker.  That way, they can decide whether roll is important.
-
-
-### This is Hard
-
-Maybe, Minecraft datapacks *aren't ready* for a data-driven visuals/animation system.  Most of this is basically just data manipulation and math, which datapacks historically *suck* at.
-
-Perhaps it would be better to implement a bunch of hard-coded presets that might, one day, be replaced with a better system?
-
-
-### Dynamic/Procedural Animations:
-
-
 ### Keyframed Animations:
 
 Keyframed animations consist of a list of model transformations that are applied to appropriate models.  The current model is chosen by converting some variable into an index
@@ -1472,7 +1188,289 @@ Several action types are possible, including:
   * Name of scoreboard (str)
   * Value (int)
 
-## 
+
+## Returning to Visuals
+
+With the addition of the events system, we can now tick off a few of the visuals I hoped to support:
+
+* Vehicle model points in direction
+* Plane rolls to compensate for changes in direction of travel
+* ~~Submarine propellers emit bubbles when craft is moving~~
+* Rotating helicopter blades
+* Helicopter leans in direction of travel
+* Wheels on a car roll while moving
+* Tank cannon matches player's direction, while body matches vehicle's direction
+* ~~Show a different item model if vehicle's engine is on/off~~
+
+Now, because the initial section on display entity transformation is outright wrong, we have a bit of work to do.  Display entities follow these order of operations:
+1) Right rotation
+2) Scale
+3) Left rotation
+4) Translation
+
+Or:
+$$
+\bold{M} = \bold{T}\bold{R_L}\bold{S}\bold{R_R}
+$$
+
+Besides these transformations unique to the display entity, we also have the entity's yaw rotation, pitch rotation, and world position.  These are applied AFTER the above transformations:
+$$
+\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{M}\vec{v}
+\\
+\boxed{\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{T}\bold{R_L}\bold{S}\bold{R_R}\vec{v}}
+$$
+
+To determine what these $\bold{R_{yaw}}$ and $\bold{R_{pitch}}$ matrices should be in Minecraft's coordinate system, we reverse-engineer the matrices required to produce an entity's relative coordinate system.
+
+From testing, the unit vector in the direction of ($\theta$, $\phi$) is given by:
+$$
+\hat{r}(\theta,\phi) = -\sin\theta \cos\phi \hat{x} - \sin\phi \hat{y} + \cos\theta \cos\phi \hat{z}
+$$
+
+An entity's relative coordinate system is given by:
+$$
+\hat{u} = \hat{r}(\theta,\phi)
+\\
+\hat{v} = \hat{r}(\theta,\phi-90^o)
+\\
+\hat{w} = \hat{r}(\theta-90^o,0)
+$$
+
+Where:
+* $\hat{u}$ is forward relative to the camera
+* $\hat{v}$ is vertical relative to the camera
+* $\hat{w}$ is left relative to the camera
+
+Expanding:
+$$
+\hat{u} = -\sin\theta \cos\phi \hat{x} - \sin\phi \hat{y} + \cos\theta \cos\phi \hat{z}
+\\
+\hat{v} = -\sin\theta \sin\phi \hat{x} + \cos\phi \hat{y} + \cos\theta \sin\phi \hat{z}
+\\
+\hat{w} = \cos\theta \hat{x} + \sin\theta \hat{z}
+$$
+
+For the special case of $\theta=\phi=0$ (i.e. not rotated, so $\bold{R_{yaw}}=\bold{R_{pitch}}=\bold{1}$):
+$$
+\hat{u}_0 = \hat{z} \\
+\hat{v}_0 = \hat{y} \\
+\hat{w}_0 = \hat{x}
+$$
+
+Therefore, if we write out the transformation matrix required to bring $[\hat{u}_0, \hat{v}_0, \hat{w}_0]$ to $[\hat{u}, \hat{v}, \hat{w}]$:
+$$
+\bold{R_{yaw}}\bold{R_{pitch}}
+\left[\begin{matrix}
+\uparrow & \uparrow & \uparrow \\
+\hat{w}_0 & \hat{v}_0 & \hat{u}_0 \\
+\downarrow & \downarrow & \downarrow
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+\uparrow & \uparrow & \uparrow \\
+\hat{w} & \hat{v} & \hat{u} \\
+\downarrow & \downarrow & \downarrow
+\end{matrix}\right]
+$$
+$$
+\bold{R_{yaw}}\bold{R_{pitch}}
+\left[\begin{matrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+\cos\theta & -\sin\theta \sin\phi & -\sin\theta \cos\phi \\
+0 & \cos\phi & -\sin\phi \\
+\sin\theta & \cos\theta \sin\phi & \cos\theta\cos\phi
+\end{matrix}\right]
+$$
+
+Separating $\bold{R_{yaw}}(\theta)$ and $\bold{R_{pitch}}(\phi)$ is quite easy.  First, we try $\theta=0$, in which case $\bold{R_{yaw}} = \bold{1}$:
+$$
+\bold{R_{pitch}}
+=
+\left[\begin{matrix}
+1 &        0 &         0 \\
+0 & \cos\phi & -\sin\phi \\
+0 & \sin\phi &  \cos\phi
+\end{matrix}\right]
+$$
+
+Similarly, for $\phi=0$ and $\bold{R_{pitch}} = \bold{1}$:
+$$
+\bold{R_{yaw}}
+=
+\left[\begin{matrix}
+\cos\theta & 0 & -\sin\theta \\
+0 & 1 & 0 \\
+\sin\theta & 0 & \cos\theta
+\end{matrix}\right]
+$$
+
+Just to verify:
+$$
+\bold{R_{yaw}}\bold{R_{pitch}}=
+\left[\begin{matrix}
+\cos\theta & 0 & -\sin\theta \\
+0 & 1 & 0 \\
+\sin\theta & 0 & \cos\theta
+\end{matrix}\right]
+\left[\begin{matrix}
+1 &        0 &         0 \\
+0 & \cos\phi & -\sin\phi \\
+0 & \sin\phi &  \cos\phi
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+\cos\theta & -\sin\theta\sin\phi & -\sin\theta\cos\phi \\
+0 & \cos\phi & -\sin\phi \\
+\sin\theta & \cos\theta\sin\phi & \cos\theta\cos\phi
+\end{matrix}\right]
+\checkmark
+$$
+
+Upgrading to 4D homogeneous coordinates, the pitch and yaw matrices are:
+$$
+\boxed{
+\bold{R_{yaw}}
+=
+\left[\begin{matrix}
+\cos\theta & 0 & -\sin\theta & 0 \\
+0 & 1 & 0 & 0 \\
+\sin\theta & 0 & \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\ \ \ \ \ \ \ \ \ \ \ \ 
+\bold{R_{pitch}}
+=
+\left[\begin{matrix}
+1 &        0 &         0 & 0 \\
+0 & \cos\phi & -\sin\phi & 0 \\
+0 & \sin\phi &  \cos\phi & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+}
+$$
+
+### Axis-Angle Rotation Matrix
+
+Here, we derive the axis-angle rotation matrix, $\bold{R_{\vec{u}}}(\theta)$, in Minecraft's coordinate system.  First, we assert the special cases for 3D rotation matrices:
+$$
+\bold{R_x}(\theta) = \left[\begin{matrix}
+1 &          0 &           0  \\
+0 & \cos\theta & -\sin\theta \\
+0 & \sin\theta &  \cos\theta
+\end{matrix}\right]
+ \ \ \ \ \ \
+\bold{R_y}(\theta) = \left[\begin{matrix}
+\cos\theta & 0 & -\sin\theta \\
+0 & 1 & 0 \\
+\sin\theta & 0 & \cos\theta
+\end{matrix}\right]
+ \ \ \ \ \ \
+\bold{R_z}(\theta) = \left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 \\
+\sin\theta & \cos\theta & 0 \\
+0 & 0 & 1
+\end{matrix}\right]
+$$
+
+The axis-angle rotation matrix that simplifies to the above cases is given by:
+$$
+\boxed{
+\bold{R}_{\vec{u}}(\theta) = \left[\begin{matrix}
+u_x^2 (1-\cos\theta) + \cos\theta & u_x u_y(1-\cos\theta) - u_z\sin\theta & u_x u_z (1-\cos\theta) - u_y\sin\theta \\
+u_x u_y(1-\cos\theta) + u_z\sin\theta & u_y^2 (1-\cos\theta) + \cos\theta & u_y u_z (1-\cos\theta) - u_x\sin\theta \\
+u_x u_z (1-\cos\theta) + u_y\sin\theta & u_y u_z (1-\cos\theta) + u_x\sin\theta & u_z^2 (1-\cos\theta) + \cos\theta
+\end{matrix}\right]
+}
+$$
+
+### Quaternion Rotation Matrix
+
+
+
+### Introducing Roll for Planes
+
+Now, let's say we wanted to introduce *roll*.  Based on the above yaw and pitch matrices, the roll matrix takes the form:
+$$
+\bold{R_{roll}} = \left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+As for how to insert this into a display entity's overall transformation, recall it's transformation matrix:
+$$
+\bold{M} = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{T}\bold{R_L}\bold{S}\bold{R_R}
+$$
+
+Here, we choose to work with $\bold{R_L}$, as it's closest to being in the correct position.  In order for it to commute with $\bold{T}$ and provide reasonable results, however, we must restrict $\bold{T}$:
+$$
+\bold{T}\bold{R_L} = \bold{R_L}\bold{T}
+\\
+\left[\begin{matrix}
+1 & 0 & 0 & t_x \\
+0 & 1 & 0 & t_y \\
+0 & 0 & 1 & t_z \\
+0 & 0 & 0 & 1 \end{matrix}\right]
+\left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 & 0 \\
+\sin\theta & \cos\theta & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\left[\begin{matrix}
+1 & 0 & 0 & t_x \\
+0 & 1 & 0 & t_y \\
+0 & 0 & 1 & t_z \\
+0 & 0 & 0 & 1 \end{matrix}\right]
+$$
+$$
+\left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 & t_x \\
+\sin\theta &  \cos\theta & 0 & t_y \\
+0 & 0 & 1 & t_z \\
+0 & 0 & 0 & 1 \end{matrix}\right]
+=
+\left[\begin{matrix}
+\cos\theta & -\sin\theta & 0 & t_x\cos\theta - t_y\sin\theta \\
+\sin\theta & \cos\theta & 0 & t_x\sin\theta + t_y\cos\theta \\
+0 & 0 & 1 & t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+So:
+$$
+t_x = t_x\cos\theta - t_y\sin\theta \ \ \ \ \ \ \ \ \ \ \ \ t_y = t_x\sin\theta + t_y\cos\theta
+\\
+t_x = t_x\cos\theta - t_y\sin\theta \ \ \ \ \ \ \ \ \ \ \ \ t_y = \frac{\sin\theta}{1- \cos\theta}t_x
+\\
+t_x = t_x\cos\theta - \frac{\sin^2\theta}{1- \cos\theta}t_x
+\\
+t_x(1-\cos\theta) = t_x\cos\theta-t_x\cos^2\theta - t_x\sin^2\theta
+\\
+t_x(1-\cos\theta) = t_x\cos\theta - t_x
+\\
+t_x(1-\cos\theta) = t_x(\cos\theta - 1)
+$$
+
+There are only two ways to satisfy this equation: $\theta=0$ and $t_x=t_y=0$.  Of these, we obviously choose the latter.  So, we limit ourselves to translations of $[0,0,t_z]$.  With this, we can set $\bold{R_L} = \bold{R_{roll}}$ and achieve the target transformation:
+$$
+\boxed{\bold{M} = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_{roll}}\bold{T}\bold{S}\bold{R_R}}
+$$
 
 
 ## Additional Remarks
