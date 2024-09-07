@@ -1455,6 +1455,59 @@ $$
 \boxed{\bold{M} = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_{roll}}\bold{T}\bold{S}\bold{R_R}}
 $$
 
+### The Wheels on The Bus
+
+Consider a vehicle, such as a car, which uses separate display entities for its wheels.  These wheels are allowed to roll, but must still match the car's orientation.  Is this (easily) achievable with display transformations?
+
+The order of operations is:
+1. Scaling*
+2. Rotating of wheel (pitch direction)*
+3. Translation to actual wheel position
+4. Rotation to match vehicle orientation (only yaw)
+
+* Note: technically, the scaling and rotation can be performed in either order if the model is centered on the axis of rotation.
+
+Starting with:
+$$
+\bold{R_{yaw}}\bold{R_{pitch}}\bold{T}\bold{R_L}\bold{S}\bold{R_R}
+$$
+
+The car doesn't need to pitch, so $\bold{R_{pitch}} = \bold{I}$.  Additionally, we don't need $\bold{R_R}$, so:
+$$
+\bold{R_{yaw}}\bold{T}\bold{R_L}\bold{S}
+$$
+
+Basically: this effect is trivially achievable.
+
+### Helicopter Helicopter
+
+Consider a helicopter that uses a separate display entity for its main rotor.  The rotor is allowed to spin while the craft is flying.  Additionally, the helicopter leans in the direction of travel.  Is this (easily) achievable with display transformations?
+
+The order of operations is:
+1. Scaling
+2. Rotating of rotor blade (yaw direction)
+3. Translation of rotor into actual position
+4. Rotation to match vehicle orientation (yaw, pitch, roll)
+
+At first, it may seem that there aren't enough rotation matrices (or, they're in the wrong order) to achieve this effect.  However, so long as the scaling matrix is the same in the x and z directions, we can swap $\bold{S}$ and $\bold{R_R}$:
+$$
+\bold{S}\bold{R_R}
+ = \left[\begin{matrix} s & 0 & 0 & 0 \\ 0 & s_y & 0 & 0 \\ 0 & 0 & s & 0 \\ 0 & 0 & 0 & 1 \end{matrix}\right]
+\left[\begin{matrix} \cos\theta & 0 & -\sin\theta & 0 \\ 0 & 1 & 0 & 0 \\ \sin\theta & 0 & \cos\theta & 0 \\ 0 &  0 & 0 & 1 \end{matrix}\right]
+=\left[\begin{matrix} \cos\theta & 0 & -\sin\theta & 0 \\ 0 & 1 & 0 & 0 \\ \sin\theta & 0 & \cos\theta & 0 \\ 0 &  0 & 0 & 1 \end{matrix}\right]
+\left[\begin{matrix} s & 0 & 0 & 0 \\ 0 & s_y & 0 & 0 \\ 0 & 0 & s & 0 \\ 0 & 0 & 0 & 1 \end{matrix}\right]
+= \bold{R_R}\bold{S}
+$$
+
+Additionally, if the rotor is perfectly centered to begin with, (i.e. $t_x=t_z=0$) then $\bold{T}\bold{R_L}=\bold{R_L}\bold{T}$.  Finally, we use $\bold{R_L}$ for $\bold{R_roll}$ and $\bold{R_R}$ for $\bold{R_{spin}}$:
+$$
+\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_{roll}}\bold{T}\bold{R_{spin}}\bold{S}
+$$
+
+Thus, we achieve the intended effect so long as the following constraints are met:
+* The rotor only needs to be translated in the y-direction
+* The rotor is scaled identically in the x and z directions
+
 
 ## Additional Remarks
 
