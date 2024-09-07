@@ -1474,7 +1474,7 @@ $$
 
 The car doesn't need to pitch, so $\bold{R_{pitch}} = \bold{I}$.  Additionally, we don't need $\bold{R_R}$, so:
 $$
-\bold{R_{yaw}}\bold{T}\bold{R_L}\bold{S}
+\bold{R_{yaw}}\bold{T}\bold{R_{spin}}\bold{S}
 $$
 
 Basically: this effect is trivially achievable.
@@ -1507,6 +1507,230 @@ $$
 Thus, we achieve the intended effect so long as the following constraints are met:
 * The rotor only needs to be translated in the y-direction
 * The rotor is scaled identically in the x and z directions
+
+
+## Manipulating Display Entity Transformations
+
+Equipped with a solid understanding of display entity transformations, how do we dynamically modify these transformations to achieve an intended visual?
+
+Consider some of the tests cases shown so far.  What variables do their transformation matrices require?
+
+### Yaw & Pitch
+
+The yaw & pitch transformations are trivial to implement, as they merely require the yaw & pitch scores to be written to the display entity's `Rotation` tag (with appropriate precision factor, of course).
+
+
+### Plane Roll
+
+The axis-angle rotation matrix requires an angle, $\theta$, and a vector $\vec{u}$:
+$$
+\bold{R_L} = \bold{R_{\vec{u}}}(\theta)
+$$
+
+Display entities assume $\theta$ is in radians, whereas our system stores yaw, pitch, and roll in degrees.  For this, either a hard-coded or user-provided scale factor will be needed.  Additionally, roll requires that the axis, $\vec{u}$, be set to $\hat{z}$.
+
+
+### Car Wheel Spinning
+
+Recall the transformations matrices required for this effect:
+$$
+\bold{R_{yaw}}\bold{T}\bold{R_{spin}}\bold{S} = \bold{R_{yaw}}\bold{T}\bold{R_L}\bold{S}
+$$
+
+Here:
+* Translation $(\bold{T})$ matrix is constant, and can be assigned upon vehicle spawn
+* The scaling $(\bold{S})$ matrix is constant, and can be assigned upon vehicle spawn
+* The yaw $\bold{R_{yaw}}$ is set by writing the vehicle's *yaw* score to the display's `Rotation[0]` with a precision factor
+* Spin $\bold{R_{spin}}$ is set using:
+  * $\theta$: Time, multiplied by a scale factor
+  * $\vec{u}$: The constant unit vector $\hat{x}$ (parallel to untransformed wheel axle)
+
+
+### Helicopter Rotor Spinning
+
+Recall the transformation matrices required for this effect:
+$$
+\bold{R_{yaw}}\bold{R_{pitch}}\bold{R_{roll}}\bold{T}\bold{R_{spin}}\bold{S}
+$$
+
+Here:
+* Translation $(\bold{T})$ matrix is constant, and can be assigned upon vehicle spawn
+* The scaling $(\bold{S})$ matrix is constant, and can be assigned upon vehicle spawn
+* The yaw $\bold{R_{yaw}}$ is set by writing the *yaw* to `Rotation[0]` with a precision factor
+* Spin $\bold{R_{spin}}$ is set using:
+  * $\theta$: Time, multiplied by a scale factor
+  * $\vec{u}$: The constant unit vector $\hat{y}$
+
+
+### Bringing Things Together
+
+Here, we see a common theme of writing values (such as vehicle scores) to some display entity's nbt tags.  Under this notion, here are some of the attributes required to define a dynamic transform:
+* Data source
+  * Score name
+  * Score precision
+* Scale factor
+* Display entity(s) to affect
+* Name of transformation to affect 
+* Additional constant arguments
+
+The possible transformation attributes we might want to modify are:
+|          NBT Path          |              Format              |
+| -------------------------- | -------------------------------- |
+| `Rotation[0]`              | `float`                          |
+| `Rotation[1]`              | `float`                          |
+| `transform.translation`    | `float[3]`                       |
+| `transform.scale`          | `float[3]`                       |
+| `transform.left_rotation`  | `{angle: float, axis: float[3]}` |
+| `transform.right_rotation` | `{angle: float, axis: float[3]}` |
+
+Unfortunately, the default format for `left_rotation` and `right_rotation` is quaternion, so we can't write to `angle` directly.  As a result, this system will need a way of preparing the full NBT tag to write.
+
+With all of this in mind, the following transformation spec is proposed:
+```yaml
+{
+  source: str,    # Name of vehicle score to grab data from
+  axis: float[3], # Axis to rotate about when "transform" is "left_rotation" or "right_rotation"
+  transform: str, # Name of the affected transform
+  scale: float,   # Scale factor multiplied by the data source
+  name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
+  group: str      # Tag used to target mounted display entities.  Mutually exclusive with "name"
+}
+```
+
+Valid values for `transform` are:
+* left_rotation
+* left_rotation_x
+* left_rotation_y
+* left_rotation_z
+* left_rotation_w
+* right_rotation
+* right_rotation_x
+* right_rotation_y
+* right_rotation_z
+* right_rotation_w
+* translation_x
+* translation_y
+* translation_z
+* scale_x
+* scale_y
+* scale_z
+* yaw
+* pitch
+
+
+Internally, this is converted on load to a slightly different spec to save time each tick:
+```yaml
+{
+  scale: float,        # Scale factor multiplied by the data source
+  temporary_init: {},  # Initial NBT that gets written to the intermediate tag
+  temporary_path: str, # Path to value in intermediate NBT that gets written to directly
+  path: str,           # Path to write intermediate tag to
+  selector: str        # The target selector tag used to select entities
+}
+```
+
+If `temporary_path` is present, the system will first declare an intermediate NBT tag with the initial data given by `temporary_init`.  Then, the value will be written to this tag using the path given by `temporary_path`.  Finally, the intermediate tag is written directly to the display entity using `path`.
+
+Otherwise, if `temporary_path` is missing, then the system will simply write the value directly to `path`.
+
+The logic for generating `temporary_init`, `temporary_path`, and `path` is as follows:
+```
+Switch (transform):
+  Case left_rotation:
+    path = "transformation.left_rotation"
+    temporary_path = "angle"
+    temporary_init = {angle: 0.0f, axis: [1.0f,0.0f,0.0f]}
+    temporary_init.axis = axis
+    done
+
+  Case right_rotation:
+    path = "transformation.left_rotation"
+    temporary_path = "angle"
+    temporary_init = {angle: 0.0f, axis: [1.0f,0.0f,0.0f]}
+    temporary_init.axis = axis
+    done
+
+  Case left_rotation_x:
+    path = "transformation.left_rotation[0]"
+    done
+  Case left_rotation_y:
+    path = "transformation.left_rotation[1]"
+    done
+  Case left_rotation_z:
+    path = "transformation.left_rotation[2]"
+    done
+  Case left_rotation_w:
+    path = "transformation.left_rotation[3]"
+    done
+
+  Case right_rotation_x:
+    path = "transformation.left_rotation[3]"
+    done
+  Case right_rotation_y:
+    path = "transformation.left_rotation[3]"
+    done
+  Case right_rotation_z:
+    path = "transformation.left_rotation[3]"
+    done
+  Case right_rotation_w:
+    path = "transformation.right_rotation[3]"
+    done
+
+  Case translation_x:
+    path = "transformation.translation[0]"
+    done
+  Case translation_y:
+    path = "transformation.translation[1]"
+    done
+  Case translation_z:
+    path = "transformation.translation[2]"
+    done
+
+  Case scale_x:
+    path = "transformation.scale[0]"
+    done
+  Case scale_y:
+    path = "transformation.scale[1]"
+    done
+  Case scale_z:
+    path = "transformation.scale[2]"
+    done
+
+  Case yaw:
+    path = "Rotation[0]"
+    done
+
+  Case pitch:
+    path = "Rotation[1]"
+    done
+
+  Default:
+    Invalid
+```
+
+
+Examples of the processed output:
+
+**Roll:**
+```yaml
+{
+  scale: 1.0,
+  temporary_init: {angle: 0.0, axis: [0.0f, 0.0f, 1.0f]},
+  path: "transformation.left_rotation.angle",
+  selector: "@s[name=foobar]"
+}
+```
+
+**Yaw:**
+```yaml
+{
+  scale: 1.0,
+  path: "Rotation[0]",
+  selector: "@s[name=foobar]"
+}
+```
+
+
 
 
 ## Additional Remarks
