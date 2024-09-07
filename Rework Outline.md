@@ -943,114 +943,7 @@ So, we basically have multiple different types of visuals:
 * Particle effects
 
 
-
 Simlar to the force system, we can assign our animations a predicate (or list of predicates) to control when they're applied.
-
-## How Display Transformations Work
-
-Item display transformations are handled via the composition of several transformations:
-* Right rotation
-* Left rotation
-* Translation
-* Scale
-
-These transformations are modelled using 4x4 matrices and homogeneous coordinates.
-
-### A Vector in Homogeneous Coordinates:
-
-In homogeneous coordinates, 3D vectors are given an extra fourth element that's always equal to one:
-$$
-\vec{v} = \left[\begin{matrix} x \\ y \\ z \\ 1 \end{matrix}\right]
-$$
-
-This allows transformations such as translation and perspective projection to be performed using matrix multiplication.
-
-
-### Axis-Angle-Form Rotation Matrix:
-
-$$
-\bold{R}_{\vec{u}}(\theta) = \left[\begin{matrix}
-u_x^2 (1-\cos\theta) + \cos\theta & u_x u_y(1-\cos\theta) - u_z\sin\theta & u_x u_z (1-\cos\theta) + u_y\sin\theta & 0 \\
-u_x u_y(1-\cos\theta) + u_z\sin\theta & u_y^2 (1-\cos\theta) + \cos\theta & u_y u_z (1-\cos\theta) - u_x\sin\theta & 0 \\
-u_x u_z (1-\cos\theta) - u_y\sin\theta & u_y u_z (1-\cos\theta) + u_x\sin\theta & u_z^2 (1-\cos\theta) + \cos\theta & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-### Quaternion-Form Rotation Matrix:
-
-$$
-\bold{R}(w + x\bold{i} + y\bold{j} + z\bold{k}) = \left[\begin{matrix}
-1-2y^2-2x^2 & 2xy - 2zw & 2xz + 2yw & 0 \\
-2xy + 2zw & 1-2x^2-2z^2 & 2yz-2xw & 0 \\
-2xz-2yw & 2yz+2xw & 1-2x^2 - 2y^2 & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-We can relate this to axis-angle form using:
-$$
-w + x\bold{i} + y\bold{j} + z\bold{k} = \cos\left(\frac{\theta}{2}\right) + (u_x\bold{i} + u_y\bold{j} + u_z\bold{k})\sin\left(\frac{\theta}{2}\right)
-\\ \downarrow \\
-\bold{q} = \cos\left(\frac{\theta}{2}\right) + \bold{u}\sin\left(\frac{\theta}{2}\right)
-$$
-
-### Axes Rotation Matrices:
-
-For the special case of rotation about the (x,y,z) axes, the above rotation matrices simplify down to:
-$$
-\bold{R}_{x}(\theta) = \left[\begin{matrix}
-1 & 0 & 0 & 0 \\
-0 & \cos\theta & -\sin\theta & 0 \\
-0 & \sin\theta & \cos\theta & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-$$
-\bold{R}_{y}(\theta) = \left[\begin{matrix}
-\cos\theta & 0 & \sin\theta & 0 \\
-0 & 1 & 0 & 0 \\
--\sin\theta & 0 & \cos\theta & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-$$
-\bold{R}_{z}(\theta) = \left[\begin{matrix}
-\cos\theta & -\sin\theta & 0 & 0 \\
-\sin\theta & \cos\theta & 0 & 0 \\
-0 & 0 & 1 & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-In Minecraft's coordinate system:
-* $\bold{R}_{x} \rightarrow $ Pitch
-* $\bold{R}_{y} \rightarrow $ Yaw
-* $\bold{R}_{z} \rightarrow $ Roll
-
-### Translation Matrix:
-
-$$
-\bold{T}(\vec{u}) = \left[\begin{matrix}
-1 & 0 & 0 & u_x \\
-0 & 1 & 0 & u_y \\
-0 & 0 & 1 & u_z \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
-
-### Scaling Matrix:
-
-$$
-\bold{S}(\vec{u}) = \left[\begin{matrix}
-u_x & 0 & 0 & 0 \\
-0 & u_y & 0 & 0 \\
-0 & 0 & u_z & 0 \\
-0 & 0 & 0 & 1
-\end{matrix}\right]
-$$
 
 ### Keyframed Animations:
 
@@ -1202,13 +1095,15 @@ With the addition of the events system, we can now tick off a few of the visuals
 * Tank cannon matches player's direction, while body matches vehicle's direction
 * ~~Show a different item model if vehicle's engine is on/off~~
 
+## How Display Transformations Work
+
 Now, because the initial section on display entity transformation is outright wrong, we have a bit of work to do.  Display entities follow these order of operations:
 1) Right rotation
 2) Scale
 3) Left rotation
 4) Translation
 
-Or:
+Or, expressed using matrices:
 $$
 \bold{M} = \bold{T}\bold{R_L}\bold{S}\bold{R_R}
 $$
@@ -1219,6 +1114,45 @@ $$
 \\
 \boxed{\vec{v} \ ' = \bold{T_{pos}}\bold{R_{yaw}}\bold{R_{pitch}}\bold{T}\bold{R_L}\bold{S}\bold{R_R}\vec{v}}
 $$
+
+
+### A Vector in Homogeneous Coordinates:
+
+In homogeneous coordinates, 3D vectors are given an extra fourth element that's always equal to one:
+$$
+\vec{v} = \left[\begin{matrix} x \\ y \\ z \\ 1 \end{matrix}\right]
+$$
+
+This allows transformations such as translation and perspective projection to be performed using matrix multiplication.
+
+
+### Translations
+
+The translation matrix exploits homogeneous coordinates to apply a constant offset to a vector.  It is given by:
+$$
+\bold{T} = \left[\begin{matrix}
+1 & 0 & 0 & t_x \\
+0 & 1 & 0 & t_y \\
+0 & 0 & 1 & t_z \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+
+### Scaling
+
+The scaling matrix is given by a simple diagonal matrix:
+$$
+\bold{S} = \left[\begin{matrix}
+s_x & 0 & 0 & 0 \\
+0 & s_y & 0 & 0 \\
+0 & 0 & s_z & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+
+### Rotations
 
 To determine what these $\bold{R_{yaw}}$ and $\bold{R_{pitch}}$ matrices should be in Minecraft's coordinate system, we reverse-engineer the matrices required to produce an entity's relative coordinate system.
 
@@ -1390,6 +1324,55 @@ $$
 
 ### Quaternion Rotation Matrix
 
+Quaternions can be related to a physical rotation using:
+$$
+w + x\bold{i} + y\bold{j} + z\bold{k} = \cos\left(\frac{\theta}{2}\right) + (u_x\bold{i} + u_y\bold{j} + u_z\bold{k})\sin\left(\frac{\theta}{2}\right)
+\\ \downarrow \\
+\bold{q} = \cos\left(\frac{\theta}{2}\right) + \bold{u}\sin\left(\frac{\theta}{2}\right)
+$$
+
+Where $\bold{q}$ is a quaternion representing a rotation of $\theta$ about the axis $\vec{u}$.  Using this, we can convert the axis-angle rotation matrix into quaternion form:
+$$
+w = \cos\left(\frac{\theta}{2}\right)    \ \ \ \ \ \ \ 
+x = u_x\sin\left(\frac{\theta}{2}\right) \ \ \ \ \ \ \ 
+y = u_y\sin\left(\frac{\theta}{2}\right) \ \ \ \ \ \ \ 
+z = u_z\sin\left(\frac{\theta}{2}\right)
+\\ \downarrow \\
+w = \cos\left(\frac{\theta}{2}\right)    \ \ \ \ \ \ \ 
+u_x = \frac{x}{\sin\left(\frac{\theta}{2}\right)} \ \ \ \ \ \ \ 
+u_y = \frac{y}{\sin\left(\frac{\theta}{2}\right)} \ \ \ \ \ \ \ 
+u_z = \frac{z}{\sin\left(\frac{\theta}{2}\right)}
+$$
+
+Substituting:
+$$
+\bold{R}_{\bold{q}} = \left[\begin{matrix}
+\frac{x^2}{\sin^2\left(\frac{\theta}{2}\right)} (1-\cos\theta) + \cos\theta & \frac{xy}{\sin^2\left(\frac{\theta}{2}\right)}(1-\cos\theta) - \frac{z}{\sin\left(\frac{\theta}{2}\right)}\sin\theta & \frac{xz}{\sin^2\left(\frac{\theta}{2}\right)} (1-\cos\theta) - \frac{y}{\sin\left(\frac{\theta}{2}\right)}\sin\theta \\
+\frac{xy}{\sin^2\left(\frac{\theta}{2}\right)}(1-\cos\theta) + \frac{z}{\sin\left(\frac{\theta}{2}\right)}\sin\theta & \frac{y^2}{\sin^2\left(\frac{\theta}{2}\right)} (1-\cos\theta) + \cos\theta & \frac{yz}{\sin^2\left(\frac{\theta}{2}\right)} (1-\cos\theta) - \frac{x}{\sin\left(\frac{\theta}{2}\right)}\sin\theta \\
+\frac{xz}{\sin^2\left(\frac{\theta}{2}\right)} (1-\cos\theta) + \frac{y}{\sin\left(\frac{\theta}{2}\right)}\sin\theta & \frac{yz}{\sin^2\left(\frac{\theta}{2}\right)} (1-\cos\theta) + \frac{x}{\sin\left(\frac{\theta}{2}\right)}\sin\theta & \frac{z^2}{\sin^2\left(\frac{\theta}{2}\right)} (1-\cos\theta) + \cos\theta
+\end{matrix}\right]
+$$
+$$
+ = \left[\begin{matrix}
+\frac{2x^2}{1-\cos(\theta)} (1-\cos\theta) + \cos\theta & \frac{2xy}{1-\cos(\theta)}(1-\cos\theta) - \frac{z}{\sin\left(\frac{\theta}{2}\right)}\sin\theta & \frac{2xz}{1-\cos(\theta)} (1-\cos\theta) - \frac{y}{\sin\left(\frac{\theta}{2}\right)}\sin\theta \\
+\frac{2xy}{1-\cos(\theta)}(1-\cos\theta) + \frac{z}{\sin\left(\frac{\theta}{2}\right)}\sin\theta & \frac{2y^2}{1-\cos(\theta)} (1-\cos\theta) + \cos\theta & \frac{2yz}{1-\cos(\theta)} (1-\cos\theta) - \frac{x}{\sin\left(\frac{\theta}{2}\right)}\sin\theta \\
+\frac{2xz}{1-\cos(\theta)} (1-\cos\theta) + \frac{y}{\sin\left(\frac{\theta}{2}\right)}\sin\theta & \frac{2yz}{1-\cos(\theta)} (1-\cos\theta) + \frac{x}{\sin\left(\frac{\theta}{2}\right)}\sin\theta & \frac{2z^2}{1-\cos(\theta)} (1-\cos\theta) + \cos\theta
+\end{matrix}\right]
+$$
+$$
+ = \left[\begin{matrix}
+2x^2 + (2\cos^2\left(\frac{\theta}{2}\right)-1) & 2xy - \frac{z}{\sin\left(\frac{\theta}{2}\right)}(2\sin\left(\frac{\theta}{2}\right)\cos\left(\frac{\theta}{2}\right)) & 2xz - \frac{y}{\sin\left(\frac{\theta}{2}\right)}(2\sin\left(\frac{\theta}{2}\right)\cos\left(\frac{\theta}{2}\right)) \\
+2xy + \frac{z}{\sin\left(\frac{\theta}{2}\right)}(2\sin\left(\frac{\theta}{2}\right)\cos\left(\frac{\theta}{2}\right)) & 2y^2 + (2\cos^2\left(\frac{\theta}{2}\right)-1) & 2yz - \frac{x}{\sin\left(\frac{\theta}{2}\right)}(2\sin\left(\frac{\theta}{2}\right)\cos\left(\frac{\theta}{2}\right)) \\
+2xz + \frac{y}{\sin\left(\frac{\theta}{2}\right)}(2\sin\left(\frac{\theta}{2}\right)\cos\left(\frac{\theta}{2}\right)) & 2yz + \frac{x}{\sin\left(\frac{\theta}{2}\right)}(2\sin\left(\frac{\theta}{2}\right)\cos\left(\frac{\theta}{2}\right)) & 2z^2 + (2\cos^2\left(\frac{\theta}{2}\right)-1)
+\end{matrix}\right]
+$$
+$$
+\boxed{\bold{R}_{\bold{q}} = \left[\begin{matrix}
+2x^2 + 2w^2 - 1 & 2xy - 2zw & 2xz - 2yw \\
+2xy + 2zw & 2y^2 + 2w^2 - 1 & 2yz - 2xw \\
+2xz + 2yw & 2yz + 2xw & 2z^2 + 2w^2 - 1
+\end{matrix}\right]}
+$$
 
 
 ### Introducing Roll for Planes
