@@ -15,10 +15,14 @@ execute unless function reds_vehicles:define/handling_list/parse run return run 
 data modify storage reds_vehicles:definitions working_root.handling set from storage reds_vehicles:definitions working_handling_list
 data modify storage reds_vehicles:definitions working_root.inputs set from storage reds_vehicles:definitions working_input_list
 
+# Set default gravity
+data modify storage reds_vehicles:definitions working_base_gravity set value 0.08
+
 # Process physics list
 data modify storage reds_vehicles:definitions working_physics_list set from storage reds_vehicles:definitions working_root.physics
 execute unless function reds_vehicles:define/physics_list/parse run return run function reds_vehicles:define/root/exit_fail
 data modify storage reds_vehicles:definitions working_root.physics set from storage reds_vehicles:definitions working_physics_list 
+data modify storage reds_vehicles:definitions working_root.base_gravity set from storage reds_vehicles:definitions working_base_gravity
 
 # Process events list
 data modify storage reds_vehicles:definitions working_events_list set from storage reds_vehicles:definitions working_root.events
@@ -33,13 +37,10 @@ data modify storage reds_vehicles:definitions working_root.events set from stora
 # Convert "ground_offset" to "scale" by dividing by 0.9875 and remove "ground_offset" tag
 
 
-data remove storage reds_vehicles:definitions working.ground_offset
-
-# Set default gravity
-data modify storage reds_vehicles:definitions working.base_gravity set value 0.08
+data remove storage reds_vehicles:definitions working_root.ground_offset
 
 # Manually set seat count to 1
-data modify storage reds_vehicles:definitions working.seat_count set value 1
+data modify storage reds_vehicles:definitions working_root.seat_count set value 1
 
 
 

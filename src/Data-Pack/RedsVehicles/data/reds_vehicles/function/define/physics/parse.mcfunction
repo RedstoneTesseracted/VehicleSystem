@@ -1,0 +1,32 @@
+# This function is used to parse/validate a single physics tag
+# The physics tag to parse/validate must be at "working_physics"
+# under the "reds_vehicles:definitions" storage
+#
+# The input tag is modified in-place
+#
+# Return 1 = Passed
+# Return 0 = Failed
+
+# Type field is required
+execute unless data storage reds_vehicles:definitions working_physics.input run function reds_vehicles:define/physics/report/type_missing
+execute unless data storage reds_vehicles:definitions working_physics.input run return run function reds_vehicles:define/physics/exit_fail
+
+# Value field is required
+execute unless data storage reds_vehicles:definitions working_physics.value run function reds_vehicles:define/physics/report/value_missing
+execute unless data storage reds_vehicles:definitions working_physics.value run return run function reds_vehicles:define/physics/exit_fail
+
+# Perform type-specific validation
+execute store result score vehicle.physics_macro_status vehicle.local run function reds_vehicles:define/physics/parse_type_specific with storage reds_vehicles:definitions working_physics
+execute if score vehicle.physics_macro_status vehicle.local matches 0 run function reds_vehicles:define/physics/report/type_macro_fail
+execute unless score vehicle.physics_macro_status vehicle.local matches 1 run return run function reds_vehicles:define/physics/exit_fail
+
+# Process predicates list
+data modify storage reds_vehicles:definitions working_predicate set value ""
+data modify storage reds_vehicles:definitions working_predicates set from storage reds_vehicles:definitions working_physics.predicates
+execute unless data storage reds_vehicles:definitions working_physics.predicates run data modify storage reds_vehicles:definitions working_predicates set value []
+execute unless function reds_vehicles:define/predicate_list/parse run return run function reds_vehicles:define/physics/exit_fail
+data modify storage reds_vehicles:definitions working_physics.predicate set from storage reds_vehicles:definitions working_predicate
+data remove storage reds_vehicles:definitions working_predicates
+
+# Success!
+return run function reds_vehicles:define/physics/exit_success

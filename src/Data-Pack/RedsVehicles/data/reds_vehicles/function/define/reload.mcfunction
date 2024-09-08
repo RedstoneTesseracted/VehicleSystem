@@ -5,6 +5,8 @@
 data remove storage reds_vehicles:definitions processed
 data remove storage reds_vehicles:definitions vehicles
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[],errors:[]}
+#data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+#function reds_vehicles:define/logging/reset
 function #reds_vehicles:declare_vehicles
 
 # Reload all enums tables
