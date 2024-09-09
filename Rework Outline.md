@@ -700,7 +700,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
           }
         },
         {
-          action: "set_model",  # Modify a display entity's custom model data
+          action: "set_custom_model_data",  # Modify a display entity's custom model data
           arguments: {
             name: str,          # Name of display entitiy(ies) to affect
             value: int          # New custom model number
@@ -1074,7 +1074,7 @@ Several action types are possible, including:
   * Delta (float[3])
   * Count (default 1)
   * Speed (default 1.0)
-* set_model: sets the custom model data of one of the item displays
+* set_custom_model_data: sets the custom model data of one of the item displays
   * Display entity name (str)
   * New value (int)
 * set_score:

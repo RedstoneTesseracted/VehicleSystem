@@ -57,7 +57,7 @@ execute if score vehicle.action_id vehicle.local matches 4 unless data storage r
 
 # Type: projectile
 execute if score vehicle.action_id vehicle.local matches 5 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.name run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_actions_loop', description: '[{"text":"An action of type “projectile” requires a type field"}]'}
-execute if score vehicle.action_id vehicle.local matches 5 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.value run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_actions_loop', description: '[{"text":"An action of type “projectile” requires a direction field"}]'}
+execute if score vehicle.action_id vehicle.local matches 5 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.direction run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_actions_loop', description: '[{"text":"An action of type “projectile” requires a direction field"}]'}
 
 # Type: relative particle
 execute if score vehicle.action_id vehicle.local matches 6 unless data storage reds_vehicles:definitions unprocessed_actions[0].arguments.name run function reds_vehicles:define/assert_working_fail {source:'reds_vehicles:define/process_actions_loop', description: '[{"text":"An action of type “relative_particle” requires a name field"}]'}

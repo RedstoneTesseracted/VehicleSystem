@@ -17,4 +17,4 @@ execute if data storage reds_vehicles:definitions {working_physics:{input:"gravi
 execute unless data storage reds_vehicles:definitions {working_physics:{input:"gravity"}} run data modify storage reds_vehicles:definitions processed_physics append from storage reds_vehicles:definitions working_physics
 
 # Run again if unprocessed physics entries remain
-execute if data storage reds_vehicles:definitions unprocessed_physics[0] run function reds_vehicles:define/process_physics_loop
+execute if data storage reds_vehicles:definitions unprocessed_physics[0] run function reds_vehicles:define/physics_list/parse_loop

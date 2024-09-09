@@ -15,4 +15,4 @@ data remove storage reds_vehicles:definitions working_handling.input_group
 data modify storage reds_vehicles:definitions processed_handling append from storage reds_vehicles:definitions working_handling
 
 # Run again if unprocessed handling entries remain
-execute if data storage reds_vehicles:definitions unprocessed_handling[0] run function reds_vehicles:define/process_handling_loop
+execute if data storage reds_vehicles:definitions unprocessed_handling[0] run function reds_vehicles:define/handling_list/parse_loop
