@@ -26,7 +26,7 @@ data modify storage reds_vehicles:definitions working_root.base_gravity set from
 
 # Process events list
 data modify storage reds_vehicles:definitions working_events_list set from storage reds_vehicles:definitions working_root.events
-execute unless function reds_vehicles:define/events_list/parse run return run function reds_vehicles:define/root/exit_fail
+execute unless function reds_vehicles:define/event_list/parse run return run function reds_vehicles:define/root/exit_fail
 data modify storage reds_vehicles:definitions working_root.events set from storage reds_vehicles:definitions working_events_list 
 
 
