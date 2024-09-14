@@ -14,14 +14,14 @@ execute unless data storage reds_vehicles:definitions working_action.arguments.c
 execute unless data storage reds_vehicles:definitions working_action.arguments.speed run data modify storage reds_vehicles:definitions working_action.arguments.speed set value 0.0
 
 # Convert offset and delta fields into a format compatible with function macros
-data modify storage reds_vehicles:definitions working_action.arguments.offsetU set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset[0]
-data modify storage reds_vehicles:definitions working_action.arguments.offsetV set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset[1]
-data modify storage reds_vehicles:definitions working_action.arguments.offsetW set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.offset[2]
+data modify storage reds_vehicles:definitions working_action.arguments.offsetU set from storage reds_vehicles:definitions working_action.arguments.offset[0]
+data modify storage reds_vehicles:definitions working_action.arguments.offsetV set from storage reds_vehicles:definitions working_action.arguments.offset[1]
+data modify storage reds_vehicles:definitions working_action.arguments.offsetW set from storage reds_vehicles:definitions working_action.arguments.offset[2]
 data remove storage reds_vehicles:definitions working_action.arguments.offset
 
-data modify storage reds_vehicles:definitions working_action.arguments.deltaX set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta[0]
-data modify storage reds_vehicles:definitions working_action.arguments.deltaY set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta[1]
-data modify storage reds_vehicles:definitions working_action.arguments.deltaZ set from storage reds_vehicles:definitions unprocessed_actions[0].arguments.delta[2]
+data modify storage reds_vehicles:definitions working_action.arguments.deltaX set from storage reds_vehicles:definitions working_action.arguments.delta[0]
+data modify storage reds_vehicles:definitions working_action.arguments.deltaY set from storage reds_vehicles:definitions working_action.arguments.delta[1]
+data modify storage reds_vehicles:definitions working_action.arguments.deltaZ set from storage reds_vehicles:definitions working_action.arguments.delta[2]
 data remove storage reds_vehicles:definitions working_action.arguments.delta
 
 # Success!

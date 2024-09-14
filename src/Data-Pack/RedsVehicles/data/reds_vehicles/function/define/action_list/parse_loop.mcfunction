@@ -13,4 +13,4 @@ execute unless function reds_vehicles:define/action/parse run scoreboard players
 data modify storage reds_vehicles:definitions processed_actions append from storage reds_vehicles:definitions working_action
 
 # Run again if unprocessed action entries remain
-execute if data storage reds_vehicles:definitions unprocessed_actions[0] run function reds_vehicles:define/process_actions_loop
+execute if data storage reds_vehicles:definitions unprocessed_actions[0] run function reds_vehicles:define/action_list/parse_loop

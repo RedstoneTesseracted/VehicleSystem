@@ -13,6 +13,9 @@
 # list.  Instead the last one's "value" field will be written to 
 # "reds_vehicles:definitions.working_base_gravity
 #
+# If no physics entry with type "gravity" is present, working_base_gravity
+# will simply not be written
+#
 # Returns a "0" on failure, and a "1" on success
 
 # Set failure score

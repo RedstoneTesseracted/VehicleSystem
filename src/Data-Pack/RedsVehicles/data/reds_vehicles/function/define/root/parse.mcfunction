@@ -21,8 +21,8 @@ data modify storage reds_vehicles:definitions working_base_gravity set value 0.0
 # Process physics list
 data modify storage reds_vehicles:definitions working_physics_list set from storage reds_vehicles:definitions working_root.physics
 execute unless function reds_vehicles:define/physics_list/parse run return run function reds_vehicles:define/root/exit_fail
-data modify storage reds_vehicles:definitions working_root.physics set from storage reds_vehicles:definitions working_physics_list 
-data modify storage reds_vehicles:definitions working_root.base_gravity set from storage reds_vehicles:definitions working_base_gravity
+data modify storage reds_vehicles:definitions working_root.physics set from storage reds_vehicles:definitions working_physics_list
+execute if data storage reds_vehicles:definitions working_base_gravity run data modify storage reds_vehicles:definitions working_root.base_gravity set from storage reds_vehicles:definitions working_base_gravity
 
 # Process events list
 data modify storage reds_vehicles:definitions working_event_list set from storage reds_vehicles:definitions working_root.events
@@ -50,7 +50,7 @@ data modify storage reds_vehicles:definitions working_root.entities set from sto
 
 # Convert "ground_offset" to "scale" by dividing by 0.9875 and remove "ground_offset" tag
 execute store result score vehicle.ground_offset vehicle.local run data get storage reds_vehicles:definitions working_root.ground_offset 10000
-execute unless data storage reds_vehicles:definitions working_ground_offset run scoreboard players set vehicle.ground_offset vehicle.local 10000
+execute unless data storage reds_vehicles:definitions working_root.ground_offset run scoreboard players set vehicle.ground_offset vehicle.local 10000
 execute store result storage reds_vehicles:definitions working_root.scale float 0.00010126582278481013 run scoreboard players get vehicle.ground_offset vehicle.local
 data remove storage reds_vehicles:definitions working_root.ground_offset
 

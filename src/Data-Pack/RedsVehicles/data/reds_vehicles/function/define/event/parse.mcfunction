@@ -44,6 +44,7 @@ execute if score vehicle.action_list_length vehicle.local matches 0 run function
 
 data modify storage reds_vehicles:definitions working_action_list set from storage reds_vehicles:definitions working_event.actions
 execute unless function reds_vehicles:define/action_list/parse run return run function reds_vehicles:define/event/exit_fail
+data modify storage reds_vehicles:definitions working_event.actions set from storage reds_vehicles:definitions working_action_list
 
 # Success!
 return run function reds_vehicles:define/event/exit_success
