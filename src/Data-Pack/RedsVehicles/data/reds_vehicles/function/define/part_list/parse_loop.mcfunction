@@ -13,4 +13,4 @@ execute unless function reds_vehicles:define/part/parse run scoreboard players s
 data modify storage reds_vehicles:definitions processed_parts append from storage reds_vehicles:definitions working_part
 
 # Run again if unprocessed part entries remain
-execute if data storage reds_vehicles:definitions unprocessed_parts[0] run function reds_vehicles:define/process_parts_loop
+execute if data storage reds_vehicles:definitions unprocessed_parts[0] run function reds_vehicles:define/part_list/parse_loop

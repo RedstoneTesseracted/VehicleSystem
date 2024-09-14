@@ -725,12 +725,12 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
   ],
   parts: [    # A collection of tags describing the display entities that make up the visual model
     {
-      scale: float[3],       # Model scale factors in the x, y, and z directions.  Overidden by transform.
-      translation: float[3], # Model translation in the x, y, and z directions.  Overidden by transform.
-      transform: float[16],  # An array of floats representing the display's initial 4x4 transformation matrix
-      item: str,             # Name of the item displayed by the entity
-      model: int,            # Item's custom model
-      name: str              # Name assigned to display entity.  Cannot contain spaces
+      scale: float[3],        # Model scale factors in the x, y, and z directions.  Overidden by transform.
+      translation: float[3],  # Model translation in the x, y, and z directions.  Overidden by transform.
+      transform: float[16],   # An array of floats representing the display's initial 4x4 transformation matrix
+      item: str,              # Name of the item displayed by the entity (required)
+      custom_model_data: int, # Item's custom model number (optional)
+      name: str               # Name assigned to display entity.  Cannot contain spaces.  (required)
     }
   ],
   seat: {
@@ -811,11 +811,13 @@ Automatic evaluation only occurs upon reload.
       }
     },
     {
-      type: "item_display",  # One of the item display entities specified in "parts"
-      transform: float[16],  # An array of floats representing the display's initial 4x4 transformation matrix
-      item: str,             # Name of the item displayed by the entity
-      model: int,            # Item's custom model
-      name: str              # Name assigned to display entity
+      type: "item_display",   # One of the item display entities specified in "parts"
+      transform: float[16],   # An array of floats representing the display's initial 4x4 transformation matrix\
+      item: {
+        id: str,              # ID of item displayed by the entity
+        components: {}        # Map of item components applied to the item
+      },
+      name: str               # Name assigned to display entity
     }
   ],
   events: [
