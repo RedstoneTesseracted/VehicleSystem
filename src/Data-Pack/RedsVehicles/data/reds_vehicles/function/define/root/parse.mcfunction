@@ -25,9 +25,9 @@ data modify storage reds_vehicles:definitions working_root.physics set from stor
 data modify storage reds_vehicles:definitions working_root.base_gravity set from storage reds_vehicles:definitions working_base_gravity
 
 # Process events list
-data modify storage reds_vehicles:definitions working_events_list set from storage reds_vehicles:definitions working_root.events
+data modify storage reds_vehicles:definitions working_event_list set from storage reds_vehicles:definitions working_root.events
 execute unless function reds_vehicles:define/event_list/parse run return run function reds_vehicles:define/root/exit_fail
-data modify storage reds_vehicles:definitions working_root.events set from storage reds_vehicles:definitions working_events_list 
+data modify storage reds_vehicles:definitions working_root.events set from storage reds_vehicles:definitions working_event_list
 
 
 # Create entities list
@@ -35,19 +35,21 @@ data modify storage reds_vehicles:definitions working_entities set value []
 
 # Add seat interaction entity
 data merge storage reds_vehicles:definitions {working_seat: {type: "interaction", pilot: true, tags: {width: 1.0f, height: 1.0f}}}
-execute if data storage reds_vehicles:definitions working.seat.width run data modify storage reds_vehicles:definitions working_seat.tags.width set from storage reds_vehicles:definitions working.seat.width
-execute if data storage reds_vehicles:definitions working.seat.height run data modify storage reds_vehicles:definitions working_seat.tags.height set from storage reds_vehicles:definitions working.seat.height
+execute if data storage reds_vehicles:definitions working_root.seat.width run data modify storage reds_vehicles:definitions working_seat.tags.width set from storage reds_vehicles:definitions working_root.seat.width
+execute if data storage reds_vehicles:definitions working_root.seat.height run data modify storage reds_vehicles:definitions working_seat.tags.height set from storage reds_vehicles:definitions working_root.seat.height
 data modify storage reds_vehicles:definitions working_entities append from storage reds_vehicles:definitions working_seat
+data remove storage reds_vehicles:definitions working_root.seat
 
 # Add item display entities
-data modify storage reds_vehicles:definitions working_part_list set from storage reds_vehicles:definitions working_part_list
+data modify storage reds_vehicles:definitions working_part_list set from storage reds_vehicles:definitions working_root.parts
 execute unless function reds_vehicles:define/part_list/parse run return run function reds_vehicles:define/root/exit_fail
 data modify storage reds_vehicles:definitions working_entities append from storage reds_vehicles:definitions working_part_list[]
+data remove storage reds_vehicles:definitions working_root.parts
 
 data modify storage reds_vehicles:definitions working_root.entities set from storage reds_vehicles:definitions working_entities
 
 # Convert "ground_offset" to "scale" by dividing by 0.9875 and remove "ground_offset" tag
-execute store result score vehicle.ground_offset vehicle.local run data get storage reds_vehicles:definitions working.ground_offset 10000
+execute store result score vehicle.ground_offset vehicle.local run data get storage reds_vehicles:definitions working_root.ground_offset 10000
 execute unless data storage reds_vehicles:definitions working_ground_offset run scoreboard players set vehicle.ground_offset vehicle.local 10000
 execute store result storage reds_vehicles:definitions working_root.scale float 0.00010126582278481013 run scoreboard players get vehicle.ground_offset vehicle.local
 data remove storage reds_vehicles:definitions working_root.ground_offset

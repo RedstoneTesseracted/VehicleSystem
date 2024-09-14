@@ -8,4 +8,5 @@
 #
 # Returns 0 if the macro broke, 1 otherwise
 
-return run function reds_vehicles:define/handling_list/__mark_input_group with storage reds_vehicles:definitions args
+execute store result score vehicle.mark_input_group_status vehicle.local run function reds_vehicles:define/handling_list/__mark_input_group with storage reds_vehicles:definitions working_handling
+return run scoreboard players get vehicle.mark_input_group_status vehicle.local

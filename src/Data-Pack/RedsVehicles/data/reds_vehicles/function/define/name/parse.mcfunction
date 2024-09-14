@@ -14,7 +14,7 @@ execute unless score vehicle.name_length vehicle.local matches 1.. run return ru
 # Assert that name doesn't conflict with ANY registered name
 # Also, it should be able to work with a function macro
 data modify storage reds_vehicles:definitions args.name set from storage reds_vehicles:definitions working_root.name
-execute store result score vehicle.vehicle_exists vehicle.local run function reds_vehicles:define/name/check_registered_name with storage reds_vehicles:definitions
+execute store result score vehicle.vehicle_exists vehicle.local run function reds_vehicles:define/name/check_registered_name with storage reds_vehicles:definitions working_root
 
 execute if score vehicle.vehicle_exists vehicle.local matches 1 run function reds_vehicles:define/name/report/taken
 execute if score vehicle.vehicle_exists vehicle.local matches 0 run function reds_vehicles:define/name/report/invalid

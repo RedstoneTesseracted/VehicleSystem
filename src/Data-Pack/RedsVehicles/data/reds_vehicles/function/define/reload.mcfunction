@@ -4,18 +4,15 @@
 # Reset the NBT storage containing the tables
 data remove storage reds_vehicles:definitions processed
 data remove storage reds_vehicles:definitions vehicles
-data merge storage reds_vehicles:definitions {vehicles:[],processed:[],errors:[]}
-#data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
-#function reds_vehicles:define/logging/reset
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
 function #reds_vehicles:declare_vehicles
 
 # Reload all enums tables
 function #reds_vehicles:declare_enums
 
 # Process all declared vehicles
-data modify storage reds_vehicles:definitions names set value []
-data modify storage reds_vehicles:definitions unprocessed set from storage reds_vehicles:definitions vehicles
-execute if data storage reds_vehicles:definitions unprocessed[0] run function reds_vehicles:define/process_loop
+function reds_vehicles:define/root_list/parse
 
 # Message creative players about defined vehicle count (if enabled)
 execute if score config vehicle.config.show_vehicle_count_on_reload matches 1 run function reds_vehicles:define/notify/announce_vehicle_count

@@ -45,12 +45,13 @@ execute unless data storage reds_vehicles:definitions working_part.transform run
 execute if data storage reds_vehicles:definitions working_part.scale[0] run data modify storage reds_vehicles:definitions working_part.transform[0] set from storage reds_vehicles:definitions working_part.scale[0]
 execute if data storage reds_vehicles:definitions working_part.scale[1] run data modify storage reds_vehicles:definitions working_part.transform[5] set from storage reds_vehicles:definitions working_part.scale[1]
 execute if data storage reds_vehicles:definitions working_part.scale[2] run data modify storage reds_vehicles:definitions working_part.transform[10] set from storage reds_vehicles:definitions working_part.scale[2]
+data remove storage reds_vehicles:definitions working_part.scale
 
 # Translation field (optional)
 execute if data storage reds_vehicles:definitions working_part.translation[0] run data modify storage reds_vehicles:definitions working_part.transform[3] set from storage reds_vehicles:definitions working_part.translation[0]
 execute if data storage reds_vehicles:definitions working_part.translation[1] run data modify storage reds_vehicles:definitions working_part.transform[7] set from storage reds_vehicles:definitions working_part.translation[1]
 execute if data storage reds_vehicles:definitions working_part.translation[2] run data modify storage reds_vehicles:definitions working_part.transform[11] set from storage reds_vehicles:definitions working_part.translation[2]
-
+data remove storage reds_vehicles:definitions working_part.translation
 
 
 # Success!

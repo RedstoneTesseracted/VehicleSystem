@@ -16,3 +16,4 @@ data modify storage reds_vehicles:logging errors append from storage reds_vehicl
 data remove storage reds_vehicles:logging error.vehicle
 data remove storage reds_vehicles:logging error.description
 data remove storage reds_vehicles:logging error.source
+data remove storage reds_vehicles:logging error.extra

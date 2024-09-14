@@ -96,7 +96,7 @@ parts: [\
         scale: [3.5f, 3.5f, 3.5f],\
         translation: [0.0f, 1.5f, -0.4f],\
         item: "minecraft:glass",\
-        model: 1414716,\
+        custom_model_data: 1414716,\
         name: display\
     }\
 ],\

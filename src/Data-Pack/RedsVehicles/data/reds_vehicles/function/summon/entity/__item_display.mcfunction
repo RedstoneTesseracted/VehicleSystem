@@ -19,5 +19,5 @@ data modify entity @s CustomName set from storage reds_vehicles:definitions work
 
 # Configure item
 data merge entity @s {item:{id:"minecraft:stone",count:1b}}
-data modify entity @s item.id set from storage reds_vehicles:definitions working_entity.item
-item modify entity @s container.0 reds_vehicles:set_model_from_working_entity
+data modify entity @s item.id set from storage reds_vehicles:definitions working_entity.item.id
+data modify entity @s item.components set from storage reds_vehicles:definitions working_entity.item.components

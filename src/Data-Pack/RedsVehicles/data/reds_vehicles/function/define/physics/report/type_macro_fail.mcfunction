@@ -1,6 +1,7 @@
 # reds_vehicles:define/physics/parse_type_specific macro failed
 
 data modify storage reds_vehicles:logging error.source set value "reds_vehicles:define/physics/parse"
-data modify storage reds_vehicles:logging error.description set value {text:"An unknown error caused the function macro \"reds_vehicles:define/physics/parse_type_specific\" to fail to compile.  Either the provided physics type is invalid or there is a bug in the pack."}
+data modify storage reds_vehicles:logging error.description set value {text:"An unknown error caused the function macro \"reds_vehicles:define/physics/parse_type_specific\" to fail to compile.  Either the provided physics type is invalid or there is a bug in the pack.  See Extra for type that was passed to the macro."}
+data modify storage reds_vehicles:logging error.extra set from storage reds_vehicles:definitions working_physics.type
 
 function reds_vehicles:define/logging/log_auto_fill_name
