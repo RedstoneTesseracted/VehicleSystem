@@ -5,8 +5,8 @@
 # "reds_vehicle:logging" storage
 
 # Handle missing fields
-execute unless data storage reds_vehicles:logging error.vehicle run data modify storage reds_vehicles:logging error.vehicle set value "<unset>"
-execute unless data storage reds_vehicles:logging error.description run data modify storage reds_vehicles:logging error.description set value "<unset>"
+execute unless data storage reds_vehicles:logging error.vehicle run data modify storage reds_vehicles:logging error.vehicle set value '"<unset>"'
+execute unless data storage reds_vehicles:logging error.description run data modify storage reds_vehicles:logging error.description set value '"<unset>"'
 execute unless data storage reds_vehicles:logging error.source run data modify storage reds_vehicles:logging error.source set value "<unset>"
 
 # Add this error to the list

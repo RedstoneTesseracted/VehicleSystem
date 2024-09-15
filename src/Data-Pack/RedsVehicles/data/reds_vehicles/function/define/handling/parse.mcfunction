@@ -25,8 +25,11 @@ data modify storage reds_vehicles:definitions working_scale set from storage red
 execute unless function reds_vehicles:define/scale/parse run return run function reds_vehicles:define/handling/exit_fail
 data modify storage reds_vehicles:definitions working_handling.scale set from storage reds_vehicles:definitions working_scale
 
-# Precision field (optional, defaults to 1)
-execute unless data storage reds_vehicles:definitions working_handling.precision run data modify storage reds_vehicles:definitions working_handling.precision set value 1
+# Precision field (optional, default based on variable field)
+execute unless data storage reds_vehicles:definitions working_handling.precision store result score vehicle.retrieved_precision vehicle.local run function reds_vehicles:define/precision/lookup with storage reds_vehicles:definitions working_handling
+execute unless data storage reds_vehicles:definitions working_handling.precision if score vehicle.retrieved_precision vehicle.local matches 0 run function reds_vehicles:define/handling/report/precision_macro_fail
+execute unless data storage reds_vehicles:definitions working_handling.precision if score vehicle.retrieved_precision vehicle.local matches 0 run return run function reds_vehicles:define/handling/exit_fail
+execute unless data storage reds_vehicles:definitions working_handling.precision store result storage reds_vehicles:definitions working_handling.precision int 1 run scoreboard players get vehicle.retrieved_precision vehicle.local
 
 # Handle this particular type of input
 execute store result score vehicle.input_parse_status vehicle.local run function reds_vehicles:define/handling/parse_input_specific with storage reds_vehicles:definitions working_handling

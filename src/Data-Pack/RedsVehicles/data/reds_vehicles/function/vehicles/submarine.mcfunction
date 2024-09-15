@@ -12,7 +12,6 @@ handling: [\
             score_scale: 0.01\
         },\
         variable: "vehicle.dvel.x",\
-        precision: 1000\
     },\
     {\
         input: "directed.y",\
@@ -23,7 +22,6 @@ handling: [\
             score_scale: 0.01\
         },\
         variable: "vehicle.dvel.y",\
-        precision: 1000\
     },\
     {\
         input: "directed.z",\
@@ -34,7 +32,6 @@ handling: [\
             score_scale: 0.01\
         },\
         variable: "vehicle.dvel.z",\
-        precision: 1000\
     },\
     {\
         input: "rotation.pitch",\

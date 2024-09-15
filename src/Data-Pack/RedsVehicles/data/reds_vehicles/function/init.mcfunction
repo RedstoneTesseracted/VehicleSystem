@@ -2,6 +2,7 @@
 
 # Create scoreboard objectives
 scoreboard objectives add vehicle.local dummy
+scoreboard objectives add vehicle.global dummy
 
 # Global configuration
 # Show number of vehicles upon reload [0=no,1=yes; default=0 (no)]
@@ -67,6 +68,7 @@ scoreboard objectives modify vehicle.showlog displayname {"text":"Show error log
 scoreboard objectives modify vehicle.listvehicles displayname {"text":"List loaded vehicles","color":"aqua"}
 
 # Reload the vehicle definition table
+schedule function reds_vehicles:delayed_reload_check 1t
 function reds_vehicles:define/reload
 
 # Reset triggers for all players

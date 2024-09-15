@@ -618,7 +618,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
         score_scale: float    # Multipled against scoreboard value when source is "score"
       },
       variable: "vehicle.dvel.x", # Name of the affected score
-      precision: 100          # Multiplier used to treat variable as a fixed-point decimal
+      precision: 100          # Multiplier used to treat variable as a fixed-point decimal (default based on variable)
     }
   ],
   physics: [  # A collection of tags that define what physics forces the vehicle is subject to (optional)
@@ -1766,6 +1766,12 @@ Put simply: this is untenable.  I do not have the time or resources to test upgr
   * Only FULL RELEASE game versions will be tested (datapack format number increased from 26 to 41 between 1.20.4 and 1.20.5 alone!)
 
 * Pretend older versions don't exist and don't worry about it.
+
+### Data Processing Sucks in Datapacks
+
+Current estimates place the number of commands required to parse/validate a vehicle definition at around **800**.  With a default value for `maxCommandChainLength` of 65536, this gives a maximum of about *80 vehicles*.
+
+Needless to say, this isn't great.  As such, it may be beneficial to split the vehicle definition process over multiple ticks.  The current system inherently can't support this, so for now I've added an automatic failure check in case we hit the limit during reload.
 
 
 ---

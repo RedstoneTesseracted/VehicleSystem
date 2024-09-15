@@ -8,5 +8,6 @@
     "reds_vehicles.notify.errors.description": "Description: %s",
     "reds_vehicles.notify.errors.extra": "Extra: %s",
     "reds_vehicles.notify.errors.extra_hover": "[hover]",
-    "reds_vehicles.notify.errors.header_none": "No errors logged while reloading vehicle definitions!"
+    "reds_vehicles.notify.errors.header_none": "No errors logged while reloading vehicle definitions!",
+    "reds_vehicles.notify.fatal.command_limit_exceeded": "A fatal error occurred that prevented vehicle loading from finishing.  The maximum command limit of %s may have been reached."
 }
