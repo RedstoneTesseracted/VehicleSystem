@@ -599,7 +599,6 @@ All vehicles will have common set of scoreboard values (stored by the root vehic
 | vehicle.event.firework | boolean 0 or 1         | Summon a firework once                                   |
 | vehicle.event.honk     | boolean 0 or 1         | Honk the horn                                            |
 | vehicle.event.shoot    | boolean 0 or 1         | Fire a projectile                                        |
-| vehicle.event.cooldown | integer                | Cooldown between event triggers in ticks                 |
 
 
 ## Vehicle Definition Data Structure

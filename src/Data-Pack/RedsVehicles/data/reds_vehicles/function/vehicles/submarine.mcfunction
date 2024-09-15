@@ -81,13 +81,17 @@ physics: [\
 ],\
 bonuses: [\
     {\
-        environment: "underwater",\
         type: "effect",\
+        predicates: [\
+            "reds_vehicles:environment/in_water"\
+        ],\
         value: "minecraft:water_breathing"\
     },\
     {\
-        environment: "underwater",\
         type: "effect",\
+        predicates: [\
+            "reds_vehicles:environment/in_water"\
+        ],\
         value: "minecraft:night_vision"\
     }\
 ],\
