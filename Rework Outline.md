@@ -617,7 +617,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
         name: str,            # Name of the score to obtain when source is "score"
         score_scale: float    # Multipled against scoreboard value when source is "score"
       },
-      variable: "vel.x",      # Name of the affected score
+      variable: "vehicle.dvel.x", # Name of the affected score
       precision: 100          # Multiplier used to treat variable as a fixed-point decimal
     }
   ],
