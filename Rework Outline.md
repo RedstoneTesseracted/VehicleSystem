@@ -655,15 +655,6 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
       value: float                            # Amount to scale applied force by.  Defaults to 1.0
     }
   ],
-  bonuses: [  # A list of tags that enable certain bonuses (such as potion effects) when in certain environments (optional)
-    {
-      predicates: [                                        # List of predicates required to apply bonus
-        "reds_vehicles:environment/under_water"
-      ],
-      type: "effect",                                      # Type of bonus to apply.  May be "effect"
-      value: str                                           # Extra argument depending on effect type
-    }
-  ],
   events: [                     # A list of events that trigger special behavior
     {
       trigger: str,             # Scoreboard used to trigger this event (optional)
