@@ -8,6 +8,15 @@
 # Validate vehicle name, and exit early with error if failed
 execute unless function reds_vehicles:define/name/parse run return run function reds_vehicles:define/root/exit_fail
 
+# Check if version requirements are met
+execute unless data storage reds_vehicles:definitions working_root.min_version run function reds_vehicles:define/root/report/missing_min_version
+execute unless data storage reds_vehicles:definitions working_root.min_version run function reds_vehicles:define/root/exit_fail
+execute store result score vehicle.min_version vehicle.local run data get storage reds_vehicles:definitions working_root.min_version
+execute store result score vehicle.current_version vehicle.local run function reds_vehicles:version
+execute if score vehicle.min_version vehicle.local > vehicle.current_version vehicle.local run function reds_vehicles:define/root/report/wrong_version
+execute if score vehicle.min_version vehicle.local > vehicle.current_version vehicle.local run return run function reds_vehicles:define/root/exit_fail
+
+
 # Process the handling tag
 data modify storage reds_vehicles:definitions working_input_list set value []
 data modify storage reds_vehicles:definitions working_handling_list set from storage reds_vehicles:definitions working_root.handling

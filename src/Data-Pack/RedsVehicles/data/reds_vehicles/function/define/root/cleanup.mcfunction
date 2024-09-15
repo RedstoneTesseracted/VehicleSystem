@@ -11,3 +11,5 @@ data remove storage reds_vehicles:definitions working_ground_offset
 data remove storage reds_vehicles:definitions working_bonus_list
 data remove storage reds_vehicles:definitions working_default_score_list
 scoreboard players reset vehicle.ground_offset vehicle.local
+scoreboard players reset vehicle.min_version vehicle.local
+scoreboard players reset vehicle.current_version vehicle.local

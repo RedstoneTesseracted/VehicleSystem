@@ -13,7 +13,4 @@ execute unless data storage reds_vehicles:logging error.source run data modify s
 data modify storage reds_vehicles:logging errors append from storage reds_vehicles:logging error
 
 # Reset all fields to make failing to set them easier to spot
-data remove storage reds_vehicles:logging error.vehicle
-data remove storage reds_vehicles:logging error.description
-data remove storage reds_vehicles:logging error.source
-data remove storage reds_vehicles:logging error.extra
+data modify storage reds_vehicles:logging error set value {}

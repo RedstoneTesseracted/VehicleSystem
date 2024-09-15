@@ -4,4 +4,6 @@
 #
 # The name of the vehicle is provided via function macros
 
+$execute unless data storage reds_vehicles:definitions processed[{name:$(name)}] run return 0
 $data modify storage reds_vehicles:definitions current set from storage reds_vehicles:definitions processed[{name:$(name)}]
+return 1
