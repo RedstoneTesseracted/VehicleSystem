@@ -8,9 +8,6 @@ data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 function #reds_vehicles:declare_vehicles
 
-# Reload all enums tables
-function #reds_vehicles:declare_enums
-
 # Process all declared vehicles
 function reds_vehicles:define/root_list/parse
 
