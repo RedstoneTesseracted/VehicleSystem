@@ -79,22 +79,6 @@ physics: [\
         value: 0.1\
     },\
 ],\
-bonuses: [\
-    {\
-        type: "effect",\
-        predicates: [\
-            "reds_vehicles:environment/in_water"\
-        ],\
-        value: "minecraft:water_breathing"\
-    },\
-    {\
-        type: "effect",\
-        predicates: [\
-            "reds_vehicles:environment/in_water"\
-        ],\
-        value: "minecraft:night_vision"\
-    }\
-],\
 parts: [\
     {\
         scale: [3.5f, 3.5f, 3.5f],\
@@ -138,6 +122,30 @@ events: [\
                     delta: [0.1f, 0.1f, 0.1f],\
                     speed: 0.01,\
                     count: 2\
+                }\
+            }\
+        ]\
+    },\
+    {\
+        predicates: [\
+            "reds_vehicles:has_passenger",\
+            "reds_vehicles:environment/in_water"\
+        ],\
+        actions: [\
+            {\
+                action: "effect_passenger",\
+                arguments: {\
+                    name: "minecraft:water_breathing",\
+                    duration: 1,\
+                    hide_particles: true\
+                }\
+            },\
+            {\
+                action: "effect_passenger",\
+                arguments: {\
+                    name: "minecraft:night_vision",\
+                    duration: 1,\
+                    hide_particles: true\
                 }\
             }\
         ]\

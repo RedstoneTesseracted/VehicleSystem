@@ -29,11 +29,6 @@ data modify storage reds_vehicles:definitions working_event_list set from storag
 execute unless function reds_vehicles:define/event_list/parse run return run function reds_vehicles:define/root/exit_fail
 data modify storage reds_vehicles:definitions working_root.events set from storage reds_vehicles:definitions working_event_list
 
-# Process bonuses
-data modify storage reds_vehicles:definitions working_bonus_list set from storage reds_vehicles:definitions working_root.bonuses
-execute unless function reds_vehicles:define/bonus_list/parse run return run function reds_vehicles:define/root/exit_fail
-data modify storage reds_vehicles:definitions working_root.bonuses set from storage reds_vehicles:definitions working_bonus_list
-
 
 # Create entities list
 data modify storage reds_vehicles:definitions working_entities set value []

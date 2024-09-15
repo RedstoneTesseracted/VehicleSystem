@@ -13,4 +13,4 @@ execute unless function reds_vehicles:define/event/parse run scoreboard players 
 data modify storage reds_vehicles:definitions processed_events append from storage reds_vehicles:definitions working_event
 
 # Run again if unprocessed event entries remain
-execute if data storage reds_vehicles:definitions unprocessed_events[0] run function reds_vehicles:define/process_events_loop
+execute if data storage reds_vehicles:definitions unprocessed_events[0] run function reds_vehicles:define/event_list/parse_loop

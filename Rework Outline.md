@@ -718,6 +718,15 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
             type: str,          # Type of projectile (arrow|missile|fireball|bullet)
             direction: str      # Direction to fire projectile in (forwards|down)
           }
+        },
+        {
+          action: "effect_passenger", # Apply a potion effect to a passenger
+          arguments: {
+            name: str,          # Name of effect to apply (required)
+            duration: int,      # Duration of potion effect (optional, defaults to 0)
+            amplifier: int,     # Potion effect amplifier (optional, defaults to 0)
+            hide_particles: bool, # Whether to show/hide particles (optional, defaults to false)
+          }
         }
       ]
     }
