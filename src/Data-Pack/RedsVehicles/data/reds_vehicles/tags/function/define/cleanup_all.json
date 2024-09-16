@@ -5,7 +5,6 @@
         "reds_vehicles:define/action_list/cleanup",
         "reds_vehicles:define/default_score/cleanup",
         "reds_vehicles:define/default_score_list/cleanup",
-        "reds_vehicles:define/dynamics_list/cleanup",
         "reds_vehicles:define/event/cleanup",
         "reds_vehicles:define/event_list/cleanup",
         "reds_vehicles:define/handling/cleanup",
