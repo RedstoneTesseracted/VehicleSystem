@@ -1,0 +1,23 @@
+{
+    "replace": false,
+    "values": [
+        "reds_vehicles:define/action/cleanup",
+        "reds_vehicles:define/action_list/cleanup",
+        "reds_vehicles:define/default_score/cleanup",
+        "reds_vehicles:define/default_score_list/cleanup",
+        "reds_vehicles:define/dynamics_list/cleanup",
+        "reds_vehicles:define/event/cleanup",
+        "reds_vehicles:define/event_list/cleanup",
+        "reds_vehicles:define/handling/cleanup",
+        "reds_vehicles:define/handling_list/cleanup",
+        "reds_vehicles:define/name/cleanup",
+        "reds_vehicles:define/part/cleanup",
+        "reds_vehicles:define/part_list/cleanup",
+        "reds_vehicles:define/physics/cleanup",
+        "reds_vehicles:define/physics_list/cleanup",
+        "reds_vehicles:define/predicate_list/cleanup",
+        "reds_vehicles:define/root/cleanup",
+        "reds_vehicles:define/root_list/cleanup",
+        "reds_vehicles:define/scale/cleanup"
+    ]
+}
