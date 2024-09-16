@@ -24,6 +24,7 @@ execute unless function reds_vehicles:define/handling_list/parse run return run 
 data modify storage reds_vehicles:definitions working_root.handling set from storage reds_vehicles:definitions working_handling_list
 data modify storage reds_vehicles:definitions working_root.inputs set from storage reds_vehicles:definitions working_input_list
 
+
 # Set default gravity
 data modify storage reds_vehicles:definitions working_base_gravity set value 0.08
 
@@ -33,10 +34,12 @@ execute unless function reds_vehicles:define/physics_list/parse run return run f
 data modify storage reds_vehicles:definitions working_root.physics set from storage reds_vehicles:definitions working_physics_list
 execute if data storage reds_vehicles:definitions working_base_gravity run data modify storage reds_vehicles:definitions working_root.base_gravity set from storage reds_vehicles:definitions working_base_gravity
 
+
 # Process events list
 data modify storage reds_vehicles:definitions working_event_list set from storage reds_vehicles:definitions working_root.events
 execute unless function reds_vehicles:define/event_list/parse run return run function reds_vehicles:define/root/exit_fail
 data modify storage reds_vehicles:definitions working_root.events set from storage reds_vehicles:definitions working_event_list
+
 
 # Default score setter list
 execute unless data storage reds_vehicles:definitions working_root.default_scores run data modify storage reds_vehicles:definitions working_root.default_scores set value []

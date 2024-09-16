@@ -739,7 +739,8 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
   default_scores: [     # A list of key-value default scores applied to newly spawned vehicles (optional)
     {
       name: str,        # Name of scoreboard objective
-      value: int        # Value to set
+      value: num,       # Value to set.  Non-integer types are allowed
+      precision: int    # Precision factor to multiple "value" by
     }
   ],
   ground_offset: float, # The offset between the root entity's base and the seat (default=1.0)
@@ -767,11 +768,6 @@ Several of these tags have an option to specify a predicate.  These allow certai
 | reds_vehicles:has_passenger                | Passes when any player is a passenger in the vehicle          |
 | reds_vehicles:is_moving                    | Passes when the vehicle is moving                             |
 | reds_vehicles:has_applied_force            | Passes when any of the applied force variables are nonzero    |
-
-Additional predicates are available that represent combinations of the above environment and state predicates.
-This is necessary to avoid having complicated logic for 
-Additionally, we have special predicate combinations.  Currently, these only include:
-*
 
 
 
@@ -1732,6 +1728,167 @@ Examples of the processed output:
 ```
 
 
+### Alternative Proposal 1
+
+As an alternative to the above proposed spec, here is a spec that might be more powerful at the cost of performance:
+```yaml
+{
+  transform: str,  # Name of transformation to affect.  See above for allowed values
+  name: str,       # Name of mounted display entity to target.  Mutually exclusive with "group"
+  group: str,      # Tag used to target mounted display entities.  Mutually exclusive with "name"
+  arguments: {}    # Arguments to be supplied to this transform.  Depend on transform
+}
+```
+
+As for the allowed values of `transform` along with the corresponding arguments:
+* translation
+  * x
+  * y
+  * z
+* left_rotation
+  * angle
+  * x
+  * y
+  * z
+* right_rotation
+  * angle
+  * x
+  * y
+  * z
+* scale
+  * x
+  * y
+  * z
+* yaw
+  * angle
+* pitch
+  * angle
+
+Here, *any* argument would be able to reference a vehicle score along with a *scale* tag.
+
+Ideally, not specifying an argument would simply leave it unaffected.  Unfortunately, that is not practical for left_rotation and right_rotation since they are stored as quaternions.  Currently, there is no practical way of converting from quaternion form to axis-angle form in Minecraft, as this would require evaluating square-roots and inverse trig functions.
+
+It may be necessary to handle left_rotation/right_rotation in a specially: saving the tag to a special location before applying it, so that it may be retrieved later.
+
+
+### Alternate Proposal 2
+
+We could technically build the dynamic animation system into the event system by simply adding an action for modifying transformations:
+```yaml
+{
+  action: "modify_transform",
+  arguments: {
+    source: str,    # Name of score to grab value from
+    scale: float,   # Scale applied to score
+    inverse_precision: float, # Inverse of score's precision multiplier (auto-generated)
+    name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
+    group: str,     # Tag used to target mounted display entities.  Mutually exclusive with "name"
+    transform: str, # Name of transform to modify
+    parameter: str  # Name of transformation parameter to modify
+  }
+}
+```
+
+```yaml
+{
+  action: "set_transform",
+  arguments: {
+    name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
+    group: str,     # Tag used to target mounted display entities.  Mutually exclusive with "name"
+    transform: str, # Name of transform to modify
+    parameter: any  # NBT tag to set transformation to
+  }
+}
+```
+
+```yaml
+{
+  action: "set_rotation_axis_angle",
+  arguments: {
+    source: str,    # Name of score to grab value from
+    scale: float,   # Scale applied to score
+    inverse_precision: float, # Inverse of score's precision multiplier (auto-generated)
+    name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
+    group: str,     # Tag used to target mounted display entities.  Mutually exclusive with "name"
+    transform: str, # Name of transform to modify (left_rotation or right_rotation)
+    axis: float[3], # Axis of rotation
+  }
+}
+```
+
+The allowed parameters for each transform are as follows:
+| Transformation Name | Parameters     |
+| ------------------- | -------------- |
+| translation         | x, y, z        |
+| left_rotation       | angle, x, y, z |
+| right_rotation      | angle, x, y, z |
+| scale               | x, y, z        |
+| yaw                 | angle          |
+| pitch               | angle          |
+
+
+
+### Looking Towards the Future
+
+If, in the future, we ever get *a good way to do basic math*, it may be desirable to expand upon this system.  Particularly: allowing precise control over which transformations a display entity is subject to, as well as their order.  This would require matrix multiplication, evaluation of trig functions, and non-insanity-inducing data processing.
+
+Firstly, part (aka display entity) tags would receive an additional field defining the order and type of transformations to be applied:
+```yaml
+{
+  transformations: [
+    {
+      type: str,     # The type of transformation
+      name: str,     # Name assigned to this transformation
+      axis: float[3] # Axis to rotate around when type="axis_rotation"
+    }
+  ]
+}
+```
+
+Here, transformation matrices are applied first-to-last, and multiplied together right-to-left.  Additionally, the allowed values of "type" are:
+* translation
+* rotation
+* axis_rotation
+* scale
+
+For example, the current default transformations list would be:
+```yaml
+{
+  transformation: [
+    {
+      type: "rotation",
+      name: "right_rotation"
+    },
+    {
+      type: "scale",
+      name: "scale"
+    },
+    {
+      type: "rotation",
+      name: "left_rotation"
+    },
+    {
+      type: "translation",
+      name: "translation"
+    },
+    {
+      type: "axis_rotation",
+      name: "pitch",
+      axis: [1.0f, 0.0f, 0.0f]
+    },
+    {
+      type: "axis_rotation",
+      name: "yaw",
+      axis: [0.0f, 1.0f, 0.0f]
+    }
+  ]
+}
+```
+
+Which, expressed using matrix multiplication, is:
+$$
+\bold{M} = \bold{R_{yaw}}\bold{R_{pitch}}\bold{T}\bold{R_L}\bold{S}\bold{R_R}
+$$
 
 
 ## Additional Remarks

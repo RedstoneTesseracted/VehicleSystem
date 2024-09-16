@@ -88,7 +88,7 @@ parts: [\
 default_scores: [\
     {\
         name: "vehicle.thrust",\
-        value: 100\
+        value: 0.1d\
     }\
 ],\
 events: [\
