@@ -148,11 +148,14 @@ events: [\
         ]\
     },\
     {\
+        predicates: [\
+            "reds_vehicles:has_passenger"\
+        ],\
         actions: [\
             {\
               action: "modify_transform",\
               arguments: {\
-                source: "vehicle.rotation.yaw",\
+                source: "vehicle.rot.yaw",\
                 name: "display",\
                 transform: "yaw",\
                 property: "angle"\

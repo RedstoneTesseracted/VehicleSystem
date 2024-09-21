@@ -724,7 +724,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
           arguments: {
             source: str,    # Name of score to grab value from
             scale: float,   # Scale applied to score
-            inverse_precision: float, # Inverse of score's precision multiplier (auto-generated)
+            precision: int, # Score's precision multiplier (auto-generated)
             name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
             group: str,     # Tag used to target mounted display entities.  Mutually exclusive with "name"
             transform: str, # Name of transform to modify
@@ -745,7 +745,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
           arguments: {
             source: str,    # Name of score to grab value from
             scale: float,   # Scale applied to score
-            inverse_precision: float, # Inverse of score's precision multiplier (auto-generated)
+            precision: int, # Score's precision multiplier (auto-generated)
             name: str,      # Name of mounted display entity to target. Mutually exclusive with "group"
             group: str,     # Tag used to target mounted display entities. Mutually exclusive with "name"
             transform: str, # Name of transform to modify (left_rotation or right_rotation)
@@ -1813,11 +1813,11 @@ We could technically build the dynamic animation system into the event system by
   arguments: {
     source: str,    # Name of score to grab value from
     scale: float,   # Scale applied to score
-    inverse_precision: float, # Inverse of score's precision multiplier (auto-generated)
+    precision: float, # Inverse of score's precision multiplier (auto-generated)
     name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
     group: str,     # Tag used to target mounted display entities.  Mutually exclusive with "name"
     transform: str, # Name of transform to modify
-    parameter: str  # Name of transformation parameter to modify
+    property: str   # Name of transformation property to modify
   }
 }
 ```
@@ -1840,7 +1840,7 @@ We could technically build the dynamic animation system into the event system by
   arguments: {
     source: str,    # Name of score to grab value from
     scale: float,   # Scale applied to score
-    inverse_precision: float, # Inverse of score's precision multiplier (auto-generated)
+    precision: float, # Inverse of score's precision multiplier (auto-generated)
     name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
     group: str,     # Tag used to target mounted display entities.  Mutually exclusive with "name"
     transform: str, # Name of transform to modify (left_rotation or right_rotation)
@@ -1849,15 +1849,15 @@ We could technically build the dynamic animation system into the event system by
 }
 ```
 
-The allowed parameters for each transform are as follows:
-| Transformation Name | Parameters     |
-| ------------------- | -------------- |
-| translation         | x, y, z        |
-| left_rotation       | angle, x, y, z |
-| right_rotation      | angle, x, y, z |
-| scale               | x, y, z        |
-| yaw                 | angle          |
-| pitch               | angle          |
+The allowed properties for each transform are as follows:
+| Transformation Name | Properties  |
+| ------------------- | ----------- |
+| translation         | x, y, z     |
+| left_rotation       | x, y, z, w  |
+| right_rotation      | x, y, z, w  |
+| scale               | x, y, z     |
+| yaw                 | angle       |
+| pitch               | angle       |
 
 
 This proposal is easier to implement, as scenarios that require different implementation (looking at you: rotations) can be split into different actions.  Additionally, it builds upon an already existing system thus preventing overhead from extra data preparation.  As such, we'll be going with this option.

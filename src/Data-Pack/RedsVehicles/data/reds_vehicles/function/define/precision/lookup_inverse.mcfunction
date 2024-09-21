@@ -5,7 +5,7 @@
 #
 
 # Set default value
-data modify storage reds_vehicles:precision out set value 1.0
+data modify storage reds_vehicles:precision out set value 1.0f
 
 # Set value if present in table
 $execute if data storage reds_vehicles:precision defaults[{key:"$(variable)"}].inverse run data modify storage reds_vehicles:precision out set from storage reds_vehicles:precision defaults[{key:"$(variable)"}].inverse

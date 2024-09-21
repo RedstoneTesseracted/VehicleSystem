@@ -42,15 +42,29 @@ execute if data storage reds_vehicles:definitions working_action.arguments.group
 data remove storage reds_vehicles:definitions working_action.arguments.name
 data remove storage reds_vehicles:definitions working_action.arguments.group
 
-# Auto-generate "inverse_precision" field if not already present
-data modify storage reds_vehicles:definitions args.variable set from storage reds_vehicles:definitions working_default_score.name
-data remove storage reds_vehicles:precision out
-execute unless data storage reds_vehicles:definitions working_action.arguments.inverse_precision run function reds_vehicles:define/precision/lookup_inverse with storage reds_vehicles:definitions args
-execute unless data storage reds_vehicles:definitions working_action.arguments.inverse_precision unless data storage reds_vehicles:precision out run function reds_vehicles:define/action/report/set_rotation_axis_angle/precision_macro_fail
+# Auto-generate "precision" field if not already present
+execute store result score vehicle.score_precision vehicle.local run data get storage reds_vehicles:definitions working_action.arguments.precision
+
+data modify storage reds_vehicles:definitions args.variable set from storage reds_vehicles:definitions working_action.arguments.source
+execute unless data storage reds_vehicles:definitions working_action.arguments.precision store result score vehicle.score_precision vehicle.local run function reds_vehicles:define/precision/lookup with storage reds_vehicles:definitions args
+execute unless data storage reds_vehicles:definitions working_action.arguments.precision if score vehicle.score_precision vehicle.local matches 0 run function reds_vehicles:define/action/report/set_rotation_axis_angle/precision_macro_fail
 data remove storage reds_vehicles:definitions args.variable
-execute unless data storage reds_vehicles:definitions working_action.arguments.inverse_precision unless data storage reds_vehicles:precision out run return 0
-execute unless data storage reds_vehicles:definitions working_action.arguments.inverse_precision run data modify storage reds_vehicles:definitions working_action.arguments.inverse_precision set from storage reds_vehicles:precision out
-data remove storage reds_vehicles:precision out
+execute unless data storage reds_vehicles:definitions working_action.arguments.precision if score vehicle.score_precision vehicle.local matches 0 run return 0
+
+
+# Premultiply the inverse precision and "scale" so we can drop the "precision" field
+kill @e[tag=vehicle.temp.premultiply,type=minecraft:block_display]
+
+summon minecraft:block_display ~ ~ ~ {Tags:["vehicle.temp.premultiply"]}
+data modify storage reds_vehicles:definitions args.transform set value [1.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f,1.0f]
+data modify storage reds_vehicles:definitions args.transform[0] set from storage reds_vehicles:definitions working_action.arguments.scale
+execute store result storage reds_vehicles:definitions args.transform[15] float 1.0 run scoreboard players get vehicle.score_precision vehicle.local
+data modify entity @e[tag=vehicle.temp.premultiply,type=minecraft:block_display,limit=1] transformation set from storage reds_vehicles:definitions args.transform
+data modify storage reds_vehicles:definitions working_action.arguments.scale set from entity @e[tag=vehicle.temp.premultiply,type=minecraft:block_display,limit=1] transformation.scale[0]
+
+kill @e[tag=vehicle.temp.premultiply,type=minecraft:block_display]
+data remove storage reds_vehicles:definitions args.transform
+data remove storage reds_vehicles:definitions working_action.arguments.precision
 
 # Success!
 return 1
