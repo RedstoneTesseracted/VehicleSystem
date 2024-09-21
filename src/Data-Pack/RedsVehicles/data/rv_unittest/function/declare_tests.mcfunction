@@ -1,0 +1,9 @@
+# This function declares a list of all unit test functions to be run
+
+data modify storage reds_vehicles:unittest tests set value [\
+"rv_unittest:parsing/action/playsound/test_invalid_input",\
+"rv_unittest:parsing/action/playsound/test_valid_input"\
+]
+
+# Get global count of unit tests
+execute store result score vehicle.unittest.total_tests vehicle.unittest.global run data get storage reds_vehicles:unittest tests

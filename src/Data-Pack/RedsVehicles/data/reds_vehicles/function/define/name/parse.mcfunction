@@ -12,7 +12,7 @@ execute unless score vehicle.name_length vehicle.local matches 1.. run function 
 execute unless score vehicle.name_length vehicle.local matches 1.. run return run function reds_vehicles:define/name/exit_fail
 
 # Assert name is a string
-data modify storage red_vehicles:types check set from storage reds_vehicles:definitions working_root.name
+data modify storage reds_vehicles:types check set from storage reds_vehicles:definitions working_root.name
 execute store result score vehicle.name_is_string vehicle.local run function reds_vehicles:util/typing/is_string
 execute if score vehicle.name_is_string vehicle.local matches 0 run function reds_vehicles:define/name/report/wrong_type
 execute if score vehicle.name_is_string vehicle.local matches 0 run function reds_vehicles:define/name/exit_fail

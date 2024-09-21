@@ -5,5 +5,5 @@
 # reds_vehicles:types storage
 #
 
-data modify storage red_vehicles:types compare set value [""]
-return run data modify storage red_vehicles:types compare append from storage red_vehicles:types check
+data modify storage reds_vehicles:types compare set value [""]
+return run data modify storage reds_vehicles:types compare append from storage reds_vehicles:types check

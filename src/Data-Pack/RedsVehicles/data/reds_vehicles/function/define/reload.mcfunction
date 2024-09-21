@@ -4,6 +4,9 @@
 # Set safety flag
 scoreboard players set vehicle.vehicle_define_in_progress vehicle.global 1
 
+# Collect garbage before proceeding
+function #reds_vehicles:define/cleanup_all
+
 # Reset the NBT storage containing the tables
 data remove storage reds_vehicles:definitions processed
 data remove storage reds_vehicles:definitions vehicles

@@ -1,6 +1,7 @@
 {
 	"replace": false,
 	"values": [
-		"reds_vehicles:init"
+		"reds_vehicles:init",
+		"rv_unittest:init"
 	]
 }

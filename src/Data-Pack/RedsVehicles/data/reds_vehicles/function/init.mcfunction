@@ -8,6 +8,8 @@ scoreboard objectives add vehicle.global dummy
 # Show number of vehicles upon reload [0=no,1=yes; default=0 (no)]
 scoreboard objectives add vehicle.config.show_vehicle_count_on_reload dummy
 scoreboard objectives add vehicle.config.notify_errors_on_reload dummy
+scoreboard objectives modify vehicle.config.show_vehicle_count_on_reload displayname {"text":"Show vehicle count on reload","color":"aqua"}
+scoreboard objectives modify vehicle.config.notify_errors_on_reload displayname {"text":"Notify errors on reload","color":"aqua"}
 execute unless score config vehicle.config.show_vehicle_count_on_reload matches -2147483648..2147483647 run scoreboard players set config vehicle.config.show_vehicle_count_on_reload 0
 execute unless score config vehicle.config.notify_errors_on_reload matches -2147483648..2147483647 run scoreboard players set config vehicle.config.notify_errors_on_reload 1
 
