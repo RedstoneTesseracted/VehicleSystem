@@ -4,7 +4,7 @@
 scoreboard players set vehicle.action_exists vehicle.local 1
 
 # Sound field is required
-execute unless data storage reds_vehicles:definitions working_action.arguments.sound run function reds_vehicles:define/action/report/playsound_missing_sound
+execute unless data storage reds_vehicles:definitions working_action.arguments.sound run function reds_vehicles:define/action/report/playsound/missing_sound
 execute unless data storage reds_vehicles:definitions working_action.arguments.sound run return 0
 
 # Pitch and volume fields are optional

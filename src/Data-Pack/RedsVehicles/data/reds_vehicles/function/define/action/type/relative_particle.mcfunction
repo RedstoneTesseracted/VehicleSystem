@@ -4,9 +4,9 @@
 scoreboard players set vehicle.action_exists vehicle.local 1
 
 # "name" and "relative_to" fields are required
-execute unless data storage reds_vehicles:definitions working_action.arguments.name run function reds_vehicles:define/action/report/rel_particle_missing_name
+execute unless data storage reds_vehicles:definitions working_action.arguments.name run function reds_vehicles:define/action/report/rel_particle/missing_name
 execute unless data storage reds_vehicles:definitions working_action.arguments.name run return 0
-execute unless data storage reds_vehicles:definitions working_action.arguments.relative_to run function reds_vehicles:define/action/report/rel_particle_missing_rel
+execute unless data storage reds_vehicles:definitions working_action.arguments.relative_to run function reds_vehicles:define/action/report/rel_particle/missing_rel
 execute unless data storage reds_vehicles:definitions working_action.arguments.relative_to run return 0
 
 # Set default values for offset, delta, count, and speed fields

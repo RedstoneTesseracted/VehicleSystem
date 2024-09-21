@@ -4,7 +4,7 @@
 scoreboard players set vehicle.action_exists vehicle.local 1
 
 # Name field is required
-execute unless data storage reds_vehicles:definitions working_action.arguments.name run function reds_vehicles:define/action/report/effect_passenger_missing_name
+execute unless data storage reds_vehicles:definitions working_action.arguments.name run function reds_vehicles:define/action/report/effect_passenger/missing_name
 execute unless data storage reds_vehicles:definitions working_action.arguments.name run return 0
 
 # Set default values for duration, amplifier, and hide_particles fields

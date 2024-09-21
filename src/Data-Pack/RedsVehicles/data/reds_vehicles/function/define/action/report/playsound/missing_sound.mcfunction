@@ -1,4 +1,4 @@
-data modify storage reds_vehicles:logging error.source set value "reds_vehicles:define/action/parse"
+data modify storage reds_vehicles:logging error.source set value "reds_vehicles:define/action/type/playsound"
 data modify storage reds_vehicles:logging error.description set value {text:"Action type \"playsound\" missing required field \"sound\""}
 
 function reds_vehicles:define/logging/log_auto_fill_name

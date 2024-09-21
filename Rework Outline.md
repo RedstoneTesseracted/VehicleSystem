@@ -728,7 +728,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
             name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
             group: str,     # Tag used to target mounted display entities.  Mutually exclusive with "name"
             transform: str, # Name of transform to modify
-            parameter: str  # Name of transformation parameter to modify
+            property: str   # Name of transformation parameter to modify
           }
         },
         {
