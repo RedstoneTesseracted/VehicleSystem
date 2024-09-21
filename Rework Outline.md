@@ -718,6 +718,39 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
             amplifier: int,     # Potion effect amplifier (optional, defaults to 0)
             hide_particles: bool, # Whether to show/hide particles (optional, defaults to false)
           }
+        },
+        {
+          action: "modify_transform",  # Edit property of an existing transform
+          arguments: {
+            source: str,    # Name of score to grab value from
+            scale: float,   # Scale applied to score
+            inverse_precision: float, # Inverse of score's precision multiplier (auto-generated)
+            name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
+            group: str,     # Tag used to target mounted display entities.  Mutually exclusive with "name"
+            transform: str, # Name of transform to modify
+            parameter: str  # Name of transformation parameter to modify
+          }
+        },
+        {
+          action: "set_transform",  # Sets a transform to an exact NBT value
+          arguments: {
+            name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
+            group: str,     # Tag used to target mounted display entities.  Mutually exclusive with "name"
+            transform: str, # Name of transform to modify
+            parameter: any  # NBT tag to set transformation to
+          }
+        },
+        {
+          action: "set_rotation_axis_angle",  # Sets a rotation given a static axis and dynamic angle
+          arguments: {
+            source: str,    # Name of score to grab value from
+            scale: float,   # Scale applied to score
+            inverse_precision: float, # Inverse of score's precision multiplier (auto-generated)
+            name: str,      # Name of mounted display entity to target. Mutually exclusive with "group"
+            group: str,     # Tag used to target mounted display entities. Mutually exclusive with "name"
+            transform: str, # Name of transform to modify (left_rotation or right_rotation)
+            axis: float[3], # Axis of rotation
+          }
         }
       ]
     }
@@ -1776,7 +1809,7 @@ It may be necessary to handle left_rotation/right_rotation in a specially: savin
 We could technically build the dynamic animation system into the event system by simply adding an action for modifying transformations:
 ```yaml
 {
-  action: "modify_transform",
+  action: "modify_transform",  # Edit property of an existing transform
   arguments: {
     source: str,    # Name of score to grab value from
     scale: float,   # Scale applied to score
@@ -1791,7 +1824,7 @@ We could technically build the dynamic animation system into the event system by
 
 ```yaml
 {
-  action: "set_transform",
+  action: "set_transform",  # Sets a transform to an exact NBT value
   arguments: {
     name: str,      # Name of mounted display entity to target.  Mutually exclusive with "group"
     group: str,     # Tag used to target mounted display entities.  Mutually exclusive with "name"
@@ -1803,7 +1836,7 @@ We could technically build the dynamic animation system into the event system by
 
 ```yaml
 {
-  action: "set_rotation_axis_angle",
+  action: "set_rotation_axis_angle",  # Sets a rotation given a static axis and dynamic angle
   arguments: {
     source: str,    # Name of score to grab value from
     scale: float,   # Scale applied to score
@@ -1826,6 +1859,8 @@ The allowed parameters for each transform are as follows:
 | yaw                 | angle          |
 | pitch               | angle          |
 
+
+This proposal is easier to implement, as scenarios that require different implementation (looking at you: rotations) can be split into different actions.  Additionally, it builds upon an already existing system thus preventing overhead from extra data preparation.  As such, we'll be going with this option.
 
 
 ### Looking Towards the Future
