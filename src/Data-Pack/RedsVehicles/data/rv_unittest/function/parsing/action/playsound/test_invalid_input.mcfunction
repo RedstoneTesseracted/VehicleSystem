@@ -33,7 +33,7 @@ execute store result score vehicle.unittest.result vehicle.unittest.local run fu
 
 # Analyze and display results
 # Check success/failure status
-execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when all \"sound\" is missing"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"sound\" is missing"}
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
 
 #####################################################################################################

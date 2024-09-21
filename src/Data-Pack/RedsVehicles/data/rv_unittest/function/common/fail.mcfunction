@@ -9,9 +9,10 @@ data modify storage reds_vehicles:unittest results.failed append from storage re
 # Display text
 tellraw @a ["",{"nbt":"name","storage": "reds_vehicles:unittest","hoverEvent": {"action": "show_text","contents": {"nbt": "description", "storage": "reds_vehicles:unittest","interpret": true}}},{"text":" - ","color":"white"},{"text":"FAILED","color":"red","bold":true}]
 tellraw @a [{"text": "  ","color":"red","italic":true},{"text": "  Reason: ","italic":false},{"nbt":"reason","storage": "reds_vehicles:unittest","interpret": true}]
+tellraw @a [{"text": "  ","color":"red","italic":true},{"text": "  Error log: ","italic":false}]
 
 # Show error log if any are present
-execute if data storage reds_vehicles:logging errors[0] run function reds_vehicles:define/notify/show_errors
+execute if data storage reds_vehicles:logging errors[0] as @a run function reds_vehicles:define/notify/show_errors
 
 tellraw @a {"text":"---------------------------------------------"}
 

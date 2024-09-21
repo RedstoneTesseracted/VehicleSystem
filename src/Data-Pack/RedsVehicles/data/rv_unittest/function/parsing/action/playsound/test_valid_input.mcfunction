@@ -21,7 +21,7 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run da
 execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
 
 # Check output
-execute unless data storage reds_vehicles:definitions working_action{action: "playsound"} run data modify storage reds_vehicles:unittest reason set value [{text:"working_action.action was "},{nbt:"working_action.action", storage:"reds_vehicles:definitions"}]
+execute unless data storage reds_vehicles:definitions working_action{action: "playsound"} run data modify storage reds_vehicles:unittest reason set value [{text:"working_action.action was somehow converted to \""},{nbt:"working_action.action", storage:"reds_vehicles:definitions"},{text:"\""}]
 execute unless data storage reds_vehicles:definitions working_action{action: "playsound"} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_action.arguments{sound:"minecraft:block.stone.break"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.action to be \"minecraft:block.stone.break\" (was "},{nbt:"working_action.action", storage:"reds_vehicles:definitions"},{text:")"}]
@@ -50,7 +50,7 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run da
 execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
 
 # Check output
-execute unless data storage reds_vehicles:definitions working_action{action: "playsound"} run data modify storage reds_vehicles:unittest reason set value [{text:"working_action.action was "},{nbt:"working_action.action", storage:"reds_vehicles:definitions"}]
+execute unless data storage reds_vehicles:definitions working_action{action: "playsound"} run data modify storage reds_vehicles:unittest reason set value [{text:"working_action.action was somehow converted to \""},{nbt:"working_action.action", storage:"reds_vehicles:definitions"},{text:"\""}]
 execute unless data storage reds_vehicles:definitions working_action{action: "playsound"} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_action.arguments{sound:"minecraft:block.stone.break"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.action to be \"minecraft:block.stone.break\" (was "},{nbt:"working_action.action", storage:"reds_vehicles:definitions"},{text:")"}]
