@@ -21,8 +21,14 @@ execute unless data storage reds_vehicles:definitions working_action.arguments.p
 execute unless data storage reds_vehicles:definitions working_action.arguments.source run function reds_vehicles:define/action/report/modify_transform/missing_source
 execute unless data storage reds_vehicles:definitions working_action.arguments.source run return 0
 
-# Scale field is optional (defaults to 1.0)
-execute unless data storage reds_vehicles:definitions working_action.arguments.scale run data modify storage reds_vehicles:definitions working_action.arguments.scale set value 1.0
+# Scale field is optional (defaults to 1.0f)
+execute unless data storage reds_vehicles:definitions working_action.arguments.scale run data modify storage reds_vehicles:definitions working_action.arguments.scale set value 1.0f
+
+# Check that scale is a float
+data modify storage reds_vehicles:definitions float_check set value [0.0f]
+execute store success score vehicle.scale_is_float_status vehicle.local run data modify storage reds_vehicles:definitions float_check append from storage reds_vehicles:definitions working_action.arguments.scale
+execute if score vehicle.scale_is_float_status vehicle.local matches 0 run function reds_vehicles:define/action/report/modify_transform/scale_not_float
+execute if score vehicle.scale_is_float_status vehicle.local matches 0 run return 0
 
 # Convert name or group field into target selector
 scoreboard players set vehicle.selector_macro_status vehicle.local 0
