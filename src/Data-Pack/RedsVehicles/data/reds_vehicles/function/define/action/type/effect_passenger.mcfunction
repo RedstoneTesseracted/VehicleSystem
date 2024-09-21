@@ -10,7 +10,7 @@ execute unless data storage reds_vehicles:definitions working_action.arguments.n
 # Set default values for duration, amplifier, and hide_particles fields
 execute unless data storage reds_vehicles:definitions working_action.arguments.duration run data modify storage reds_vehicles:definitions working_action.arguments.duration set value 0
 execute unless data storage reds_vehicles:definitions working_action.arguments.amplifier run data modify storage reds_vehicles:definitions working_action.arguments.amplifier set value 0
-execute unless data storage reds_vehicles:definitions working_action.arguments.hide_particles run data modify storage reds_vehicles:definitions working_action.arguments.duration set value 1b
+execute unless data storage reds_vehicles:definitions working_action.arguments.hide_particles run data modify storage reds_vehicles:definitions working_action.arguments.hide_particles set value 1b
 
 # Convert "hide_particles" field to true/false string
 execute store result score vehicle.hide_particles_value vehicle.local run data get storage reds_vehicles:definitions working_action.arguments.hide_particles

@@ -24,7 +24,7 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run re
 execute unless data storage reds_vehicles:definitions working_action{action: "particle"} run data modify storage reds_vehicles:unittest reason set value [{text:"working_action.action was somehow converted to \""},{nbt:"working_action.action", storage:"reds_vehicles:definitions"},{text:"\""}]
 execute unless data storage reds_vehicles:definitions working_action{action: "particle"} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_action.arguments{name:"minecraft:bubble"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.action to be \"minecraft:block.stone.break\" (was "},{nbt:"working_action.action", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_action.arguments{name:"minecraft:bubble"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.name to be \"minecraft:bubble\" (was "},{nbt:"working_action.arguments.name", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_action.arguments{name:"minecraft:bubble"} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_action.arguments{offsetU:1.0} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.offsetU to be 1.0 (was "},{nbt:"working_action.arguments.offsetU", storage:"reds_vehicles:definitions"},{text:")"}]
@@ -78,7 +78,7 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run re
 execute unless data storage reds_vehicles:definitions working_action{action: "particle"} run data modify storage reds_vehicles:unittest reason set value [{text:"working_action.action was somehow converted to \""},{nbt:"working_action.action", storage:"reds_vehicles:definitions"},{text:"\""}]
 execute unless data storage reds_vehicles:definitions working_action{action: "particle"} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_action.arguments{name:"minecraft:bubble"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.action to be \"minecraft:block.stone.break\" (was "},{nbt:"working_action.action", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_action.arguments{name:"minecraft:bubble"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.name to be \"minecraft:bubble\" (was "},{nbt:"working_action.arguments.name", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_action.arguments{name:"minecraft:bubble"} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_action.arguments{offsetU:0.0} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.offsetU to be 0.0 (was "},{nbt:"working_action.arguments.offsetU", storage:"reds_vehicles:definitions"},{text:")"}]
