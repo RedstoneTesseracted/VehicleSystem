@@ -1,7 +1,7 @@
 #### UNIT TEST ####
 # Try to declare a valid "playsound" actions
 data modify storage reds_vehicles:unittest name set value "parsing/action/playsound/test_invalid_input"
-data modify storage reds_vehicles:unittest description set value {text:"Try to declare a playsound action using valid input"}
+data modify storage reds_vehicles:unittest description set value {text:"Make sure we can catch invalid input when trying to declare a playsound action"}
 data modify storage reds_vehicles:unittest reason set value ""
 
 #####################################################################################################
