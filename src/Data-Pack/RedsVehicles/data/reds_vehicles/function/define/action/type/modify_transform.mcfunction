@@ -14,8 +14,8 @@ execute unless data storage reds_vehicles:definitions working_action.arguments.t
 execute unless data storage reds_vehicles:definitions working_action.arguments.transform run return 0
 
 # Property field is required
-execute unless data storage reds_vehicles:definitions working_action.arguments.parameter run function reds_vehicles:define/action/report/modify_transform/missing_property
-execute unless data storage reds_vehicles:definitions working_action.arguments.parameter run return 0
+execute unless data storage reds_vehicles:definitions working_action.arguments.property run function reds_vehicles:define/action/report/modify_transform/missing_property
+execute unless data storage reds_vehicles:definitions working_action.arguments.property run return 0
 
 # Source field is required
 execute unless data storage reds_vehicles:definitions working_action.arguments.source run function reds_vehicles:define/action/report/modify_transform/missing_source
@@ -39,7 +39,7 @@ data remove storage reds_vehicles:definitions working_action.arguments.name
 data remove storage reds_vehicles:definitions working_action.arguments.group
 
 # Auto-generate "inverse_precision" field if not already present
-data modify storage reds_vehicles:definitions args.variable set from storage reds_vehicles:definitions working_default_score.name
+data modify storage reds_vehicles:definitions args.variable set from storage reds_vehicles:definitions working_action.arguments.source
 data remove storage reds_vehicles:precision out
 execute unless data storage reds_vehicles:definitions working_action.arguments.inverse_precision run function reds_vehicles:define/precision/lookup_inverse with storage reds_vehicles:definitions args
 execute unless data storage reds_vehicles:definitions working_action.arguments.inverse_precision unless data storage reds_vehicles:precision out run function reds_vehicles:define/action/report/modify_transform/precision_macro_fail

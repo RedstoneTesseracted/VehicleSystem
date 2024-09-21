@@ -146,6 +146,19 @@ events: [\
                 }\
             }\
         ]\
+    },\
+    {\
+        actions: [\
+            {\
+              action: "modify_transform",\
+              arguments: {\
+                source: "vehicle.rotation.yaw",\
+                name: "display",\
+                transform: "yaw",\
+                property: "angle"\
+              }\
+            }\
+        ]\
     }\
 ],\
 seat: {\
