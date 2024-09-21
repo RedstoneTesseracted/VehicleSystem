@@ -5,6 +5,8 @@ data modify storage reds_vehicles:unittest tests set value [\
 "rv_unittest:parsing/action/particle/test_valid_input",\
 "rv_unittest:parsing/action/playsound/test_invalid_input",\
 "rv_unittest:parsing/action/playsound/test_valid_input",\
+"rv_unittest:parsing/action/projectile/test_invalid_input",\
+"rv_unittest:parsing/action/projectile/test_valid_input",\
 "rv_unittest:parsing/action/relative_particle/test_invalid_input",\
 "rv_unittest:parsing/action/relative_particle/test_valid_input"\
 ]
