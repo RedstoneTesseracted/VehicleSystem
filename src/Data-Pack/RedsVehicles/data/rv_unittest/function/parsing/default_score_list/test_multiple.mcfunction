@@ -5,7 +5,7 @@ data modify storage reds_vehicles:unittest reason set value ""
 
 #####################################################################################################
 
-# Setup - ALL TAGS SPECIFIED, HIDE_PARTICLES=TRUE
+# Setup
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 

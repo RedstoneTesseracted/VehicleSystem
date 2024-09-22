@@ -1,11 +1,11 @@
 #### UNIT TEST ####
 data modify storage reds_vehicles:unittest name set value "parsing/part_list/test_multiple"
-data modify storage reds_vehicles:unittest description set value {text:"Try to declare a list of default scores"}
+data modify storage reds_vehicles:unittest description set value {text:"Try to declare a list of parts"}
 data modify storage reds_vehicles:unittest reason set value ""
 
 #####################################################################################################
 
-# Setup - ALL TAGS SPECIFIED, HIDE_PARTICLES=TRUE
+# Setup
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
