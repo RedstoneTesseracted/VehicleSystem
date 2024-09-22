@@ -25,7 +25,9 @@ data modify storage reds_vehicles:unittest tests set value [\
 "rv_unittest:parsing/action/set_score/test_valid_input",\
 "rv_unittest:parsing/action/set_transform/test_invalid_input",\
 "rv_unittest:parsing/action/set_transform/test_valid_input",\
-"rv_unittest:parsing/action_list/test_multiple_actions"\
+"rv_unittest:parsing/action_list/test_multiple_actions",\
+"rv_unittest:parsing/default_score/test_invalid_input",\
+"rv_unittest:parsing/default_score/test_valid_input"\
 ]
 
 # Get global count of unit tests
