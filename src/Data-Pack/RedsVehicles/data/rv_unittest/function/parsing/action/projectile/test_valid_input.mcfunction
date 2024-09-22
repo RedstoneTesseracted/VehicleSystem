@@ -27,7 +27,7 @@ execute unless data storage reds_vehicles:definitions working_action{action: "pr
 execute unless data storage reds_vehicles:definitions working_action.arguments{name:"arrow"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.name to be \"arrow\" (was "},{nbt:"working_action.arguments.name", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_action.arguments{name:"arrow"} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_action.arguments{direction:"forward"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.pitch to be \"forward\" (was "},{nbt:"working_action.arguments.pitch", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_action.arguments{direction:"forward"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.direction to be \"forward\" (was "},{nbt:"working_action.arguments.direction", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_action.arguments{direction:"forward"} run return run function rv_unittest:common/fail
 
 #####################################################################################################
