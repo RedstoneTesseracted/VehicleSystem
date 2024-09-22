@@ -66,6 +66,8 @@ def main():
     #known_codes = dict(known_codes)
     for i, j in known_codes.items():
         print(f'{j} - {i}')
+
+    print(f"Error Code Range: {min(known_codes.keys())}-{max(known_codes.keys())}")
     
     if not errors_occured:
         print("Finished without errors!")

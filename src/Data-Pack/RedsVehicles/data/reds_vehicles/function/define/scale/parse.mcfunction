@@ -21,9 +21,13 @@ execute if score vehicle.source_type_match vehicle.local matches 1 run data remo
 data remove storage reds_vehicles:definitions compare
 
 # Validate source type-specific fields
+scoreboard players set vehicle.source_type_exists vehicle.local 0
 execute store result score vehicle.source_macro_status vehicle.local run function reds_vehicles:define/scale/source_specific_validate with storage reds_vehicles:definitions working_scale
 execute if score vehicle.source_macro_status vehicle.local matches 0 run function reds_vehicles:define/scale/report/source_macro_fail
-execute unless score vehicle.source_macro_status vehicle.local matches 1 run return run function reds_vehicles:define/scale/exit_fail
+execute if score vehicle.source_macro_status vehicle.local matches 0 run return run function reds_vehicles:define/scale/exit_fail
+execute if score vehicle.source_type_exists vehicle.local matches 0 run function reds_vehicles:define/scale/report/unknown_source
+execute if score vehicle.source_type_exists vehicle.local matches 0 run return run function reds_vehicles:define/scale/exit_fail
+execute if score vehicle.source_macro_status vehicle.local matches -1 run return run function reds_vehicles:define/scale/exit_fail
 
 # Success!
 return run function reds_vehicles:define/scale/exit_success
