@@ -24,19 +24,19 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run re
 
 # Check output
 execute unless data storage reds_vehicles:definitions working_action_list[0] run data modify storage reds_vehicles:unittest reason set value {text:"working_action_list was unexpectedly truncated to zero elements"}
-execute unless data storage reds_vehicles:definitions working_action_list[0] run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_action_list[0] run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_action_list[1] run data modify storage reds_vehicles:unittest reason set value {text:"working_action_list was unexpectedly truncated to one element"}
-execute unless data storage reds_vehicles:definitions working_action_list[1] run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_action_list[1] run return run function rv_unittest:common/fail
 
 execute if data storage reds_vehicles:definitions working_action_list[2] run data modify storage reds_vehicles:unittest reason set value {text:"working_action_list was somehow expanded past two elements"}
-execute if data storage reds_vehicles:definitions working_action_list[2] run function rv_unittest:common/fail
+execute if data storage reds_vehicles:definitions working_action_list[2] run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_action_list[{action: "effect_passenger"}] run data modify storage reds_vehicles:unittest reason set value {text:"Dropped effect_passenger action from action list"}
-execute unless data storage reds_vehicles:definitions working_action_list[{action: "effect_passenger"}] run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_action_list[{action: "effect_passenger"}] run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_action_list[{action: "playsound"}] run data modify storage reds_vehicles:unittest reason set value {text:"Dropped playsound action from action list"}
-execute unless data storage reds_vehicles:definitions working_action_list[{action: "playsound"}] run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_action_list[{action: "playsound"}] run return run function rv_unittest:common/fail
 
 
 #####################################################################################################

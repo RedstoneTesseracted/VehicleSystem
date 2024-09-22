@@ -24,19 +24,19 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run re
 
 # Check output
 execute unless data storage reds_vehicles:definitions working_default_score_list[0] run data modify storage reds_vehicles:unittest reason set value {text:"working_default_score_list was unexpectedly truncated to zero elements"}
-execute unless data storage reds_vehicles:definitions working_default_score_list[0] run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_default_score_list[0] run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_default_score_list[1] run data modify storage reds_vehicles:unittest reason set value {text:"working_default_score_list was unexpectedly truncated to one element"}
-execute unless data storage reds_vehicles:definitions working_default_score_list[1] run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_default_score_list[1] run return run function rv_unittest:common/fail
 
 execute if data storage reds_vehicles:definitions working_default_score_list[2] run data modify storage reds_vehicles:unittest reason set value {text:"working_default_score_list was somehow expanded past two elements"}
-execute if data storage reds_vehicles:definitions working_default_score_list[2] run function rv_unittest:common/fail
+execute if data storage reds_vehicles:definitions working_default_score_list[2] run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_default_score_list[{name: "vehicle.thrust"}] run data modify storage reds_vehicles:unittest reason set value {text:"Dropped vehicle.thrust element from default score list"}
-execute unless data storage reds_vehicles:definitions working_default_score_list[{name: "vehicle.thrust"}] run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_default_score_list[{name: "vehicle.thrust"}] run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_default_score_list[{name: "vehicle.nonstandard"}] run data modify storage reds_vehicles:unittest reason set value {text:"Dropped vehicle.nonstandard element from default score list"}
-execute unless data storage reds_vehicles:definitions working_default_score_list[{name: "vehicle.nonstandard"}] run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_default_score_list[{name: "vehicle.nonstandard"}] run return run function rv_unittest:common/fail
 
 
 #####################################################################################################
