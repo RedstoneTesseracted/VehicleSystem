@@ -1,5 +1,7 @@
 data modify storage reds_vehicles:logging error.source set value "reds_vehicles:define/default_score/parse"
 data modify storage reds_vehicles:logging error.description set value {text:"An unknown error caused the function macro \"reds_vehicles:define/precision/lookup\" to fail to compile.  Either the given variable name is invalid or there is a bug in the pack.  See Extra for the arguments passed to the macro."}
 data modify storage reds_vehicles:logging error.extra set from storage reds_vehicles:definitions args
+## ERROR CODE LINE ##
+data modify storage reds_vehicles:logging error.code set value 43
 
 function reds_vehicles:define/logging/log_auto_fill_name
