@@ -38,7 +38,8 @@ data modify storage reds_vehicles:unittest tests set value [\
 "rv_unittest:parsing/name/test_invalid_input",\
 "rv_unittest:parsing/name/test_valid_input",\
 "rv_unittest:parsing/part/test_invalid_input",\
-"rv_unittest:parsing/part/test_valid_input"\
+"rv_unittest:parsing/part/test_valid_input",\
+"rv_unittest:parsing/part_list/test_multiple"\
 ]
 
 # Get global count of unit tests
