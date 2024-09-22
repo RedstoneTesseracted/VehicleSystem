@@ -46,7 +46,7 @@ execute unless data storage reds_vehicles:definitions working_handling{input_gro
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_handling set value {input: "look.y", operation: "increase", variable: "vehicle.dvel.y"}
+data modify storage reds_vehicles:definitions working_handling set value {input: "look.y", operation: "decrease", variable: "vehicle.dvel.y"}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/handling/parse
@@ -60,8 +60,8 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run re
 execute unless data storage reds_vehicles:definitions working_handling{input: "look.y"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.input to be \"input.y\" (was "},{nbt:"working_handling.input", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_handling{input: "look.y"} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_handling{operation: "increase"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.operation to be \"increase\" (was "},{nbt:"working_handling.operation", storage:"reds_vehicles:definitions"},{text:")"}]
-execute unless data storage reds_vehicles:definitions working_handling{operation: "increase"} run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_handling{operation: "decrease"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.operation to be \"increase\" (was "},{nbt:"working_handling.operation", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{operation: "decrease"} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.dvel.y"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.variable to be \"vehicle.dvel.y\" (was "},{nbt:"working_handling.variable", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.dvel.y"} run return run function rv_unittest:common/fail
@@ -82,7 +82,7 @@ execute unless data storage reds_vehicles:definitions working_handling{input_gro
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_handling set value {input: "look.z", operation: "increase", variable: "vehicle.nonstandard", precision: 100}
+data modify storage reds_vehicles:definitions working_handling set value {input: "look.z", operation: "set", variable: "vehicle.nonstandard", precision: 100}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/handling/parse
@@ -99,8 +99,38 @@ execute unless data storage reds_vehicles:definitions working_handling{variable:
 execute unless data storage reds_vehicles:definitions working_handling{precision: 100} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.precision to be 100 (was "},{nbt:"working_handling.precision", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_handling{precision: 100} run return run function rv_unittest:common/fail
 
+execute unless data storage reds_vehicles:definitions working_handling{operation: "set"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.operation to be \"set\" (was "},{nbt:"working_handling.input_group", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{operation: "set"} run return run function rv_unittest:common/fail
+
 execute unless data storage reds_vehicles:definitions working_handling{input_group: "look"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.input_group to be \"look\" (was "},{nbt:"working_handling.input_group", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_handling{input_group: "look"} run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
+
+# Setup - TOGGLE
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_handling set value {input: "look.z", operation: "toggle", variable: "vehicle.nonstandard"}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/handling/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run data modify storage reds_vehicles:unittest reason set value {text:"Failed to parse valid input"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
+
+# Check output
+execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.variable to be \"vehicle.dvel.x\" (was "},{nbt:"working_handling.variable", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run return run function rv_unittest:common/fail
+
+execute unless data storage reds_vehicles:definitions working_handling{precision: 1} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.precision to be 100 (was "},{nbt:"working_handling.precision", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{precision: 1} run return run function rv_unittest:common/fail
+
+execute unless data storage reds_vehicles:definitions working_handling{operation: "toggle"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.operation to be \"toggle\" (was "},{nbt:"working_handling.input_group", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{operation: "toggle"} run return run function rv_unittest:common/fail
 
 
 #####################################################################################################
