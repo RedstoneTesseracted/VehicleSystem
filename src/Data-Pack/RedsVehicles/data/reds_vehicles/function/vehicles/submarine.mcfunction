@@ -157,8 +157,8 @@ events: [\
               arguments: {\
                 source: "vehicle.rot.yaw",\
                 name: "display",\
-                transform: "scale",\
-                property: "x"\
+                transform: "yaw",\
+                property: "angle"\
               }\
             }\
         ]\
