@@ -931,7 +931,10 @@ Error messages will have the following format:
 Function: "%s"
 Vehicle: "%s"
 Description: %s
+Extra: [Hover]
 ```
+
+The extra field is optional, and will not be printed if not present.  This field is used to display additional information that might be useful for debugging.
 
 ## Visuals and Animations
 
