@@ -61,9 +61,9 @@ def main():
                 print("ERROR: Couldn't find error code for", path_to_file)
 
     # Summary
-    known_codes = [(i,j) for i, j in known_codes.items()]
-    known_codes.sort(key=lambda x: x[0])
-    known_codes = dict(known_codes)
+    #known_codes = [(i,j) for i, j in known_codes.items()]
+    #known_codes.sort(key=lambda x: x[0])
+    #known_codes = dict(known_codes)
     for i, j in known_codes.items():
         print(f'{j} - {i}')
     

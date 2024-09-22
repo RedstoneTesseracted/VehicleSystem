@@ -32,8 +32,10 @@ execute unless data storage reds_vehicles:definitions working_handling.precision
 execute unless data storage reds_vehicles:definitions working_handling.precision store result storage reds_vehicles:definitions working_handling.precision int 1 run scoreboard players get vehicle.retrieved_precision vehicle.local
 
 # Handle this particular type of input
+scoreboard players set vehicle.input_exists vehicle.local 0
 execute store result score vehicle.input_parse_status vehicle.local run function reds_vehicles:define/handling/parse_input_specific with storage reds_vehicles:definitions working_handling
 execute if score vehicle.input_parse_status vehicle.local matches 0 run function reds_vehicles:define/handling/report/input_macro_fail
+execute if score vehicle.input_exists vehicle.local matches 0 run function reds_vehicles:define/handling/report/unknown_input
 execute unless score vehicle.input_parse_status vehicle.local matches 1 run return run function reds_vehicles:define/handling/exit_fail
 
 
