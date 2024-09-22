@@ -1,5 +1,4 @@
 #### UNIT TEST ####
-# Try to declare a list of actions
 data modify storage reds_vehicles:unittest name set value "parsing/handling_list/test_multiple"
 data modify storage reds_vehicles:unittest description set value {text:"Try to declare a list of default scores"}
 data modify storage reds_vehicles:unittest reason set value ""

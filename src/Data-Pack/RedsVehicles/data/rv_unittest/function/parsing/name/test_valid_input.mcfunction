@@ -1,5 +1,4 @@
 #### UNIT TEST ####
-# Try to declare a valid "effect_passenger" actions
 data modify storage reds_vehicles:unittest name set value "parsing/name/test_valid_input"
 data modify storage reds_vehicles:unittest description set value {text:"Try to declare an name element using valid input"}
 data modify storage reds_vehicles:unittest reason set value ""

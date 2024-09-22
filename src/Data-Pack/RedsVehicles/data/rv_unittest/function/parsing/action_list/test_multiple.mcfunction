@@ -1,5 +1,4 @@
 #### UNIT TEST ####
-# Try to declare a list of actions
 data modify storage reds_vehicles:unittest name set value "parsing/action_list/test_multiple_actions"
 data modify storage reds_vehicles:unittest description set value {text:"Try to declare a list of valid actions"}
 data modify storage reds_vehicles:unittest reason set value ""
