@@ -24,7 +24,7 @@ execute unless score vehicle.physics_macro_status vehicle.local matches 1 if sco
 execute unless score vehicle.physics_macro_status vehicle.local matches 1 run return run function reds_vehicles:define/physics/exit_fail
 
 # Assign UID to prevent conflicts between multiple entries of the same type
-#execute store result storage reds_vehicles:definitions working_physics.uid int 1 run random value 0..2147483646
+execute store result storage reds_vehicles:definitions working_physics.uid int 1 run random value 0..2147483646
 
 # Process predicates list
 data modify storage reds_vehicles:definitions working_predicate set value ""
