@@ -19,7 +19,7 @@ data modify storage reds_vehicles:definitions working_event.predicate set value 
 execute if data storage reds_vehicles:definitions working_event.trigger store result score vehicle.trigger_macro_status vehicle.local run function reds_vehicles:define/event/generate_trigger_condition with storage reds_vehicles:definitions working_event
 execute if data storage reds_vehicles:definitions working_event.trigger if score vehicle.trigger_macro_status vehicle.local matches 0 run function reds_vehicles:define/event/report/trigger_macro_fail
 execute if data storage reds_vehicles:definitions working_event.trigger if score vehicle.trigger_macro_status vehicle.local matches 0 run return run function reds_vehicles:define/event/exit_fail
-data remove storage reds_vehicles:definitions working.trigger
+data remove storage reds_vehicles:definitions working_event.trigger
 
 # Process predicates list
 data modify storage reds_vehicles:definitions working_predicate set value ""
@@ -40,7 +40,7 @@ execute unless data storage reds_vehicles:definitions working_event.actions run 
 execute unless data storage reds_vehicles:definitions working_event.actions run return run function reds_vehicles:define/event/exit_fail
 execute store result score vehicle.action_list_length vehicle.local run data get storage reds_vehicles:definitions working_event.actions
 execute if score vehicle.action_list_length vehicle.local matches 0 run function reds_vehicles:define/event/report/zero_actions
-execute if score vehicle.action_list_length vehicle.local matches 0 run function reds_vehicles:define/event/exit_fail
+execute if score vehicle.action_list_length vehicle.local matches 0 run return run function reds_vehicles:define/event/exit_fail
 
 data modify storage reds_vehicles:definitions working_action_list set from storage reds_vehicles:definitions working_event.actions
 execute unless function reds_vehicles:define/action_list/parse run return run function reds_vehicles:define/event/exit_fail
