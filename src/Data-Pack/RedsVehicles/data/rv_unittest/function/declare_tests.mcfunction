@@ -1,6 +1,10 @@
 # This function declares a list of all unit test functions to be run
 
 data modify storage reds_vehicles:unittest tests set value [\
+"rv_unittest:general/check_valid_version",\
+"rv_unittest:parsing/action/test_arguments_missing",\
+"rv_unittest:parsing/action/test_garbled_action",\
+"rv_unittest:parsing/action/test_unknown_action",\
 "rv_unittest:parsing/action/effect_passenger/test_invalid_input",\
 "rv_unittest:parsing/action/effect_passenger/test_valid_input",\
 "rv_unittest:parsing/action/modify_transform/test_invalid_input",\

@@ -6,22 +6,6 @@ data modify storage reds_vehicles:unittest reason set value ""
 
 #####################################################################################################
 
-# Setup - ALL ARGUMENTS MISSING
-data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
-function reds_vehicles:define/logging/reset
-
-data modify storage reds_vehicles:definitions working_action set value {action: "modify_transform", arguments: {}}
-
-# Run functions
-execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/action/parse
-
-# Analyze and display results
-# Check success/failure status
-execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when all arguments are missing"}
-execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
-
-#####################################################################################################
-
 # Setup - NAME & GROUP MISSING
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
@@ -35,6 +19,11 @@ execute store result score vehicle.unittest.result vehicle.unittest.local run fu
 # Check success/failure status
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"name\" is missing"}
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 6}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 6"}]
+execute unless data storage reds_vehicles:logging errors[{code: 6}] run return run function rv_unittest:common/fail
 
 #####################################################################################################
 
@@ -51,6 +40,11 @@ execute store result score vehicle.unittest.result vehicle.unittest.local run fu
 # Check success/failure status
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"transform\" is missing"}
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 9}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 9"}]
+execute unless data storage reds_vehicles:logging errors[{code: 9}] run return run function rv_unittest:common/fail
 
 #####################################################################################################
 
@@ -67,6 +61,11 @@ execute store result score vehicle.unittest.result vehicle.unittest.local run fu
 # Check success/failure status
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"property\" is missing"}
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 7}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 7"}]
+execute unless data storage reds_vehicles:logging errors[{code: 7}] run return run function rv_unittest:common/fail
 
 #####################################################################################################
 
@@ -83,6 +82,11 @@ execute store result score vehicle.unittest.result vehicle.unittest.local run fu
 # Check success/failure status
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"source\" is missing"}
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 8}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 8"}]
+execute unless data storage reds_vehicles:logging errors[{code: 8}] run return run function rv_unittest:common/fail
 
 #####################################################################################################
 
@@ -99,6 +103,11 @@ execute store result score vehicle.unittest.result vehicle.unittest.local run fu
 # Check success/failure status
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"name\" AND \"group\" are provided"}
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 4}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 4"}]
+execute unless data storage reds_vehicles:logging errors[{code: 4}] run return run function rv_unittest:common/fail
 
 #####################################################################################################
 
@@ -106,7 +115,7 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run re
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_action set value {action: "modify_transform", arguments: {name:"display",group:"foobar",transform:"yaw",property:"angle",source:"vehicle.rot.yaw", scale: 0.5d}}
+data modify storage reds_vehicles:definitions working_action set value {action: "modify_transform", arguments: {name:"display",transform:"yaw",property:"angle",source:"vehicle.rot.yaw", scale: 0.5d}}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/action/parse
@@ -115,6 +124,11 @@ execute store result score vehicle.unittest.result vehicle.unittest.local run fu
 # Check success/failure status
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"scale\" is a double"}
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 12}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 12"}]
+execute unless data storage reds_vehicles:logging errors[{code: 12}] run return run function rv_unittest:common/fail
 
 #####################################################################################################
 

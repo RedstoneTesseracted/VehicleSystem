@@ -10,7 +10,7 @@
 
 # Arguments field is required regardless of action type
 execute unless data storage reds_vehicles:definitions working_action.arguments run function reds_vehicles:define/action/report/missing_arguments
-execute unless data storage reds_vehicles:definitions working_action.arguments run function reds_vehicles:define/action/exit_fail
+execute unless data storage reds_vehicles:definitions working_action.arguments run return run function reds_vehicles:define/action/exit_fail
 
 # Attempt to run corresponding type validation
 scoreboard players set vehicle.action_exists vehicle.local 0
@@ -18,10 +18,10 @@ execute store result score vehicle.action_type_status vehicle.local run function
 
 # Handle validation failure
 execute if score vehicle.action_type_status vehicle.local matches 0 run function reds_vehicles:define/action/report/type_macro_fail
-execute if score vehicle.action_type_status vehicle.local matches 0 run function reds_vehicles:define/action/exit_fail
+execute if score vehicle.action_type_status vehicle.local matches 0 run return run function reds_vehicles:define/action/exit_fail
 
 execute if score vehicle.action_exists vehicle.local matches 0 run function reds_vehicles:define/action/report/unknown_action
-execute if score vehicle.action_exists vehicle.local matches 0 run function reds_vehicles:define/action/exit_fail
+execute if score vehicle.action_exists vehicle.local matches 0 run return run function reds_vehicles:define/action/exit_fail
 
 execute if score vehicle.action_type_status vehicle.local matches -1 run return run function reds_vehicles:define/action/exit_fail
 

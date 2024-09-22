@@ -6,6 +6,7 @@
     "reds_vehicles.notify.errors.function": "Function: \"%s\"",
     "reds_vehicles.notify.errors.vehicle": "Vehicle: \"%s\"",
     "reds_vehicles.notify.errors.description": "Description: %s",
+    "reds_vehicles.notify.errors.code": "Code: %s",
     "reds_vehicles.notify.errors.extra": "Extra: %s",
     "reds_vehicles.notify.errors.extra_hover": "[hover]",
     "reds_vehicles.notify.errors.header_none": "No errors logged while reloading vehicle definitions!",

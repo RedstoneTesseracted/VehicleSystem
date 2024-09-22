@@ -31,14 +31,14 @@ execute if score vehicle.scale_is_float_status vehicle.local matches 0 run funct
 execute if score vehicle.scale_is_float_status vehicle.local matches 0 run return 0
 
 # Convert name or group field into target selector
-scoreboard players set vehicle.selector_macro_status vehicle.local 0
-execute if data storage reds_vehicles:definitions working_action.arguments.name store result score vehicle.selector_macro_status vehicle.local run function reds_vehicles:define/action/__generate_name_selector with storage reds_vehicles:definitions working_action.arguments
-execute if data storage reds_vehicles:definitions working_action.arguments.name if score vehicle.selector_macro_status vehicle.local matches 0 run function reds_vehicles:define/action/report/modify_transform/name_macro_fail
-execute if data storage reds_vehicles:definitions working_action.arguments.name if score vehicle.selector_macro_status vehicle.local matches 0 run return 0
+data remove storage reds_vehicles:definitions working_action.arguments.selector
+execute if data storage reds_vehicles:definitions working_action.arguments.name run function reds_vehicles:define/action/__generate_name_selector with storage reds_vehicles:definitions working_action.arguments
+execute if data storage reds_vehicles:definitions working_action.arguments.name unless data storage reds_vehicles:definitions working_action.arguments.selector run function reds_vehicles:define/action/report/modify_transform/name_macro_fail
+execute if data storage reds_vehicles:definitions working_action.arguments.name unless data storage reds_vehicles:definitions working_action.arguments.selector run return 0
 
-execute if data storage reds_vehicles:definitions working_action.arguments.group store result score vehicle.selector_macro_status vehicle.local run function reds_vehicles:define/action/__generate_group_selector with storage reds_vehicles:definitions working_action.arguments
-execute if data storage reds_vehicles:definitions working_action.arguments.group if score vehicle.selector_macro_status vehicle.local matches 0 run function reds_vehicles:define/action/report/modify_transform/group_macro_fail
-execute if data storage reds_vehicles:definitions working_action.arguments.group if score vehicle.selector_macro_status vehicle.local matches 0 run return 0
+execute if data storage reds_vehicles:definitions working_action.arguments.group run function reds_vehicles:define/action/__generate_group_selector with storage reds_vehicles:definitions working_action.arguments
+execute if data storage reds_vehicles:definitions working_action.arguments.group unless data storage reds_vehicles:definitions working_action.arguments.selector run function reds_vehicles:define/action/report/modify_transform/group_macro_fail
+execute if data storage reds_vehicles:definitions working_action.arguments.group unless data storage reds_vehicles:definitions working_action.arguments.selector run return 0
 
 # Remove name/group fields now that we've converted them into the "selector" field that's actually used
 data remove storage reds_vehicles:definitions working_action.arguments.name
