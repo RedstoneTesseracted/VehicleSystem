@@ -33,10 +33,10 @@ execute if data storage reds_vehicles:definitions working_action.arguments.name 
 execute unless data storage reds_vehicles:definitions working_action.arguments{transform:"yaw"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.transform to be \"yaw\" (was "},{nbt:"working_action.arguments.transform", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_action.arguments{transform:"yaw"} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_action.arguments{property:"angle"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.property to be \"angle\" (was "},{nbt:"working_action.arguments.parameter", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_action.arguments{property:"angle"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.property to be \"angle\" (was "},{nbt:"working_action.arguments.property", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_action.arguments{property:"angle"} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_action.arguments{source:"vehicle.rot.yaw"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.source to be \"vehicle.rot.yaw\" (was "},{nbt:"working_action.arguments.parameter", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_action.arguments{source:"vehicle.rot.yaw"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.source to be \"vehicle.rot.yaw\" (was "},{nbt:"working_action.arguments.source", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_action.arguments{source:"vehicle.rot.yaw"} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_action.arguments{scale:0.00005f} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.scale to be 0.0005f (was "},{nbt:"working_action.arguments.scale", storage:"reds_vehicles:definitions"},{text:")"}]
@@ -96,7 +96,7 @@ execute if data storage reds_vehicles:definitions working_action.arguments.name 
 execute unless data storage reds_vehicles:definitions working_action.arguments{transform:"pitch"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.transform to be \"pitch\" (was "},{nbt:"working_action.arguments.transform", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_action.arguments{transform:"pitch"} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_action.arguments{property:"angle"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.property to be \"angle\" (was "},{nbt:"working_action.arguments.parameter", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_action.arguments{property:"angle"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.property to be \"angle\" (was "},{nbt:"working_action.arguments.property", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_action.arguments{property:"angle"} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_action.arguments{source:"vehicle.rot.pitch"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.source to be \"vehicle.rot.yaw\" (was "},{nbt:"working_action.arguments.source", storage:"reds_vehicles:definitions"},{text:")"}]
