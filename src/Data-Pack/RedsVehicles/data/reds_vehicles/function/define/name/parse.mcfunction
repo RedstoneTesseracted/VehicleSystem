@@ -4,7 +4,7 @@
 
 # Assert name tag existence
 execute unless data storage reds_vehicles:definitions working_root.name run function reds_vehicles:define/name/report/missing
-execute unless data storage reds_vehicles:definitions working_root.name run return 0
+execute unless data storage reds_vehicles:definitions working_root.name run return run function reds_vehicles:define/name/exit_fail
 
 # Assert nonzero name length
 execute store result score vehicle.name_length vehicle.local run data get storage reds_vehicles:definitions working_root.name
@@ -15,7 +15,7 @@ execute unless score vehicle.name_length vehicle.local matches 1.. run return ru
 data modify storage reds_vehicles:types check set from storage reds_vehicles:definitions working_root.name
 execute store result score vehicle.name_is_string vehicle.local run function reds_vehicles:util/typing/is_string
 execute if score vehicle.name_is_string vehicle.local matches 0 run function reds_vehicles:define/name/report/wrong_type
-execute if score vehicle.name_is_string vehicle.local matches 0 run function reds_vehicles:define/name/exit_fail
+execute if score vehicle.name_is_string vehicle.local matches 0 run return run function reds_vehicles:define/name/exit_fail
 
 # Assert that name doesn't conflict with ANY registered name
 # Also, it should be able to work with a function macro
