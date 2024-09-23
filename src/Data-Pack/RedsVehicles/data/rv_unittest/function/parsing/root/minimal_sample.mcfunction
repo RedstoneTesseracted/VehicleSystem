@@ -1,0 +1,6 @@
+# Declare the most minimal vehicle possible
+data modify storage reds_vehicles:definitions working_root set value \
+{\
+name: "air",\
+min_version: 1\
+}
