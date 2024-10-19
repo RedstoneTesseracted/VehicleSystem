@@ -78,7 +78,7 @@ physics: [\
 ],\
 parts: [\
     {\
-        scale: [3.5f, 3.5f, 3.5f],\
+        scale: [3.0f, 3.0f, 3.0f],\
         translation: [0.0f, 1.5f, -0.4f],\
         item: "minecraft:glass",\
         custom_model_data: 1414716,\
