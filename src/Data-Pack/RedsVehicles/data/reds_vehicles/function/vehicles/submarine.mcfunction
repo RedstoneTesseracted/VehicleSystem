@@ -79,7 +79,7 @@ physics: [\
 parts: [\
     {\
         scale: [3.0f, 3.0f, 3.0f],\
-        translation: [0.0f, 1.5f, -0.4f],\
+        translation: [0.0f, 1.25f, -0.4f],\
         item: "minecraft:glass",\
         custom_model_data: 1414716,\
         name: display\
@@ -104,7 +104,7 @@ events: [\
                 arguments: {\
                     name: "minecraft:bubble",\
                     relative_to: "display",\
-                    offset: [1.3f, 0.25f, -1.0f],\
+                    offset: [1.25f, 0.25f, -1.0f],\
                     delta: [0.1f, 0.1f, 0.1f],\
                     speed: 0.01,\
                     count: 2\
@@ -115,7 +115,7 @@ events: [\
                 arguments: {\
                     name: "minecraft:bubble",\
                     relative_to: "display",\
-                    offset: [-1.3f, 0.25f, -1.0f],\
+                    offset: [-1.25f, 0.25f, -1.0f],\
                     delta: [0.1f, 0.1f, 0.1f],\
                     speed: 0.01,\
                     count: 2\
@@ -166,9 +166,9 @@ events: [\
 ],\
 seat: {\
     width: 3.0f,\
-    height: 2.0f\
+    height: 1.5f\
 },\
-ground_offset: 0.7f,\
+ground_offset: 0.25f,\
 min_version: 1\
 }
 

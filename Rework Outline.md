@@ -883,7 +883,8 @@ $$
 Scale = \frac{Height}{0.9875} = Height \times \frac{80}{79}
 $$
 
-From testing, a bug occurs where the player's Motion tag will spontaneously zero in a particular direction.  This bug has only been observed for scale factors $\lesssim$ 0.6 (0.5925 blocks)
+From testing, a bug occurs where the player's Motion tag will spontaneously zero in a particular direction.  This bug has only been observed for scale factors $\lesssim$ 0.6 (0.5925 blocks).  Fortunately, this only matters in versions $\leq$ 1.21.2 due to the predicate-based method.
+
 
 ## How Users Add New Vehicles
 
