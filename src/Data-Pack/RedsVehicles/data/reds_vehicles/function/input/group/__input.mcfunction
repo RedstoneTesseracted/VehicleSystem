@@ -44,6 +44,8 @@ scoreboard players operation vehicle.p3.x vehicle.local *= vehicle.m.x vehicle.l
 scoreboard players operation vehicle.p3.z vehicle.local *= vehicle.m.z vehicle.local
 scoreboard players operation vehicle.p3.x vehicle.local += vehicle.p3.z vehicle.local
 
+# title @a actionbar ["𝗺•𝘂ˣᶻ: ",{"score": {"name": "vehicle.p2.x","objective": "vehicle.local"}},{"text":", 𝗺•𝘄ˣᶻ:"},{"score": {"name": "vehicle.p3.x","objective": "vehicle.local"}}]
+
 # Send final result to storage
 data modify storage reds_vehicles:inputs input.input set value {forward: 0, side: 0}
 execute if score vehicle.p2.x vehicle.local matches 10000.. run data modify storage reds_vehicles:inputs input.input.forward set value 1

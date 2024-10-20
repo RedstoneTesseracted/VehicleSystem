@@ -76,6 +76,9 @@ execute unless data storage reds_vehicles:definitions working_root.ground_offset
 execute store result storage reds_vehicles:definitions working_root.scale float 0.00010126582278481013 run scoreboard players get vehicle.ground_offset vehicle.local
 data remove storage reds_vehicles:definitions working_root.ground_offset
 
+# Set step height to default if not already present
+execute unless data storage reds_vehicles:definitions working_root.step_height run data modify storage reds_vehicles:definitions working_root.step_height set value 0.0d
+
 # Manually set seat count to 1
 data modify storage reds_vehicles:definitions working_root.seat_count set value 1
 

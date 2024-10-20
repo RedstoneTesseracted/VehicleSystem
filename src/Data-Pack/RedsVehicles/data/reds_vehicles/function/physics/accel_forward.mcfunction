@@ -7,9 +7,9 @@
 # This function is called from reds_vehicles:physics/apply
 
 # Get vector in direction vehicle base entity is facing
-execute store result score vehicle.p1.x vehicle.local run data get entity @s Pos[0]
-execute store result score vehicle.p1.y vehicle.local run data get entity @s Pos[1]
-execute store result score vehicle.p1.z vehicle.local run data get entity @s Pos[2]
+execute store result score vehicle.p1.x vehicle.local run data get entity @s Pos[0] 100
+execute store result score vehicle.p1.y vehicle.local run data get entity @s Pos[1] 100
+execute store result score vehicle.p1.z vehicle.local run data get entity @s Pos[2] 100
 
 execute positioned ^ ^ ^1 summon minecraft:marker run function reds_vehicles:physics/p2_to_score
 
@@ -18,7 +18,7 @@ scoreboard players operation vehicle.p2.y vehicle.local -= vehicle.p1.y vehicle.
 scoreboard players operation vehicle.p2.z vehicle.local -= vehicle.p1.z vehicle.local
 
 # Apply scale factor to score
-$execute store result storage reds_vehicles:physics temp.u double $(scale) run scoreboard players get @s vehicle.accel.forward
+$execute store result storage reds_vehicles:physics temp.u double $(value) run scoreboard players get @s vehicle.accel.forward
 execute store result score @s vehicle.accel.forward run data get storage reds_vehicles:physics temp.u
 data remove storage reds_vehicles:physics temp
 

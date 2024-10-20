@@ -16,6 +16,8 @@ execute if predicate reds_vehicles:has_passenger run function reds_vehicles:inpu
 # Modify scoreboards with input
 execute if predicate reds_vehicles:has_passenger run function reds_vehicles:handling/handle_inputs
 
+# title @a actionbar ["Forward Acceleration: ",{"score": {"name": "@s", "objective": "vehicle.accel.forward"}}]
+
 # Apply physics
 function reds_vehicles:physics/apply
 

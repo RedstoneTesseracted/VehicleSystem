@@ -4,7 +4,7 @@
 # It is called from reds_vehicles:vehicle/root
 # It is run BY and AT the base vehicle entity
 
-# Reset gravity-affecting attributes modifiers
+# Reset gravity-affecting attribute modifiers
 # I REALLY don't like this, but it's the least-broken way of doing things
 execute if data entity @s attributes[{id:"minecraft:generic.gravity"}].modifiers run function reds_vehicles:physics/reset_gravity
 

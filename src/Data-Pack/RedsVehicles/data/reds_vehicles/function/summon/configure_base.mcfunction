@@ -19,6 +19,7 @@ data modify entity @s CustomName set from storage reds_vehicles:definitions summ
 # Set attributes
 $attribute @s minecraft:generic.gravity base set $(base_gravity)
 $attribute @s minecraft:generic.scale base set $(scale)
+$attribute @s minecraft:generic.step_height base set $(step_height)
 
 # Set up scoreboards
 # Declare required scoreboards
