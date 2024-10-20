@@ -242,7 +242,7 @@ Where:
 * $C_l$ = Coefficient of lift
 * $A$ = Wing area
 * $\rho$ = Air density
-* $v$ = Velocity relative to air
+* $v$ = Forward velocity relative to air
 * $m$ = Mass constant
 
 For the sake of simplicity, we collect various constants together:
@@ -255,24 +255,6 @@ $$
 b_l = \frac{1}{m}C_l A\left(\frac{1}{2}\rho\right) 
 $$
 
-In practice, the presence of $v^2$ makes the above equation somewhat difficult to simulate.  Instead, it make be better to solve for the actual $\Delta v$ using calculus:
-$$
-\frac{dv}{dt} = b v^2 \rightarrow 
-\int_{v_i}^{v_f} \frac{1}{v^2}dv = \int_{t_i}^{t_f} b dt \rightarrow
-\frac{-2}{v_f} - \frac{-2}{v_i} = b(t_f - t_i)
-\\ \rightarrow \frac{1}{v_i} - \frac{1}{v_f} = \frac{b}{2}\Delta t
-\\ \rightarrow v_f = \frac{1}{\frac{1}{v_i} - \frac{b}{2}\Delta t}
-\\ \rightarrow v_f = \frac{v_i}{1 - \frac{1}{2}bv_i\Delta t}
-$$
-
-Note that this form contains a singularity at $bv_i\Delta t = 2$.  This is due to the fact that quadratic 
-
-Here, we arbitrarily set $\Delta t = 1$ and hope $b$ picks up the slack:
-$$
-\boxed{v_f = \frac{v_i}{1 - \frac{1}{2}bv_i}}
-$$
-
-Note that this form reveals part of what makes calculating this type of force so difficult.  Namely: there's a singularity at $bv_i=2$
 
 
 ## Drag Force
