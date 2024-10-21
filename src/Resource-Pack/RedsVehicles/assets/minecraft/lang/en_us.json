@@ -12,5 +12,8 @@
     "reds_vehicles.notify.errors.header_none": "No errors logged while reloading vehicle definitions!",
     "reds_vehicles.notify.fatal.command_limit_exceeded": "A fatal error occurred that prevented vehicle loading from finishing.  The maximum command limit of %s may have been reached.",
     "reds_vehicles.unittest.not_enabled": "Test suite is not enabled on this world!  To enable, run %s",
-    "reds_vehicles.unittest.finish.reload_hint": "It is recommended you run %s after running the test suite"
+    "reds_vehicles.unittest.finish.reload_hint": "It is recommended you run %s after running the test suite",
+    "reds_vehicles.spawning.item_spawning_failed": "Failed to summon vehicle \"%s\"",
+    "reds_vehicles.welcome.message": "Thank you for using Redstone⁴'s Vehicles!",
+    "reds_vehicles.welcome.not_installed_hint": ""
 }

@@ -27,3 +27,6 @@ tag @e[tag=vehicle.new] remove vehicle.new
 data remove storage reds_vehicles:definitions working_entity
 data remove storage reds_vehicles:definitions unsummoned_entities
 data remove storage reds_vehicles:definitions summon
+
+# Return success
+return 1
