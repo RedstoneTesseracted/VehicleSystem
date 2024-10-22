@@ -45,13 +45,13 @@ def main():
                         code = rf.readline().strip().split()[-1]
                         if not code.isdigit():
                             errors_occured = True
-                            print("ERROR: Not a number \"{code}\" in", path_to_file)
+                            print(f"ERROR: Not a number \"{code}\" in", path_to_file)
                             break
                         code = int(code)
 
                         if code in known_codes:
                             errors_occured = True
-                            print("ERROR: Code \"{code}\" in {path_to_file} conflicts with {known_codes[code]}")
+                            print(f"ERROR: Code \"{code}\" in {path_to_file} conflicts with {known_codes[code]}")
                             break
                         else:
                             known_codes[code] = path_to_file

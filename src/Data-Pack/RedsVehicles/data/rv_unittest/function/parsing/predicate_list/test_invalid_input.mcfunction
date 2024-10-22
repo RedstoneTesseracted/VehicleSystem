@@ -5,11 +5,11 @@ data modify storage reds_vehicles:unittest reason set value ""
 
 #####################################################################################################
 
-# Setup - GARBLED
+# Setup - NONEXISTANT PREDICATE
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[],working_predicate:""}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_predicates set value ["\"reds_vehicles:a","reds_vehicles:b","\"reds_vehicles:c"]
+data modify storage reds_vehicles:definitions working_predicates set value ["reds_vehicles:not_a_real_predicate","reds_vehicles:also_not_a_real_predicate"]
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/predicate_list/parse
@@ -21,8 +21,8 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run re
 # Check number of errors
 execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
 # Check error code
-execute unless data storage reds_vehicles:logging errors[{code: 67}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 67"}]
-execute unless data storage reds_vehicles:logging errors[{code: 67}] run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:logging errors[{code: 76}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 76"}]
+execute unless data storage reds_vehicles:logging errors[{code: 76}] run return run function rv_unittest:common/fail
 
 
 #####################################################################################################

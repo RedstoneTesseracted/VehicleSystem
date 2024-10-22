@@ -9,7 +9,7 @@ data modify storage reds_vehicles:unittest reason set value ""
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_event set value {trigger: "vehicle.horn.honk", predicates: ["reds_vehicles:something","reds_vehicles:something_else"], actions: [{action: "playsound", arguments: {sound:"minecraft:block.stone.break"}}]}
+data modify storage reds_vehicles:definitions working_event set value {trigger: "vehicle.horn.honk", predicates: ["reds_vehicles:has_passenger","reds_vehicles:environment/in_air"], actions: [{action: "playsound", arguments: {sound:"minecraft:block.stone.break"}}]}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/event/parse
@@ -23,8 +23,8 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run re
 execute unless data storage reds_vehicles:definitions working_event.actions[0] run data modify storage reds_vehicles:unittest reason set value {text:"Dropped actions list"}
 execute unless data storage reds_vehicles:definitions working_event.actions[0] run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_event{predicate: "unless score @s vehicle.horn.honk matches 0 if predicate reds_vehicles:something if predicate reds_vehicles:something_else "} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_event.predicate to be \"unless score @s vehicle.horn.honk matches 0 if predicate reds_vehicles:something if predicate reds_vehicles:something_else \" (was "},{nbt:"working_event.predicate", storage:"reds_vehicles:definitions"},{text:")"}]
-execute unless data storage reds_vehicles:definitions working_event{predicate: "unless score @s vehicle.horn.honk matches 0 if predicate reds_vehicles:something if predicate reds_vehicles:something_else "} run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_event{predicate: "unless score @s vehicle.horn.honk matches 0 if predicate reds_vehicles:has_passenger if predicate reds_vehicles:environment/in_air "} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_event.predicate to be \"unless score @s vehicle.horn.honk matches 0 if predicate reds_vehicles:has_passenger if predicate reds_vehicles:environment/in_air \" (was "},{nbt:"working_event.predicate", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_event{predicate: "unless score @s vehicle.horn.honk matches 0 if predicate reds_vehicles:has_passenger if predicate reds_vehicles:environment/in_air "} run return run function rv_unittest:common/fail
 
 execute if data storage reds_vehicles:definitions working_event.trigger run data modify storage reds_vehicles:unittest reason set value {text:"Expected working_event.trigger to have been removed"}
 execute if data storage reds_vehicles:definitions working_event.trigger run return run function rv_unittest:common/fail
@@ -39,7 +39,7 @@ execute if data storage reds_vehicles:definitions working_event.predicates run r
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_event set value {predicates: ["reds_vehicles:something","reds_vehicles:something_else"], actions: [{action: "playsound", arguments: {sound:"minecraft:block.stone.break"}}]}
+data modify storage reds_vehicles:definitions working_event set value {predicates: ["reds_vehicles:has_passenger","reds_vehicles:environment/in_air"], actions: [{action: "playsound", arguments: {sound:"minecraft:block.stone.break"}}]}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/event/parse
@@ -53,8 +53,8 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run re
 execute unless data storage reds_vehicles:definitions working_event.actions[0] run data modify storage reds_vehicles:unittest reason set value {text:"Dropped actions list"}
 execute unless data storage reds_vehicles:definitions working_event.actions[0] run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_event{predicate: "if predicate reds_vehicles:something if predicate reds_vehicles:something_else "} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_event.predicate to be \"if predicate reds_vehicles:something if predicate reds_vehicles:something_else \" (was "},{nbt:"working_event.predicate", storage:"reds_vehicles:definitions"},{text:")"}]
-execute unless data storage reds_vehicles:definitions working_event{predicate: "if predicate reds_vehicles:something if predicate reds_vehicles:something_else "} run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_event{predicate: "if predicate reds_vehicles:has_passenger if predicate reds_vehicles:environment/in_air "} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_event.predicate to be \"if predicate reds_vehicles:has_passenger if predicate reds_vehicles:environment/in_air \" (was "},{nbt:"working_event.predicate", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_event{predicate: "if predicate reds_vehicles:has_passenger if predicate reds_vehicles:environment/in_air "} run return run function rv_unittest:common/fail
 
 execute if data storage reds_vehicles:definitions working_event.trigger run data modify storage reds_vehicles:unittest reason set value {text:"Expected working_event.trigger to have been removed"}
 execute if data storage reds_vehicles:definitions working_event.trigger run return run function rv_unittest:common/fail

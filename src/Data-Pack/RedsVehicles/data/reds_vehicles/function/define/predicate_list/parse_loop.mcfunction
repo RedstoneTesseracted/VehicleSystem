@@ -4,6 +4,11 @@
 data modify storage reds_vehicles:definitions predicate_args.append set from storage reds_vehicles:definitions unprocessed_predicates[0]
 data remove storage reds_vehicles:definitions unprocessed_predicates[0]
 
+# Check that this predicate is valid
+execute store result score vehicle.predicate_macro_status vehicle.local run function reds_vehicles:define/predicate_list/macro_check with storage reds_vehicles:definitions predicate_args
+execute unless score vehicle.predicate_macro_status vehicle.local matches 1 run function reds_vehicles:define/predicate_list/report/predicate_check_fail
+execute unless score vehicle.predicate_macro_status vehicle.local matches 1 run return 0
+
 # Execute the function macro
 execute store result score vehicle.concat_macro_status vehicle.local run function reds_vehicles:define/predicate_list/__parse_loop with storage reds_vehicles:definitions predicate_args
 

@@ -10,7 +10,7 @@ data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
 data modify storage reds_vehicles:definitions working_event_list set value []
-data modify storage reds_vehicles:definitions working_event_list append value {trigger: "vehicle.horn.honk", predicates: ["reds_vehicles:something"], actions: [{action: "playsound", arguments: {sound:"minecraft:block.stone.break"}}]}
+data modify storage reds_vehicles:definitions working_event_list append value {trigger: "vehicle.horn.honk", predicates: ["reds_vehicles:has_passenger"], actions: [{action: "playsound", arguments: {sound:"minecraft:block.stone.break"}}]}
 data modify storage reds_vehicles:definitions working_event_list append value {actions: [{action: "particle", arguments: {name:"minecraft:bubble"}}]}
 
 # Run functions
