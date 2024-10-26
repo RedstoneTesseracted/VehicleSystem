@@ -35,7 +35,7 @@ physics: [\
             "reds_vehicles:has_passenger",\
             "reds_vehicles:environment/mid_air"\
         ],\
-        value: 7.0f\
+        value: 18.0f\
     },\
     {\
         type: "applied",\
@@ -51,7 +51,7 @@ physics: [\
             "reds_vehicles:environment/in_air",\
             "reds_vehicles:is_moving"\
         ],\
-        value: 0.5f\
+        value: 0.025f\
     },\
     {\
         type: "planar_drag",\
@@ -124,7 +124,7 @@ events: [\
                 scale: 0.017453292519943295f,\
                 name: "display",\
                 transform: "left_rotation",\
-                axis: [0.0f, 1.0f, 0.0f]\
+                axis: [0.0f, 0.0f, 1.0f]\
               }\
             }\
         ]\
@@ -133,6 +133,10 @@ events: [\
 seat: {\
     width: 3.0f,\
     height: 1.5f\
+},\
+item: {\
+    name: "Biplane",\
+    model: ""\
 },\
 ground_offset: 0.7f,\
 step_height: 1.0f,\

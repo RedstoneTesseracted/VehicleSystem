@@ -168,6 +168,10 @@ seat: {\
     width: 3.0f,\
     height: 1.5f\
 },\
+item: {\
+    name: "Submarine",\
+    model: ""\
+},\
 ground_offset: 0.25f,\
 min_version: 1\
 }
