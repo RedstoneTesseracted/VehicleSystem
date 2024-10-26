@@ -1409,6 +1409,251 @@ $$
 \end{matrix}\right]}
 $$
 
+## Singular Value Decomposition
+
+Display entities can have their transformation set to a full 4x4 matrix.  Upon doing so, the game will automatically factors this 4x4 matrix into individual translation, rotation, and scaling matrices:
+$$
+\bold{M} = \bold{T}\bold{R_L}\bold{S}\bold{R_R}
+$$
+
+To achieve this, the game first discards the first three entries in the bottom row as though they were set to zero:
+$$
+\left[\begin{matrix}
+a_{11} & a_{12} & a_{13} & a_{14} \\
+a_{21} & a_{22} & a_{23} & a_{24} \\
+a_{31} & a_{32} & a_{33} & a_{34} \\
+a_{41} & a_{42} & a_{43} & a_{44}
+\end{matrix}\right]
+\rightarrow
+\left[\begin{matrix}
+a_{11} & a_{12} & a_{13} & a_{14} \\
+a_{21} & a_{22} & a_{23} & a_{24} \\
+a_{31} & a_{32} & a_{33} & a_{34} \\
+0 & 0 & 0 & a_{44}
+\end{matrix}\right]
+$$
+
+Next, all entries in the matrix are divided by the value in the bottom-right corner:
+$$
+\left[\begin{matrix}
+a_{11} & a_{12} & a_{13} & a_{14} \\
+a_{21} & a_{22} & a_{23} & a_{24} \\
+a_{31} & a_{32} & a_{33} & a_{34} \\
+0 & 0 & 0 & a_{44}
+\end{matrix}\right]
+\rightarrow
+\left[\begin{matrix}
+a_{11}/a_{44} & a_{12}/a_{44} & a_{13}/a_{44} & a_{14}/a_{44} \\
+a_{21}/a_{44} & a_{22}/a_{44} & a_{23}/a_{44} & a_{24}/a_{44} \\
+a_{31}/a_{44} & a_{32}/a_{44} & a_{33}/a_{44} & a_{34}/a_{44} \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+
+This step is necessary to keep the matrix in *homogeneous coordinates*.  Next, the *translation* is factored out using the values in the right column.  This step is quite simple, since translation is the only factored transformation that actually affects this column:
+$$
+\left[\begin{matrix}
+a_{11}/a_{44} & a_{12}/a_{44} & a_{13}/a_{44} & a_{14}/a_{44} \\
+a_{21}/a_{44} & a_{22}/a_{44} & a_{23}/a_{44} & a_{24}/a_{44} \\
+a_{31}/a_{44} & a_{32}/a_{44} & a_{33}/a_{44} & a_{34}/a_{44} \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+\rightarrow
+\bold{T}
+\left[\begin{matrix}
+a_{11}/a_{44} & a_{12}/a_{44} & a_{13}/a_{44} & 0 \\
+a_{21}/a_{44} & a_{22}/a_{44} & a_{23}/a_{44} & 0 \\
+a_{31}/a_{44} & a_{32}/a_{44} & a_{33}/a_{44} & 0 \\
+0 & 0 & 0 & 1
+\end{matrix}\right]
+$$
+$$
+t_x = a_{14}/a_{44} \\ t_y = a_{24}/a_{44} \\ t_z = a_{34}/a_{44}
+$$
+
+With the bottom row and right column taken care of, we now only need to focus in the 3x3 inner matrix:
+$$
+\bold{N}=
+\frac{1}{a_{44}}
+\left[\begin{matrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33} 
+\end{matrix}\right]
+$$
+
+The remaining scaling, left-rotation, and right-rotation are factored using a process known as [singular value decomposition](https://en.wikipedia.org/wiki/Singular_value_decomposition).  If $\bold{N}$ is real-valued, the SVD takes the form:
+$$
+\bold{N} = \bold{U}\bold{\Sigma}\bold{V}^T
+$$
+
+Where $\bold{\Sigma}$ is a diagonal matrix, while $\bold{U}$ and $\bold{V}$ are both orthogonal matrices, so:
+$$
+\bold{U}^T\bold{U} = \bold{V}^T\bold{V} = \bold{1}
+$$
+
+Now, in order to obtain $\bold{U}$ and $\bold{V}$, note what happens when we substitute the above SVD for $\bold{N}$ in $\bold{N}^T\bold{N}$ and $\bold{N}\bold{N}^T$:
+$$
+\bold{N}^T\bold{N} = (\bold{U}\bold{\Sigma}\bold{V}^T)^T(\bold{U}\bold{\Sigma}\bold{V}^T) = 
+\bold{V}\bold{\Sigma}^T\bold{U}^T\bold{U}\bold{\Sigma}\bold{V}^T = \bold{V}\bold{\Sigma}^T\bold{\Sigma}\bold{V}^T
+$$
+
+$$
+\bold{N}\bold{N}^T = (\bold{U}\bold{\Sigma}\bold{V}^T)(\bold{U}\bold{\Sigma}\bold{V}^T)^T = 
+\bold{U}\bold{\Sigma}\bold{V}^T\bold{V}\bold{\Sigma}^T\bold{U}^T = \bold{U}\bold{\Sigma}\bold{\Sigma}^T\bold{U}^T
+$$
+
+Now, since $\bold{\Sigma}$ is diagonal, $\bold{\Sigma}=\bold{\Sigma}^T$ and:
+$$
+\bold{N}^T\bold{N} = \bold{V}\bold{\Sigma}^2\bold{V}^T \\
+\bold{N}\bold{N}^T = \bold{U}\bold{\Sigma}^2\bold{U}^T
+$$
+
+In this form, we see that $\bold{N}^T\bold{N}$ can be diagonalized to obtain $\bold{V}$, and $\bold{N}\bold{N}^T$ can be diagonalized to obtain $\bold{U}$.  In both cases, $\bold{\Sigma}^2$ represents the eigenvalues of $\bold{N}^T\bold{N}$ and/or $\bold{N}\bold{N}^T$.  For the time being, we will ignore the scalar $\frac{1}{a_{44}}$ in front of the above 3x3 matrix, as we can simply pull that into the scaling matrix later.  This process is *far* to tedious to calcuate exactly here (especially for the general 3x3 matrix!).  However, there are a few special cases that may be of use:
+$$
+\bold{N}=
+\left[\begin{matrix}
+a & 0 & 0 \\
+b & 0 & 0 \\
+c & 0 & 0 
+\end{matrix}\right]
+$$
+
+In this case:
+$$
+\bold{N}^T \bold{N} = 
+\left[\begin{matrix}
+a & 0 & 0 \\
+b & 0 & 0 \\
+c & 0 & 0 
+\end{matrix}\right]
+\left[\begin{matrix}
+a & b & c \\
+0 & 0 & 0 \\
+0 & 0 & 0 
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+a^2 & ab  & ac \\
+ab  & b^2 & bc \\
+ac  & bc  & c^2
+\end{matrix}\right]
+$$
+
+After diagonalizing:
+$$
+\left[\begin{matrix}
+a^2 & ab  & ac \\
+ab  & b^2 & bc \\
+ac  & bc  & c^2
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+a/c & -c/a & -b/a \\
+b/c & 0    & 1    \\
+1   & 1    & 0
+\end{matrix}\right]
+\left[\begin{matrix} a^2+b^2+c^2 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{matrix}\right]
+\left[\begin{matrix}
+a/c & -c/a & -b/a \\
+b/c & 0    & 1    \\
+1   & 1    & 0
+\end{matrix}\right]^{-1}
+$$
+
+Therefore, the resulting scaling matrix is:
+$$
+\bold{\Sigma^2}=
+\left[\begin{matrix}
+a^2 + b^2 + c^2 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{matrix}\right]
+\rightarrow
+\bold{S}=
+\left[\begin{matrix}
+\sqrt{a^2 + b^2 + c^2} & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0
+\end{matrix}\right]
+$$
+
+This gives us a way to calculate a square root with floating-point precision!
+
+Additionally, taking a look at $\bold{V}$, we know it represents a rotation matrix.  Recall that the game converts this matrix into quaternion form:
+$$
+\bold{V} =
+\left[\begin{matrix}
+a/c & -c/a & -b/a \\
+b/c & 0    & 1    \\
+1   & 1    & 0
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+2x^2 + 2w^2 - 1 & 2xy - 2zw & 2xz - 2yw \\
+2xy + 2zw & 2y^2 + 2w^2 - 1 & 2yz - 2xw \\
+2xz + 2yw & 2yz + 2xw & 2z^2 + 2w^2 - 1
+\end{matrix}\right]
+$$
+
+Note that, if we take the trace of these matrices:
+$$
+\text{tr}(\bold{V}) = \frac{a}{c} = 2x^2 + 2w^2 - 1 + 2y^2 + 2w^2 - 1 + 2z^2 + 2w^2 - 1 \\
+\text{tr}(\bold{V}) = \frac{a}{c} = 2(\underbrace{x^2 + y^2 + z^2 + w^2}_{1}) + 4w^2 - 3 \\
+\text{tr}(\bold{V}) = \frac{a}{c} = 4w^2 - 1 \\
+\boxed{\frac{1}{2}\sqrt{\text{tr}(\bold{V})+1} = \frac{1}{2}\sqrt{\frac{a}{c}+1} = w }
+$$
+
+Computing the other terms:
+$$
+(2yz+2xw)-(2yz-2xw) = 1-1 \rightarrow 4xw = 0 \rightarrow x=0 \\
+(2xz+2yw)-(2xz-2wy) = 1+\frac{b}{a} \rightarrow y = \left(1+\frac{b}{a}\right)\frac{1}{4w} \\
+(2xy+2zw)-(2xy-2zw) = \frac{b}{c}+\frac{c}{a} \rightarrow z = \left(\frac{b}{c}+\frac{c}{a}\right)\frac{1}{4w}
+$$
+
+So, the quaternion corresponding to $\bold{V}$ is:
+$$
+\bold{q} = \left(\frac{1}{2}\sqrt{\frac{a}{c}+1}\right) + 0\bold{x} + \left(\frac{\frac{b}{a}+1}{2\sqrt{\frac{a}{c}+1}}\right)\bold{y} + \left(\frac{\frac{b}{c}+\frac{c}{a}}{2\sqrt{\frac{a}{c}+1}}\right)\bold{z}
+$$
+
+> Note: The above formula breaks down when $\frac{a}{c} \leq -1$
+
+Note that if we set $c=1$ and $a=x-1$:
+$$
+w=\frac{1}{2}\sqrt{x-1+1} = \frac{1}{2}\sqrt{x}
+$$
+
+Meaning we *just* have a way to compute a square root.
+
+
+
+
+Another potentially useful scenario(?):
+$$
+\bold{N} = \bold{x}\bold{y}^T
+\left[\begin{matrix}
+x_1 y_1 & x_1 y_2 & x_1 y_3 \\
+x_2 y_1 & x_2 y_2 & x_2 y_3 \\
+x_3 y_1 & x_3 y_2 & x_3 y_3 
+\end{matrix}\right]
+$$
+
+Skipping over a LOT of algebra, we find that:
+$$
+\bold{S} = 
+\left[\begin{matrix}
+\sqrt{(\bold{x} \cdot \bold{x})(\bold{y} \cdot \bold{y})} & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 0 
+\end{matrix}\right]
+$$
+
+> Note: this is NOT useful, since it would require more multiplications than datapacks are suited for.
+
+
+
+
+## Sample Cases
 
 ### Introducing Roll for Planes
 
