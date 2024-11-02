@@ -55,7 +55,7 @@ data modify storage reds_vehicles:definitions working_root.default_scores set fr
 data modify storage reds_vehicles:definitions working_entities set value []
 
 # Add seat interaction entity
-data merge storage reds_vehicles:definitions {working_seat: {type: "interaction", pilot: true, tags: {width: 1.0f, height: 1.0f}}}
+data merge storage reds_vehicles:definitions {working_seat: {type: "interaction", pilot: true, tags: {width: 1.0f, height: 1.0f, response:1b}}}
 execute if data storage reds_vehicles:definitions working_root.seat.width run data modify storage reds_vehicles:definitions working_seat.tags.width set from storage reds_vehicles:definitions working_root.seat.width
 execute if data storage reds_vehicles:definitions working_root.seat.height run data modify storage reds_vehicles:definitions working_seat.tags.height set from storage reds_vehicles:definitions working_root.seat.height
 data modify storage reds_vehicles:definitions working_entities append from storage reds_vehicles:definitions working_seat
