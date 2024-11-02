@@ -265,7 +265,7 @@ Where:
 * $g$ = Acceleration due to gravity
 
 
-## Drag Force
+## Quadratic Drag Force
 
 Drag occurs due to collisions between the surrounding air and a vehicle.  For the velocity regime planes are subject to, it is described by:
 $$
@@ -280,9 +280,9 @@ Where:
 * $v$ = Velocity relative to air
 * $m$ = Mass constant
 
-For the sake of simplicity, we collect various constants together:
+For the sake of simplicity, we collect various constants together.  Additionally, the sign of the acceleration is added in to oppose the velocity:
 $$
-\boxed{a_D = -b_Dv^2}
+\boxed{a_D = -b_Dv^2\text{sign}(v)}
 $$
 
 Where:
@@ -291,10 +291,83 @@ b_D = \frac{1}{m}C_D A\left(\frac{1}{2}\rho\right)
 $$
 
 
-Be warned, however, as second-order air resistance is notorious for being difficult to simulate.
+Be warned, however, as second-order air resistance will obliterate your simulation if handled poorly.  To demonstrate why, let's use Euler's method to simulate the above:
+$$
+a \approx \frac{\Delta v}{\Delta t} \rightarrow \Delta v \approx -bv^2 \text{sign}(v) \Delta t \\
+v_{n+1} = v_n + \Delta v
+$$
+
+For simplicity, we'll collect $b$ and $\Delta t$ into a single constant, $c$:
+$$
+v_{n+1} = v_n - cv_n^2\text{sign}(v_n)
+$$
+
+Imagine we have a velocty large enough that the above equation overapplies the drag, causing velocity to reverse direction (i.e. flip its sign).  Note that $v_n$ and $-\text{sign}(v_n)$ ALWAYS have opposite signs, so the two right-side terms in the above equations always have opposite signs.  Therefore, in order to force $v$ to flip sign, we only need:
+$$
+|v_n| < |-cv_n^2\text{sign}(v_n)| = |cv_n^2| = cv_n^2 \\
+\cancel{|v_n|} < c|v_n|^{\cancel{2}} \\
+|v_n| > \frac{1}{c}
+$$
+
+So, in order to break quadratic drag when using Euler's method, we only need a sufficiently large speed:
+$$
+|v_n| > \frac{1}{c}
+$$
+
+Additionally, though it's not worth prolonging this derivation here, something *very special* happens when:
+$$
+|v_n| \geq \frac{2}{c}
+$$
+
+Hint: it starts oscillating, then blowing up.  Derivation is left as an exercise for the reader.
+
+An alternative to using Euler's method like above comes from integrating the governing equation:
+$$
+\frac{dv}{dt} = -b_Dv^2 \\
+\int_{v_i}^{v_f} \frac{1}{v^2} dv = \int_{t_i}^{t_f} -b_D dt \\
+-\left[\frac{1}{v_f} - \frac{1}{v_i}\right] = -b_D (t_f - t_i) = -b_D \Delta t \\
+\frac{1}{v_f} - \frac{1}{v_i} = b_D \Delta t \\
+\frac{1}{v_f} = b_D \Delta t+\frac{1}{v_i} \\
+v_f = \frac{1}{b_D \Delta t+\frac{1}{v_i}} \\
+v_f = \frac{v_i}{1 + b_D v_i \Delta t}
+$$
+
+Here, we set $\Delta t=1$ (1 unitless timestep):
+$$
+v_f = \frac{v_i}{1 + b_D v_i}
+$$
+
+Switching to index notation for comparison with the previous derivation for Euler's method:
+$$
+v_{n+1} = \frac{v_n}{1 + c v_n}
+$$
+
+Unfortunately, this method falls apart completely when $v_n < 0$:
+* Undefined when $v_n=-\frac{1}{c}$, since $\frac{v_n}{1 + c v_n}=\frac{-\frac{1}{c}}{1 -\frac{c}{c}} = \frac{-\frac{1}{c}}{0}$
+* Denominator causes a sign flip when negative, or equivalently: $1+cv_n < 0 \rightarrow v_n < -\frac{1}{c}$
+* $|v_{n+1}| > |v_{n}|$ when $-1 < 1 + c v_n < 1 \rightarrow -\frac{2}{c} < v_n < 0$
+
+To compensate for this, consider taking the absolute value to separate the sign from the magnitude
+$$
+\begin{matrix}
+|v_{n+1}| = \frac{|v_n|}{1 + c |v_n|} \\
+|v_{n+1}| \text{sign}(v_n) = \frac{|v_n|}{1 + c |v_n|} \text{sign}(v_n) \\
+|v_{n+1}| \text{sign}(v_{n+1}) = \frac{|v_n|\text{sign}(v_n)}{1 + c |v_n|}  & \text{sign}(v_{n+1})=\text{sign}(v_n) \\
+v_{n+1} = \frac{v_n}{1 + c |v_n|}
+\end{matrix}
+$$
+
+Using $|v_n|$ in the denominator resolves all three points from above and gives us a numerically stable method for simulating quadratic drag.  Converting back into the $v_f$/$v_i$ notation seen above:
+$$
+\boxed{v_f = \frac{v_i}{1 + b_D |v_i|}}
+$$
+
+Interestingly enough, if there are no other forces involved, the above is an *exact solution*.
 
 
-In addition, Minecraft already applies its own first-order drag force.  This is applied by multiplying the horizontal and vertical velocity components by a constant factor each tick:
+## Linear Drag Force
+
+Minecraft already applies its own first-order drag force.  This is applied by multiplying the horizontal and vertical velocity components by a constant factor each tick:
 $$
 \vec{v}_{h, \ after} = (1-k_h)\vec{v}_{h, \ before} \\
 \vec{v}_{v, \ after} = (1-k_v)\vec{v}_{v, \ before}
@@ -312,7 +385,10 @@ For players and living entities, drag is applier AFTER acceleration due to gravi
 
 When gravity is factored in, this gives a vertical terminal velocity of:
 $$
-
+\begin{matrix}
+\text{Drag before gravity:} & \ \ \ \ \ \ \ & \text{Drag after gravity:} \\
+v_{term} = -\frac{g}{k_v} & & v_{term} = -\frac{g(1-k_v)}{k_v}
+\end{matrix}
 $$
 
 
