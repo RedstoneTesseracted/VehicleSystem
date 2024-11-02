@@ -4,6 +4,26 @@
 # It is called from reds_vehicles:vehicle/root
 # It is run BY and AT the base vehicle entity
 
+
+# Test hack
+execute if entity @s[tag=vehicle.name.biplane] if predicate reds_vehicles:environment/on_land run data modify entity @s Rotation[1] set value 0.0f
+execute if entity @s[tag=vehicle.name.biplane] if predicate reds_vehicles:environment/on_land run scoreboard players set @s vehicle.rot.pitch 0
+
+
+# # Counteract drag
+# data modify storage reds_vehicles:physics temp.vx set from entity @s Motion[0]
+# data modify storage reds_vehicles:physics temp.vy set from entity @s Motion[1]
+# data modify storage reds_vehicles:physics temp.vz set from entity @s Motion[2]
+# data modify storage reds_vehicles:physics temp.vdrag set value 0.98
+# data modify storage reds_vehicles:physics temp.hdrag set value 0.91
+# execute if predicate reds_vehicles:environment/on_land run data modify storage reds_vehicles:physics temp.hdrag set value 0.546
+# # execute if predicate reds_vehicles:environment/on_land run data modify storage reds_vehicles:physics temp.hdrag set value 0.55
+# execute summon minecraft:block_display run function reds_vehicles:physics/counter_drag
+# function reds_vehicles:physics/after_drag_apply with storage reds_vehicles:physics temp
+
+# title @a actionbar [{"nbt": "temp.my","storage": "reds_vehicles:physics"},{"text":", "},{"nbt": "Motion[1]", "entity":"@s"}]
+
+
 # Reset gravity-affecting attribute modifiers
 # I REALLY don't like this, but it's the least-broken way of doing things
 execute if data entity @s attributes[{id:"minecraft:generic.gravity"}].modifiers run function reds_vehicles:physics/reset_gravity
@@ -24,5 +44,10 @@ execute if data storage reds_vehicles:definitions current.physics[0] run functio
 execute store result entity @s Motion[0] double 0.00001 run scoreboard players get vehicle.vel.x vehicle.local
 execute store result entity @s Motion[1] double 0.00001 run scoreboard players get vehicle.vel.y vehicle.local
 execute store result entity @s Motion[2] double 0.00001 run scoreboard players get vehicle.vel.z vehicle.local
+
+
+# Remove temporary storage
+data remove storage reds_vehicles:physics temp
+
 
 #say ===============================================

@@ -73,9 +73,9 @@ execute store result storage reds_vehicles:physics temp.dot float 0.000000000465
 
 # Now compute the remaining b(|𝗩| norm(𝗩)•𝗨)² using display entity funkyness
 data modify storage reds_vehicles:physics temp.b set from storage reds_vehicles:physics unapplied_forces[0].value
-execute summon minecraft:block_display run function reds_vehicles:physics/utility/simple_lift_helper with storage reds_vehicles:physics temp
+execute summon minecraft:block_display run function reds_vehicles:physics/utility/simple_lift_helper
 
-title @a actionbar [{"nbt": "temp.a","storage": "reds_vehicles:physics"}]
+# title @a actionbar [{"nbt": "temp.a","storage": "reds_vehicles:physics"}]
 
 
 # Compute the final lift vector and apply to motion tag

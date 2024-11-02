@@ -220,7 +220,7 @@ $$
 F_{net} = ma \rightarrow a = \frac{F_{net}}{m}
 $$
 
-We distribute the mass amongst the individual forces as a constant:
+Since Minecraft has no concept of mass, we distribute the mass amongst the individual forces as a constant:
 $$
 \underbrace{\vec{F}_{net} = \sum_i \vec{F}_i \ \ \ \ \ \ \ \ \ \ \ \vec{a} = \frac{\vec{F}_{net}}{m}}
 \\
@@ -256,12 +256,20 @@ b_l = \frac{1}{m}C_l A\left(\frac{1}{2}\rho\right)
 $$
 
 
+Of potential use: the minimum for takeoff is given by:
+$$
+g = b_l v_{liftoff}^2 \rightarrow \boxed{v_{liftoff} = \sqrt{\frac{g}{b_l}}}
+$$
+
+Where:
+* $g$ = Acceleration due to gravity
+
 
 ## Drag Force
 
 Drag occurs due to collisions between the surrounding air and a vehicle.  For the velocity regime planes are subject to, it is described by:
 $$
-a_D = \frac{1}{m}C_D\left(\frac{1}{2}\rho v^2\right)A
+a_D = -\frac{1}{m}C_D\left(\frac{1}{2}\rho v^2\right)A
 $$
 
 Where:
@@ -274,7 +282,7 @@ Where:
 
 For the sake of simplicity, we collect various constants together:
 $$
-\boxed{a_D = b_Dv^2}
+\boxed{a_D = -b_Dv^2}
 $$
 
 Where:
@@ -301,6 +309,11 @@ Where:
 * $k_v$ = Vertical drag coefficient.  0.02 for players and other living entities
 
 For players and living entities, drag is applier AFTER acceleration due to gravity.
+
+When gravity is factored in, this gives a vertical terminal velocity of:
+$$
+
+$$
 
 
 ## Aerodynamics
@@ -654,6 +667,13 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
         "reds_vehicles:state/engine_on"
       ],
       value: float                            # Amount to scale applied force by.  Defaults to 1.0
+    },
+    {
+      type: "side_linear_drag",               # Applies a linear drag force transerve to vehicle direction
+      predicates: [                           # List of predicates required for this force to apply (optional)
+        "reds_vehicles:environment/on_land"
+      ],
+      value: float                            # Coefficient of drag
     }
   ],
   events: [                     # A list of events that trigger special behavior
@@ -836,7 +856,8 @@ Automatic evaluation only occurs upon reload.
       pilot: true,          # Whether this interaction is the primary cockpit
       tags: {
         width: float,       # Defaults to 1.0, or set to seat.width if provided
-        height: float       # Defaults to 1.0, or set to seat.width if provided
+        height: float,      # Defaults to 1.0, or set to seat.width if provided
+        reponse: 1b         # Hard-coded
       }
     },
     {

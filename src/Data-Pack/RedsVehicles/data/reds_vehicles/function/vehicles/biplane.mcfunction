@@ -25,6 +25,10 @@ handling: [\
     {\
         input: "rotation_diff.yaw",\
         operation: "set",\
+        scale: {\
+            source: "constant",\
+            value: 4.0d\
+        },\
         variable: "vehicle.rot.roll"\
     }\
 ],\
@@ -35,7 +39,7 @@ physics: [\
             "reds_vehicles:has_passenger",\
             "reds_vehicles:environment/mid_air"\
         ],\
-        value: 18.0f\
+        value: 8.0f\
     },\
     {\
         type: "applied",\
@@ -43,7 +47,7 @@ physics: [\
             "reds_vehicles:has_passenger",\
             "reds_vehicles:environment/on_dry_land"\
         ],\
-        value: 20.0f\
+        value: 2.0f\
     },\
     {\
         type: "simple_lift",\
@@ -51,7 +55,7 @@ physics: [\
             "reds_vehicles:environment/in_air",\
             "reds_vehicles:is_moving"\
         ],\
-        value: 0.025f\
+        value: 0.07f\
     },\
     {\
         type: "planar_drag",\
@@ -60,6 +64,14 @@ physics: [\
             "reds_vehicles:is_moving"\
         ],\
         value: 1.0f\
+    },\
+    {\
+        type: "side_linear_drag",\
+        predicates: [\
+            "reds_vehicles:environment/on_dry_land",\
+            "reds_vehicles:is_moving"\
+        ],\
+        value: -0.2f\
     }\
 ],\
 parts: [\
