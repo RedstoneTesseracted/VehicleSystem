@@ -18,7 +18,7 @@ data modify entity @s transformation set from storage reds_vehicles:physics temp
 # tellraw @a [{"text":"1/[b(𝗩•𝗪)]: "},{"nbt": "transformation.translation[0]","entity": "@s"}]
 
 
-# The final acceleration vector is parallel to 𝗪 with a magntitude proportional by the above factor
+# The final acceleration vector is parallel to 𝗪 with a magnitude proportional by the above factor
 # So, we just need to multiply the components of 𝗪 by the above scale factor
 $data modify storage reds_vehicles:physics temp.arr set value [1.0f,0.0f,0.0f,$(dx)f,0.0f,1.0f,0.0f,$(dy)f,0.0f,0.0f,1.0f,$(dz)f,0.0f,0.0f,0.0f,1.0f]
 data modify storage reds_vehicles:physics temp.arr[-1] set from entity @s transformation.translation[0]

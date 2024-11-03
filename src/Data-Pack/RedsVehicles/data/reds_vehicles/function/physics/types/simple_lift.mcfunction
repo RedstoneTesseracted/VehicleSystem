@@ -71,7 +71,7 @@ execute store result storage reds_vehicles:physics temp.dot float 0.000000000465
 
 # title @a actionbar [{"nbt": "temp.dot","storage": "reds_vehicles:physics"}]
 
-# Now compute the remaining b(|𝗩| norm(𝗩)•𝗨)² using display entity funkyness
+# Now compute the remaining b(|𝗩| norm(𝗩)•𝗨)² using display entity funkiness
 data modify storage reds_vehicles:physics temp.b set from storage reds_vehicles:physics unapplied_forces[0].value
 execute summon minecraft:block_display run function reds_vehicles:physics/utility/simple_lift_helper
 
@@ -141,7 +141,7 @@ scoreboard players operation vehicle.vel.z vehicle.local += vehicle.dv.z vehicle
 #       * Store "x" in [4,4]
 #   3. Push transformation matrix to display entity.  The game will automatically divide all 
 #      elements in the matrix by the value in [4,4] to maintain homogeneous coordinates.  As 
-#      a result, [0,0] now contains the reciprocol of x
+#      a result, [0,0] now contains the reciprocal of x
 #   4. Set up a new transformation matrix with the following elements:
 #       * Get scale[0] from old matrix and store in 
 #

@@ -3,7 +3,7 @@
 # It is run BY and AT the base vehicle entity
 # It is called from reds_vehicles:events/process
 
-# Execute the relevent event function
+# Execute the relevant event function
 $execute $(predicate)run function reds_vehicles:events/execute_event
 
 # Pop first element and run again any remain

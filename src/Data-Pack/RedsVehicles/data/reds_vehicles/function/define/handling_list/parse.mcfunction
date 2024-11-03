@@ -7,7 +7,7 @@
 # logged.  After that, this function will return with an error state
 #
 # The list in "working_handling_list" under the "reds_vehicles:definitions"
-# storage is ultimately modified in place assuming no errors occured
+# storage is ultimately modified in place assuming no errors occurred
 #
 # Additionally, a list of strings containing all used input groups is generated 
 # at "working_input_list" under "reds_vehicles:definitions"

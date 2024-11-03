@@ -7,7 +7,7 @@
 # logged.  After that, this function will return with an error state
 #
 # The list in "working_default_score_list" under the "reds_vehicles:definitions"
-# storage is ultimately modified in place assuming no errors occured
+# storage is ultimately modified in place assuming no errors occurred
 #
 # Returns a "0" on failure, and a "1" on success
 

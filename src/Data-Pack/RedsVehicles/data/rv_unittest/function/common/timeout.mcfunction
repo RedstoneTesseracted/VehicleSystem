@@ -1,4 +1,4 @@
-# This function runs when a test exceeds its alotted time to execute.
+# This function runs when a test exceeds its allotted time to execute.
 # Technically, this test SHOULD NEVER BE RUN
 
 # Obtain the name of the test we just tried to execute

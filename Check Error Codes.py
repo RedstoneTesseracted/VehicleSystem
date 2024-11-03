@@ -16,7 +16,7 @@ datapack_path = path.join('src', 'Data-Pack', 'RedsVehicles')
 
 def main():
     known_codes = dict()
-    errors_occured = False
+    errors_occurred = False
     for working_path, subdirs, files in os.walk(datapack_path):
         # Filter paths to those under "function/define/[whatever]/report/"
         if 'function' not in working_path: continue
@@ -44,20 +44,20 @@ def main():
                         found_code = True
                         code = rf.readline().strip().split()[-1]
                         if not code.isdigit():
-                            errors_occured = True
+                            errors_occurred = True
                             print(f"ERROR: Not a number \"{code}\" in", path_to_file)
                             break
                         code = int(code)
 
                         if code in known_codes:
-                            errors_occured = True
+                            errors_occurred = True
                             print(f"ERROR: Code \"{code}\" in {path_to_file} conflicts with {known_codes[code]}")
                             break
                         else:
                             known_codes[code] = path_to_file
 
             if not found_code:
-                errors_occured = True
+                errors_occurred = True
                 print("ERROR: Couldn't find error code for", path_to_file)
 
     # Summary
@@ -69,7 +69,7 @@ def main():
 
     print(f"Error Code Range: {min(known_codes.keys())}-{max(known_codes.keys())}")
     
-    if not errors_occured:
+    if not errors_occurred:
         print("Finished without errors!")
 
 

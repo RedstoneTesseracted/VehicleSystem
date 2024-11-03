@@ -7,7 +7,7 @@
 # logged.  After that, this function will return with an error state
 #
 # The list in "working_part_list" under the "reds_vehicles:definitions"
-# storage is ultimately modified in place assuming no errors occured
+# storage is ultimately modified in place assuming no errors occurred
 #
 # part entries with the "gravity" type will be omitted from the final 
 # list.  Instead the last one's "value" field will be written to 

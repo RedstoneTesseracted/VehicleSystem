@@ -321,7 +321,7 @@ Perhaps we can make the assumption that... uh...
 
 
 
-You know, it might've been simpler to assume a force from the thrust, and just orient the aircraft in a believeable direction relative to the velocity.  So:
+You know, it might've been simpler to assume a force from the thrust, and just orient the aircraft in a believable direction relative to the velocity.  So:
 * Adjust yaw/pitch to point plane in direction of velocity
 * Adjust roll such that...
 
@@ -401,7 +401,7 @@ $$
 v_{n+1} = v_n - cv_n^2\text{sign}(v_n)
 $$
 
-Imagine we have a velocty large enough that the above equation overapplies the drag, causing velocity to reverse direction (i.e. flip its sign).  Note that $v_n$ and $-\text{sign}(v_n)$ ALWAYS have opposite signs, so the two right-side terms in the above equations always have opposite signs.  Therefore, in order to force $v$ to flip sign, we only need:
+Imagine we have a velocity large enough that the above equation overshoots the drag, causing velocity to reverse direction (i.e. flip its sign).  Note that $v_n$ and $-\text{sign}(v_n)$ ALWAYS have opposite signs, so the two right-side terms in the above equations always have opposite signs.  Therefore, in order to force $v$ to flip sign, we only need:
 $$
 |v_n| < |-cv_n^2\text{sign}(v_n)| = |cv_n^2| = cv_n^2 \\
 \cancel{|v_n|} < c|v_n|^{\cancel{2}} \\
@@ -487,7 +487,7 @@ $$
 1-k_h = 0.91 \times slipperiness
 $$
 
-The slipperyness value for various blocks:
+The slipperiness value for various blocks:
 |   Block    | Slipperiness  | Overall $1-k_h$ |
 | ---------- | ------------- | --------------- |
 | Default    | 0.6           | 0.546           |
@@ -729,7 +729,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
         source: str,          # Where to obtain the scale factor from.  May be "constant", "score", or "none"
         value: float,         # Amount to scale the input value by when source is "constant"
         name: str,            # Name of the score to obtain when source is "score"
-        score_scale: float    # Multipled against scoreboard value when source is "score"
+        score_scale: float    # Multiplied against scoreboard value when source is "score"
       },
       variable: "vehicle.dvel.x", # Name of the affected score
       precision: 100          # Multiplier used to treat variable as a fixed-point decimal (default based on variable)
@@ -769,7 +769,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
       value: float                            # Amount to scale applied force by.  Defaults to 1.0
     },
     {
-      type: "side_linear_drag",               # Applies a linear drag force transerve to vehicle direction
+      type: "side_linear_drag",               # Applies a linear drag force transverse to vehicle direction
       predicates: [                           # List of predicates required for this force to apply (optional)
         "reds_vehicles:environment/on_land"
       ],
@@ -819,7 +819,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
         {
           action: "set_custom_model_data",  # Modify a display entity's custom model data
           arguments: {
-            name: str,          # Name of display entitiy(ies) to affect
+            name: str,          # Name of display entity(ies) to affect
             value: int          # New custom model number
           }
         },
@@ -884,8 +884,8 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
   ],
   parts: [    # A collection of tags describing the display entities that make up the visual model
     {
-      scale: float[3],        # Model scale factors in the x, y, and z directions.  Overidden by transform.
-      translation: float[3],  # Model translation in the x, y, and z directions.  Overidden by transform.
+      scale: float[3],        # Model scale factors in the x, y, and z directions.  Overridden by transform.
+      translation: float[3],  # Model translation in the x, y, and z directions.  Overridden by transform.
       transform: float[16],   # An array of floats representing the display's initial 4x4 transformation matrix
       item: str,              # Name of the item displayed by the entity (required)
       custom_model_data: int, # Item's custom model number (optional)
@@ -949,7 +949,7 @@ Automatic evaluation only occurs upon reload.
     "input"           # Gather the input.forward and input.side tags
   ],
   physics: [
-    {   # The predicates list is combined into a single statement compatable with /execute
+    {   # The predicates list is combined into a single statement compatible with /execute
       type: "buoyant",
       value: -1.0,       # The sign is inverted in order to invert the direction of the force
       uid: int,          # Randomly-generated integer used to differentiate two forces of the same type
@@ -963,7 +963,7 @@ Automatic evaluation only occurs upon reload.
       tags: {
         width: float,       # Defaults to 1.0, or set to seat.width if provided
         height: float,      # Defaults to 1.0, or set to seat.width if provided
-        reponse: 1b         # Hard-coded
+        response: 1b        # Hard-coded
       }
     },
     {
@@ -977,7 +977,7 @@ Automatic evaluation only occurs upon reload.
     }
   ],
   events: [
-    {  # The trigger and predicates list are combined into a single statement compatable with /execute
+    {  # The trigger and predicates list are combined into a single statement compatible with /execute
       predicate: "if predicate reds_vehicles:state/engine_on ",
       actions: [
         {
@@ -1105,7 +1105,7 @@ So, we basically have multiple different types of visuals:
 * Particle effects
 
 
-Simlar to the force system, we can assign our animations a predicate (or list of predicates) to control when they're applied.
+Similar to the force system, we can assign our animations a predicate (or list of predicates) to control when they're applied.
 
 ### Keyframed Animations:
 
@@ -1164,7 +1164,7 @@ So, the proposed spec for this would be:
   offset: double[3], # Particle offset 3-vector
   relative: bool,    # Whether to use relative (^) or absolute (~) coordinate offset.  Optional, defaults to 1b
   spread: double[3], # Particle spread 3-vector.  Optional, defaults to [0.0d, 0.0d, 0.0d]
-  speed: float,      # Particle animation speed.  Optional, defautls to 1.0
+  speed: float,      # Particle animation speed.  Optional, defaults to 1.0
   count: int,        # Particle count per tick.  Optional, defaults to 1
   force: bool,       # Whether to disable distance culling.  Optional, defaults to 0b
   predicates: str[]  # List of all predicates that must be met for this animation to play.  Optional, defaults to []
@@ -1636,7 +1636,7 @@ $$
 \bold{N}\bold{N}^T = \bold{U}\bold{\Sigma}^2\bold{U}^T
 $$
 
-In this form, we see that $\bold{N}^T\bold{N}$ can be diagonalized to obtain $\bold{V}$, and $\bold{N}\bold{N}^T$ can be diagonalized to obtain $\bold{U}$.  In both cases, $\bold{\Sigma}^2$ represents the eigenvalues of $\bold{N}^T\bold{N}$ and/or $\bold{N}\bold{N}^T$.  For the time being, we will ignore the scalar $\frac{1}{a_{44}}$ in front of the above 3x3 matrix, as we can simply pull that into the scaling matrix later.  This process is *far* to tedious to calcuate exactly here (especially for the general 3x3 matrix!).  However, there are a few special cases that may be of use:
+In this form, we see that $\bold{N}^T\bold{N}$ can be diagonalized to obtain $\bold{V}$, and $\bold{N}\bold{N}^T$ can be diagonalized to obtain $\bold{U}$.  In both cases, $\bold{\Sigma}^2$ represents the eigenvalues of $\bold{N}^T\bold{N}$ and/or $\bold{N}\bold{N}^T$.  For the time being, we will ignore the scalar $\frac{1}{a_{44}}$ in front of the above 3x3 matrix, as we can simply pull that into the scaling matrix later.  This process is *far* to tedious to calculate exactly here (especially for the general 3x3 matrix!).  However, there are a few special cases that may be of use:
 $$
 \bold{N}=
 \left[\begin{matrix}
@@ -2317,7 +2317,7 @@ Although offering a consistent specification across versions is nice and all, we
 
 For example, let's say Mojang bestows upon us data-driven entities for Java edition.  No longer would we need to use an assembly of interactions, item displays, and armor stands.  Instead, we get to rewrite the entire framework around using a singular entity—hooray!  Yet, this poses a problem: what about existing vehicles in people's worlds?  Are they rendered unsupported and broken—left to waste away in obsolescence?
 
-A seamless upgrade is clearly the ideal user experience.  However, this would require the implementation and careful maintenance of a system capable of upgrading between datapack versions.  Besides changes in the framework's implementation, recall that commands and their syntax frequency change between updates in datapack-breaking ways.  Now, Minecraft *does* have a system for this in the form of overlays, allowing datapacks to function across multiple versions by simply overiding files based on version.  
+A seamless upgrade is clearly the ideal user experience.  However, this would require the implementation and careful maintenance of a system capable of upgrading between datapack versions.  Besides changes in the framework's implementation, recall that commands and their syntax frequency change between updates in datapack-breaking ways.  Now, Minecraft *does* have a system for this in the form of overlays, allowing datapacks to function across multiple versions by simply overriding files based on version.  
 
 This means we'd need to maintain *every* updater function for *every future datapack format*.  As the number of updates to both the game and datapack grow, we'd have to test updating from *every single version* to make sure the new updater functions work.
 

@@ -63,7 +63,7 @@ execute store result storage reds_vehicles:physics temp.dot float 0.000000000465
 # title @a actionbar [{"nbt": "temp.dot","storage": "reds_vehicles:physics"}]
 # tellraw @a {"nbt": "Motion","entity": "@s"}
 
-# Now compute the remaining b(|𝗩| norm(𝗩)•𝗪) using display entity funkyness
+# Now compute the remaining b(|𝗩| norm(𝗩)•𝗪) using display entity funkiness
 data modify storage reds_vehicles:physics temp.b set from storage reds_vehicles:physics unapplied_forces[0].value
 execute summon minecraft:block_display run function reds_vehicles:physics/utility/side_drag_helper
 # tellraw @a {"text":"----------------------------"}
