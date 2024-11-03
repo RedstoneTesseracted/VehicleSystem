@@ -230,6 +230,105 @@ $$
 Below are various forces we may wish to include.  All related force equations will be presented as solved for acceleration.
 
 
+## Aerodynamics
+
+It should be noted that the lift and drag equations shown above are not entirely practical for our purposes.  This is due to the effect of angle-of-attack being swept into $C_l$.  As a result, we cannot currently describe what happens when you point a plane in a direction other than the velocity.  For that, we'll need a better model.
+
+The effect of drag is easier to handle, since it merely relies on cross-sectional area orthogonal to velocity:
+$$
+a_D = \frac{1}{m}C_D\left(\frac{1}{2}\rho v^2\right)A
+$$
+
+Therefore, if we come up with a simplistic aircraft profile, we'll be able to describe cross-sectional area.
+
+Lift, however, requires something more complicated.  Therefore, it's time to bust out the surface integrals:
+$$
+D_p = \oint p \hat{\bold{n}} \cdot \hat{\bold{i}}\ dS_i
+\\
+Y = \oint p \hat{\bold{n}} \cdot \hat{\bold{j}}\ dS_j
+\\
+L = \oint p \hat{\bold{n}} \cdot \hat{\bold{k}}\ dS_k
+$$
+See: [Lift (force) - Wikipedia](https://en.wikipedia.org/wiki/Lift_(force))
+
+Where:
+* $D_p$ = Pressure drag
+* $Y$ = Side force
+* $L$ = Lift force
+* $p$ = Pressure at point on wing
+* $\hat{\bold{n}}$ = Normal unit vector pointing into the wing
+* $\hat{\bold{i}}$ = Unit vector parallel to the air stream
+* $\hat{\bold{j}}$ = Spanwise unit vector normal to the air stream
+* $\hat{\bold{k}}$ = Normal vector to the air stream
+* $S_i$, $S_j$, $S_k$ = Projected area of the craft normal to $\hat{\bold{i}}$, $\hat{\bold{j}}$, and $\hat{\bold{k}}$ respectively.
+
+Note that we can use the third integral to reproduce the equation for $F_D$.  Since $A$ is the area wing area orthogonal to $\hat{\bold{k}}$:
+$$
+A = \oint \hat{\bold{n}} \cdot \hat{\bold{k}}\ dS_k
+$$
+
+
+
+Therefore, the total aerodynamic force is:
+$$
+\vec{F}_{net} = D_p\hat{\bold{i}} + Y\hat{\bold{j}} + L\hat{\bold{k}}
+\\
+\vec{F}_{net} = \oint p [(\hat{\bold{n}} \cdot \hat{\bold{i}})\hat{\bold{i}}+(\hat{\bold{n}} \cdot \hat{\bold{j}})\hat{\bold{j}}+(\hat{\bold{n}} \cdot \hat{\bold{k}})\hat{\bold{k}}]\ dS
+\\
+\vec{F}_{net} = \oint p \hat{\bold{n}}\ dS
+$$
+Where:
+* $\vec{F}_{net}$ = Total pressure force
+* $p$ = Pressure at a point on the wing
+* $\hat{\bold{n}}$ = Normal unit vector pointing into the wing
+* $dS$ = Infinitesimal surface area at a point on the wing
+
+This actually makes a lot of sense, since $Force = Pressure \times Area$.  However... now we need a pressure profile...
+
+For this, we can use Bernoulli's principle:
+$$
+p + \frac{1}{2} \rho {v}^2 + \rho g h = \underbrace{constant}_{Along\ a\ streamline}
+$$
+Where:
+* $p$ = Pressure at elevation
+* $v$ = Velocity at elevation
+* $h$ = Height at elevation
+* $g$ = Acceleration due to gravity
+* $\rho$ = Density of medium (air, for our purposes)
+
+Solving for $p$:
+$$
+p = c - \frac{1}{2} \rho {v}^2 - \rho g h
+$$
+
+Now, let's assume the affect of $\rho g h$ is much smaller than $\frac{1}{2} \rho {v}^2$ or $p$:
+$$
+p \approx c - \frac{1}{2} \rho {v}^2
+$$
+
+Substituting:
+$$
+\vec{F}_{net} = \oint [c - \frac{1}{2} \rho {v}^2] \hat{\bold{n}}\ dS
+$$
+
+
+$$
+F_D = C_D\left(\frac{1}{2}\rho v^2\right)A
+$$
+
+
+Perhaps we can make the assumption that... uh...
+
+
+
+You know, it might've been simpler to assume a force from the thrust, and just orient the aircraft in a believeable direction relative to the velocity.  So:
+* Adjust yaw/pitch to point plane in direction of velocity
+* Adjust roll such that...
+
+
+You know, maybe I'll come back to this one...
+
+
 ## Lift Force
 
 Lift occurs due to a pressure difference between the top and bottom of a wing.  It is described by:
@@ -378,117 +477,30 @@ Where:
 * $\vec{v}_v$ = Vertical component of velocity vector
 * $\vec{v}_{before}$ = Velocity before drag
 * $\vec{v}_{after}$ = Velocity after drag
-* $k_h$ = Horizontal drag coefficient.  For players and other living entities this is 0.09 in air and ~0.454 on the ground
-* $k_v$ = Vertical drag coefficient.  0.02 for players and other living entities
+* $k_h$ = Horizontal drag coefficient.  For players and other living entities this is 0.09 in air and 0.454 on the ground (for most blocks)
+* $k_v$ = Vertical drag coefficient.  0.019999980926513672 for players and other living entities
 
-For players and living entities, drag is applier AFTER acceleration due to gravity.
+For players and living entities, drag is applied AFTER acceleration due to gravity while in air.  When in water and lava, it is applied BEFORE.
 
-When gravity is factored in, this gives a vertical terminal velocity of:
+For players and other living entities, the base value of $(1-k_h)$ is 0.91.  However, when on the ground, this factor is multiplied by ground's slipperiness:
 $$
-\begin{matrix}
-\text{Drag before gravity:} & \ \ \ \ \ \ \ & \text{Drag after gravity:} \\
-v_{term} = -\frac{g}{k_v} & & v_{term} = -\frac{g(1-k_v)}{k_v}
-\end{matrix}
+1-k_h = 0.91 \times slipperiness
 $$
 
+The slipperyness value for various blocks:
+|   Block    | Slipperiness  | Overall $1-k_h$ |
+| ---------- | ------------- | --------------- |
+| Default    | 0.6           | 0.546           |
+| Slime      | 0.8           | 0.728           |
+| Ice        | 0.98          | 0.8918          |
+| Packed Ice | 0.98          | 0.8918          |
+| Blue Ice   | 0.989         | 0.89999         |
 
-## Aerodynamics
-
-It should be noted that the lift and drag equations shown above are not entirely practical for our purposes.  This is due to the effect of angle-of-attack being swept into $C_l$.  As a result, we cannot currently describe what happens when you point a plane in a direction other than the velocity.  For that, we'll need a better model.
-
-The effect of drag is easier to handle, since it merely relies on cross-sectional area orthogonal to velocity:
-$$
-a_D = \frac{1}{m}C_D\left(\frac{1}{2}\rho v^2\right)A
-$$
-
-Therefore, if we come up with a simplistic aircraft profile, we'll be able to describe cross-sectional area.
-
-Lift, however, requires something more complicated.  Therefore, it's time to bust out the surface integrals:
-$$
-D_p = \oint p \hat{\bold{n}} \cdot \hat{\bold{i}}\ dS_i
-\\
-Y = \oint p \hat{\bold{n}} \cdot \hat{\bold{j}}\ dS_j
-\\
-L = \oint p \hat{\bold{n}} \cdot \hat{\bold{k}}\ dS_k
-$$
-See: [Lift (force) - Wikipedia](https://en.wikipedia.org/wiki/Lift_(force))
-
-Where:
-* $D_p$ = Pressure drag
-* $Y$ = Side force
-* $L$ = Lift force
-* $p$ = Pressure at point on wing
-* $\hat{\bold{n}}$ = Normal unit vector pointing into the wing
-* $\hat{\bold{i}}$ = Unit vector parallel to the air stream
-* $\hat{\bold{j}}$ = Spanwise unit vector normal to the air stream
-* $\hat{\bold{k}}$ = Normal vector to the air stream
-* $S_i$, $S_j$, $S_k$ = Projected area of the craft normal to $\hat{\bold{i}}$, $\hat{\bold{j}}$, and $\hat{\bold{k}}$ respectively.
-
-Note that we can use the third integral to reproduce the equation for $F_D$.  Since $A$ is the area wing area orthogonal to $\hat{\bold{k}}$:
-$$
-A = \oint \hat{\bold{n}} \cdot \hat{\bold{k}}\ dS_k
-$$
-
-
-
-Therefore, the total aerodynamic force is:
-$$
-\vec{F}_{net} = D_p\hat{\bold{i}} + Y\hat{\bold{j}} + L\hat{\bold{k}}
-\\
-\vec{F}_{net} = \oint p [(\hat{\bold{n}} \cdot \hat{\bold{i}})\hat{\bold{i}}+(\hat{\bold{n}} \cdot \hat{\bold{j}})\hat{\bold{j}}+(\hat{\bold{n}} \cdot \hat{\bold{k}})\hat{\bold{k}}]\ dS
-\\
-\vec{F}_{net} = \oint p \hat{\bold{n}}\ dS
-$$
-Where:
-* $\vec{F}_{net}$ = Total pressure force
-* $p$ = Pressure at a point on the wing
-* $\hat{\bold{n}}$ = Normal unit vector pointing into the wing
-* $dS$ = Infinitesimal surface area at a point on the wing
-
-This actually makes a lot of sense, since $Force = Pressure \times Area$.  However... now we need a pressure profile...
-
-For this, we can use Bernoulli's principle:
-$$
-p + \frac{1}{2} \rho {v}^2 + \rho g h = \underbrace{constant}_{Along\ a\ streamline}
-$$
-Where:
-* $p$ = Pressure at elevation
-* $v$ = Velocity at elevation
-* $h$ = Height at elevation
-* $g$ = Acceleration due to gravity
-* $\rho$ = Density of medium (air, for our purposes)
-
-Solving for $p$:
-$$
-p = c - \frac{1}{2} \rho {v}^2 - \rho g h
-$$
-
-Now, let's assume the affect of $\rho g h$ is much smaller than $\frac{1}{2} \rho {v}^2$ or $p$:
-$$
-p \approx c - \frac{1}{2} \rho {v}^2
-$$
-
-Substituting:
-$$
-\vec{F}_{net} = \oint [c - \frac{1}{2} \rho {v}^2] \hat{\bold{n}}\ dS
-$$
-
-
-$$
-F_D = C_D\left(\frac{1}{2}\rho v^2\right)A
-$$
-
-
-Perhaps we can make the assumption that... uh...
-
-
-
-You know, it might've been simpler to assume a force from the thrust, and just orient the aircraft in a believeable direction relative to the velocity.  So:
-* Adjust yaw/pitch to point plane in direction of velocity
-* Adjust roll such that...
-
-
-You know, maybe I'll come back to this one...
+In fluids like water and lava, slipperiness does not apply.  Additionally, the values of $k_h$ and $k_v$ are different:
+|       |      In water     | In Lava  |
+| ----- | ----------------- | -------- |
+| $k_h$ | 0.8               | 0.5      |
+| $k_v$ | 0.800000011920929 | 0.5      |
 
 
 ## Gravity
@@ -522,6 +534,18 @@ $$
 v_{y}' = \frac{v_y-g}{1-k_y}+g = \frac{v_{y} - k_y g}{1-k_y} \\
 \vec{v}_{h}' = \frac{\vec{v}_{h}}{1-k_h}
 $$
+
+Additionally, the vertical terminal velocity is given by:
+$$
+\begin{matrix}
+\text{Drag before gravity:} & \ \ \ \ \ \ \ & \text{Drag after gravity:} \\
+v_{term} = -\frac{g}{k_v} & & v_{term} = -\frac{g(1-k_v)}{k_v}
+\end{matrix}
+$$
+
+In water and lava, an entity's effective gravity is reduced to $1/4$ of its ordinary value.
+
+
 
 ## Buoyant Force
 
