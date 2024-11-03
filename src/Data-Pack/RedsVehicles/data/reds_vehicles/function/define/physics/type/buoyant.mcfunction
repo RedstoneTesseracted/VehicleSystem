@@ -1,4 +1,4 @@
-# Buoyant force
+# Mark force as existing
 scoreboard players set vehicle.physics_type_exists vehicle.local 1
 
 # Multiply value by -1.0 to invert direction

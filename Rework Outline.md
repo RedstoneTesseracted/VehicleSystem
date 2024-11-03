@@ -774,6 +774,12 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
         "reds_vehicles:environment/on_land"
       ],
       value: float                            # Coefficient of drag
+    },
+    {
+      type: "elytra_glide",                   # Vehicle base entity acts like it's wearing an elytra
+      predicates: [                           # List of predicates required for this force to apply (optional)
+        "reds_vehicles:environment/in_air"
+      ]
     }
   ],
   events: [                     # A list of events that trigger special behavior

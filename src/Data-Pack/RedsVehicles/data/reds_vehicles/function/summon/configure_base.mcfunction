@@ -38,6 +38,10 @@ scoreboard players set @s vehicle.engine 1
 # Declare user-provided scores (if provided)
 execute if data storage reds_vehicles:definitions summon.default_scores run function reds_vehicles:summon/set_default_scores
 
+# Add elytra if elytra_glide force is present within physics list
+# TODO: Change this to an invisible item with the glider tag in 1.21.2+
+execute if data storage reds_vehicles:definitions summon.physics[{type:"elytra_glide"}] run item replace entity @s armor.chest with minecraft:elytra
+
 
 # Configure events
 #$function reds_vehicles:summon/configure_events $(events)

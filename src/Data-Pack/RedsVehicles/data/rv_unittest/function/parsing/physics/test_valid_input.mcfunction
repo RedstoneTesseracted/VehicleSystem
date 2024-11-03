@@ -150,6 +150,35 @@ execute if data storage reds_vehicles:definitions predicates run return run func
 
 #####################################################################################################
 
+# Setup - ELYTRA_GLIDE
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_physics set value {type: "elytra_glide", value: 1.0}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/physics/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run data modify storage reds_vehicles:unittest reason set value {text:"Failed to parse valid input"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
+
+# Check output
+execute unless data storage reds_vehicles:definitions working_physics{type: "elytra_glide"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_physics.type to be \"applied\" (was "},{nbt:"working_physics.type", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_physics{type: "elytra_glide"} run return run function rv_unittest:common/fail
+
+execute if data storage reds_vehicles:definitions working_physics.value run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_physics.value to be absent (was "},{nbt:"working_physics.value", storage:"reds_vehicles:definitions"},{text:")"}]
+execute if data storage reds_vehicles:definitions working_physics.value run return run function rv_unittest:common/fail
+
+execute unless data storage reds_vehicles:definitions working_physics{predicate: ""} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_physics.predicate to be \"\" (was "},{nbt:"working_physics.predicate", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_physics{predicate: ""} run return run function rv_unittest:common/fail
+
+execute if data storage reds_vehicles:definitions predicates run data modify storage reds_vehicles:unittest reason set value {text:"Expected working_physics.predicates to have been dropped"}
+execute if data storage reds_vehicles:definitions predicates run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
 
 # Everything passed!
 return run function rv_unittest:common/pass
