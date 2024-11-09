@@ -7,6 +7,8 @@ data modify storage reds_vehicles:unittest tests set value [\
 "rv_unittest:parsing/action/test_unknown_action",\
 "rv_unittest:parsing/action/effect_passenger/test_invalid_input",\
 "rv_unittest:parsing/action/effect_passenger/test_valid_input",\
+"rv_unittest:parsing/action/message/test_invalid_input",\
+"rv_unittest:parsing/action/message/test_valid_input",\
 "rv_unittest:parsing/action/modify_transform/test_invalid_input",\
 "rv_unittest:parsing/action/modify_transform/test_valid_input",\
 "rv_unittest:parsing/action/particle/test_invalid_input",\

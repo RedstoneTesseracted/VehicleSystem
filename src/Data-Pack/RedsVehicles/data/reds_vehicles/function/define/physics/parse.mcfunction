@@ -11,10 +11,6 @@
 execute unless data storage reds_vehicles:definitions working_physics.type run function reds_vehicles:define/physics/report/type_missing
 execute unless data storage reds_vehicles:definitions working_physics.type run return run function reds_vehicles:define/physics/exit_fail
 
-# Value field is required
-execute unless data storage reds_vehicles:definitions working_physics.value run function reds_vehicles:define/physics/report/value_missing
-execute unless data storage reds_vehicles:definitions working_physics.value run return run function reds_vehicles:define/physics/exit_fail
-
 # Perform type-specific validation
 scoreboard players set vehicle.physics_type_exists vehicle.local 0
 execute store result score vehicle.physics_macro_status vehicle.local run function reds_vehicles:define/physics/parse_type_specific with storage reds_vehicles:definitions working_physics

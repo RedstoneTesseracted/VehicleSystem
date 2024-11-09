@@ -13,6 +13,11 @@ handling: [\
         variable: "vehicle.accel.forward",\
     },\
     {\
+        input: "click.left",\
+        operation: "set",\
+        variable: "vehicle.button.kill_throttle",\
+    },\
+    {\
         input: "rotation_diff.pitch",\
         operation: "increase",\
         variable: "vehicle.rot.pitch"\
@@ -47,23 +52,23 @@ physics: [\
             "reds_vehicles:has_passenger",\
             "reds_vehicles:environment/on_dry_land"\
         ],\
-        value: 2.0f\
+        value: 2.0f,\
+        reset: 0b\
     },\
     {\
         type: "simple_lift",\
         predicates: [\
-            "reds_vehicles:environment/in_air",\
+            "reds_vehicles:environment/on_dry_land",\
             "reds_vehicles:is_moving"\
         ],\
         value: 0.07f\
     },\
     {\
-        type: "planar_drag",\
+        type: "elytra_glide",\
         predicates: [\
             "reds_vehicles:environment/in_air",\
             "reds_vehicles:is_moving"\
         ],\
-        value: 1.0f\
     },\
     {\
         type: "side_linear_drag",\
@@ -102,6 +107,34 @@ events: [\
               arguments: {\
                 name: "vehicle.rot.roll",\
                 value: 0\
+              }\
+            }\
+        ]\
+    },\
+    {\
+        trigger: "vehicle.button.kill_throttle",\
+        actions: [\
+            {\
+              action: "set_score",\
+              arguments: {\
+                name: "vehicle.accel.forward",\
+                value: 0\
+              }\
+            }\
+        ]\
+    },\
+    {\
+        predicates: [\
+            "reds_vehicles:has_passenger"\
+        ],\
+        actions: [\
+            {\
+              action: "message",\
+              arguments: {\
+                text: [\
+                    {text: "Throttle: "},\
+                    {score: {name: "@s", objective: "vehicle.accel.forward"}}\
+                ]\
               }\
             }\
         ]\

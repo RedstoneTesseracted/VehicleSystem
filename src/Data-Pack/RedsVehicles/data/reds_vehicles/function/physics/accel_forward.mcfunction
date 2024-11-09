@@ -19,21 +19,22 @@ scoreboard players operation vehicle.p2.z vehicle.local -= vehicle.p1.z vehicle.
 
 # Apply scale factor to score
 $execute store result storage reds_vehicles:physics temp.u double $(value) run scoreboard players get @s vehicle.accel.forward
-execute store result score @s vehicle.accel.forward run data get storage reds_vehicles:physics temp.u
+execute store result score vehicle.accel.forward vehicle.local run data get storage reds_vehicles:physics temp.u
 data remove storage reds_vehicles:physics temp
 
 # Multiply by magnitude and correct precision
 #   vehicle.p2.x          - x100 fixed-point
 #   vehicle.accel.forward - x1000 fixed-point
 #   vehicle.vel.x         - x100000 fixed-point
-scoreboard players operation vehicle.p2.x vehicle.local *= @s vehicle.accel.forward
-scoreboard players operation vehicle.p2.y vehicle.local *= @s vehicle.accel.forward
-scoreboard players operation vehicle.p2.z vehicle.local *= @s vehicle.accel.forward
+scoreboard players operation vehicle.p2.x vehicle.local *= vehicle.accel.forward vehicle.local
+scoreboard players operation vehicle.p2.y vehicle.local *= vehicle.accel.forward vehicle.local
+scoreboard players operation vehicle.p2.z vehicle.local *= vehicle.accel.forward vehicle.local
 
 # Add to current velocity vector
 scoreboard players operation vehicle.vel.x vehicle.local += vehicle.p2.x vehicle.local
 scoreboard players operation vehicle.vel.y vehicle.local += vehicle.p2.y vehicle.local
 scoreboard players operation vehicle.vel.z vehicle.local += vehicle.p2.z vehicle.local
 
-# Reset scores
+# Reset scores if enabled
+execute if predicate reds_vehicles:utility/unapplied_force_no_reset run return 1
 scoreboard players set @s vehicle.accel.forward 0

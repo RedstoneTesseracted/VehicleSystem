@@ -698,21 +698,22 @@ Inputs are gathered as a group, that is: requesting `look.x` will also gather `l
 
 All vehicles will have common set of scoreboard values (stored by the root vehicle entity) that contain pertinent information about their state/motion.  These include:
 
-|          Name          |         Format         |                    Description                           |
-| ---------------------- | ---------------------- | -------------------------------------------------------- |
-| vehicle.rot.yaw        | x10000 fixed-precision | Yaw (↔️)                                                  |
-| vehicle.rot.pitch      | x10000 fixed-precision | Pitch (↕️)                                                |
-| vehicle.rot.roll       | x10000 fixed-precision | Roll (↺)                                                 |
-| vehicle.dvel.x         | x1000 fixed-precision  | Amount to change x-velocity by.  Reset to zero each tick |
-| vehicle.dvel.y         | x1000 fixed-precision  | Amount to change y-velocity by.  Reset to zero each tick |
-| vehicle.dvel.z         | x1000 fixed-precision  | Amount to change z-velocity by.  Reset to zero each tick |
-| vehicle.engine         | boolean 0 or 1         | Engine state                                             |
-| vehicle.version        | integer                | Datapack version number vehicle was summoned with        |
-| vehicle.accel.forward  | x1000 fixed-precision  | Amount to change velocity in the vehicle's direction.  Reset to zero each tick |
-| vehicle.thrust         | x1000 fixed-precision  | Used in physics calculations to determine vehicle thrust |
-| vehicle.event.firework | boolean 0 or 1         | Summon a firework once                                   |
-| vehicle.event.honk     | boolean 0 or 1         | Honk the horn                                            |
-| vehicle.event.shoot    | boolean 0 or 1         | Fire a projectile                                        |
+|             Name             |         Format         |                    Description                           |
+| ---------------------------- | ---------------------- | -------------------------------------------------------- |
+| vehicle.rot.yaw              | x10000 fixed-precision | Yaw (↔️)                                                  |
+| vehicle.rot.pitch            | x10000 fixed-precision | Pitch (↕️)                                                |
+| vehicle.rot.roll             | x10000 fixed-precision | Roll (↺)                                                 |
+| vehicle.dvel.x               | x1000 fixed-precision  | Amount to change x-velocity by                           |
+| vehicle.dvel.y               | x1000 fixed-precision  | Amount to change y-velocity by                           |
+| vehicle.dvel.z               | x1000 fixed-precision  | Amount to change z-velocity by                           |
+| vehicle.engine               | boolean 0 or 1         | Engine state                                             |
+| vehicle.version              | integer                | Datapack version number vehicle was summoned with        |
+| vehicle.accel.forward        | x1000 fixed-precision  | Amount to change velocity in the vehicle's direction     |
+| vehicle.thrust               | x1000 fixed-precision  | Used in physics calculations to determine vehicle thrust |
+| vehicle.event.firework       | boolean 0 or 1         | Summon a firework once                                   |
+| vehicle.event.honk           | boolean 0 or 1         | Honk the horn                                            |
+| vehicle.event.shoot          | boolean 0 or 1         | Fire a projectile                                        |
+| vehicle.button.kill_throttle | boolean 0 or 1         | Dummy variables for user's discretion                    |
 
 
 ## Vehicle Definition Data Structure
@@ -766,7 +767,8 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
       predicates: [                           # List of predicates required for this force to apply (optional)
         "reds_vehicles:state/engine_on"
       ],
-      value: float                            # Amount to scale applied force by.  Defaults to 1.0
+      value: float,                           # Amount to scale applied force by.  Defaults to 1.0
+      reset: bool                             # Whether to reset the driving scores
     },
     {
       type: "side_linear_drag",               # Applies a linear drag force transverse to vehicle direction
@@ -878,7 +880,13 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
             transform: str, # Name of transform to modify (left_rotation or right_rotation)
             axis: float[3], # Axis of rotation
           }
-        }
+        },
+        {
+          action: "message",    # Displays a message in the passenger's actionbar
+          arguments: {
+            text: nbt           # The message, as NBT-formatted JSON text
+          }
+        },
       ]
     }
   ],
