@@ -11,19 +11,24 @@ data modify storage reds_vehicles:physics temp.arr[-1] set from entity @s transf
 $data modify storage reds_vehicles:physics temp.arr[0] set value $(vmag)f
 data modify entity @s transformation set from storage reds_vehicles:physics temp.arr
 
+# tellraw @a [{"nbt": "transformation.scale[0]","entity": "@s"}]
 # title @a actionbar [{"nbt":"transformation.scale[0]","entity": "@s"}]
 
 # > Compute 1/(𝗩•𝗨)
 data modify storage reds_vehicles:physics temp.arr[-1] set from entity @s transformation.scale[0]
-data modify storage reds_vehicles:physics temp.arr[0] set value 1.0
+data modify storage reds_vehicles:physics temp.arr[0] set value 1.0f
+# tellraw @a [{"nbt": "temp.arr","storage": "reds_vehicles:physics"}]
 data modify entity @s transformation set from storage reds_vehicles:physics temp.arr
+# tellraw @a [{"nbt": "transformation.scale[0]","entity": "@s"}]
 # > Compute b(𝗩•𝗨)=b/[1/(𝗩•𝗨)]
 data modify storage reds_vehicles:physics temp.arr[-1] set from entity @s transformation.scale[0]
 $data modify storage reds_vehicles:physics temp.arr[0] set value $(b)f
 data modify entity @s transformation set from storage reds_vehicles:physics temp.arr
+# tellraw @a [{"nbt": "transformation.scale[0]","entity": "@s"}]
 # > Compute b(𝗩•𝗨)²=b/[1/(𝗩•𝗨)]²
 data modify storage reds_vehicles:physics temp.arr[0] set from entity @s transformation.scale[0]
 data modify entity @s transformation set from storage reds_vehicles:physics temp.arr
+
 
 
 # title @a actionbar [{"nbt": "temp.arr","storage": "reds_vehicles:physics"}]

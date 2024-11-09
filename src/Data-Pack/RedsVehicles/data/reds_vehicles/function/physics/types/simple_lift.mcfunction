@@ -44,6 +44,7 @@ scoreboard players remove vehicle.vel.y vehicle.local 7841
 # data modify storage reds_vehicles:physics temp.vz set from entity @s Motion[2]
 execute summon minecraft:block_display run function reds_vehicles:physics/utility/precision_vector_normalize with storage reds_vehicles:physics temp
 
+# tellraw @a [{"nbt": "temp.vmag","storage": "reds_vehicles:physics"}]
 
 # Compute the dot product using fixed-point arithmetic
 # Here, we use the very funky multiplier of 46340, chosen because:
@@ -76,6 +77,7 @@ data modify storage reds_vehicles:physics temp.b set from storage reds_vehicles:
 execute summon minecraft:block_display run function reds_vehicles:physics/utility/simple_lift_helper
 
 # title @a actionbar [{"nbt": "temp.a","storage": "reds_vehicles:physics"}]
+# tellraw @a [{"nbt": "temp.a","storage": "reds_vehicles:physics"}]
 
 
 # Compute the final lift vector and apply to motion tag

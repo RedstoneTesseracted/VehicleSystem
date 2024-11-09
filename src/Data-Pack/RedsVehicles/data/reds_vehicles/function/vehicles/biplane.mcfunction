@@ -44,7 +44,8 @@ physics: [\
             "reds_vehicles:has_passenger",\
             "reds_vehicles:environment/mid_air"\
         ],\
-        value: 8.0f\
+        value: 0.1f,\
+        reset: 0b\
     },\
     {\
         type: "applied",\
@@ -61,22 +62,14 @@ physics: [\
             "reds_vehicles:environment/on_dry_land",\
             "reds_vehicles:is_moving"\
         ],\
-        value: 0.07f\
+        value: 0.05f\
     },\
     {\
         type: "elytra_glide",\
         predicates: [\
-            "reds_vehicles:environment/in_air",\
+            "reds_vehicles:environment/mid_air",\
             "reds_vehicles:is_moving"\
         ],\
-    },\
-    {\
-        type: "side_linear_drag",\
-        predicates: [\
-            "reds_vehicles:environment/on_dry_land",\
-            "reds_vehicles:is_moving"\
-        ],\
-        value: -0.2f\
     }\
 ],\
 parts: [\
