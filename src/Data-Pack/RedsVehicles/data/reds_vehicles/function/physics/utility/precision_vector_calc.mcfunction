@@ -1,9 +1,9 @@
 # This utility function is used for obtaining vectors with floating-point precision
 #
 # To use it, store the first point somewhere in the temp tag in the reds_vehicles:physics storage:
-#   data modify storage reds_vehicles:physics temp.x set from entity @s Pos[0]
-#   data modify storage reds_vehicles:physics temp.y set from entity @s Pos[1]
-#   data modify storage reds_vehicles:physics temp.z set from entity @s Pos[2]
+#   data modify storage reds_vehicles:physics temp.x1 set from entity @s Pos[0]
+#   data modify storage reds_vehicles:physics temp.y1 set from entity @s Pos[1]
+#   data modify storage reds_vehicles:physics temp.z1 set from entity @s Pos[2]
 #
 # Then, invoke this function with a command similar to:
 #   execute positioned ^ ^ ^1 summon minecraft:marker run function reds_vehicles:physics/utility/precision_vector_calc with storage reds_vehicles:physics temp
