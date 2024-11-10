@@ -19,7 +19,5 @@
 # First, take yaw and pitch into account
 execute positioned 0.0 0.0 0.0 run function reds_vehicles:physics/utility/precision_roll_helper_part1 with storage reds_vehicles:physics temp
 
-# title @a actionbar [{"text":"dx: "},{"nbt": "temp.dx","storage": "reds_vehicles:physics"},{"text":", dy: "},{"nbt": "temp.dy","storage": "reds_vehicles:physics"},{"text":", dz: "},{"nbt": "temp.dz","storage": "reds_vehicles:physics"}]
-
 # Next, take roll into account
 execute positioned 0.0 0.0 0.0 run function reds_vehicles:physics/utility/precision_roll_helper_part2 with storage reds_vehicles:physics temp

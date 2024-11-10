@@ -12,4 +12,4 @@
 # execute positioned 0.0 0.0 0.0 run function reds_vehicles:physics/utility/precision_roll_helper_part2 with storage reds_vehicles:physics temp
 #
 # Additionally, it relies on external setup as outlined in reds_vehicles:physics/utility/precision_roll_helper
-$execute rotated $(roll) 0.0 positioned ^$(dy) ^$(dz) ^$(dx) summon minecraft:marker run function reds_vehicles:physics/utility/__precision_roll_helper_part2
+$execute rotated $(roll) 0.0 positioned ^$(dx) ^$(dz) ^$(dy) summon minecraft:marker run function reds_vehicles:physics/utility/__precision_roll_helper_part2
