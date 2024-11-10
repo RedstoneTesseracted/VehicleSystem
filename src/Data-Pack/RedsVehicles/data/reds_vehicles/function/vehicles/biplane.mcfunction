@@ -22,7 +22,7 @@ handling: [\
         operation: "increase",\
         scale: {\
             source: "constant",\
-            value: 0.5d\
+            value: 1.0d\
         },\
         variable: "vehicle.rot.pitch"\
     },\
@@ -31,16 +31,16 @@ handling: [\
         operation: "increase",\
         scale: {\
             source: "constant",\
-            value: 0.5d\
+            value: 1.0d\
         },\
         variable: "vehicle.rot.yaw"\
     },\
     {\
-        input: "rotation_diff.yaw",\
+        input: "heading_diff.yaw",\
         operation: "set",\
         scale: {\
             source: "constant",\
-            value: 1.0d\
+            value: 1.1d\
         },\
         variable: "vehicle.rot.roll"\
     }\

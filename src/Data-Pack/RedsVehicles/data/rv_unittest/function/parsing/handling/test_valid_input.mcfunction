@@ -172,6 +172,10 @@ execute store result score vehicle.unittest.input_test_result vehicle.unittest.l
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
 execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "rotation", input: "yaw"}
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
+execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "heading_diff", input: "pitch"}
+execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
+execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "heading_diff", input: "yaw"}
+execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
 
 # Everything passed!
 return run function rv_unittest:common/pass

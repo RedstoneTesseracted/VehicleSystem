@@ -669,6 +669,10 @@ These fields serve as inputs for vehicle actions/responses.  These are rebuilt f
     pitch: float, # Difference between player and vehicle pitch
     yaw: float    # Difference between player and vehicle yaw
   },
+  heading_diff: {
+    pitch: float, # Difference in player's pitch and the pitch of the vehicle's velocity vector
+    yaw: float    # Difference in player's yaw and the yaw of the vehicle's velocity vector
+  },
   click: {
     right: bool,  # Whether the passenger just right-clicked
     left: bool,   # Whether the passenger just left-clicked
@@ -692,6 +696,7 @@ Inputs are gathered as a group, that is: requesting `look.x` will also gather `l
 | rotation_diff |        -        |
 | click         |        -        |
 | input         | look_xz, motion |
+| heading_diff  |        -        |
 
 
 ## Vehicle Scoreboards
