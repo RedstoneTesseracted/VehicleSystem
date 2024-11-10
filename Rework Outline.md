@@ -730,7 +730,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
   handling: [  # A list of tags that define how the vehicle's variables react to user input (optional)
     {
       input: "look.x",        # Path to the input value in the user input NBT tag
-      operation: "increase",  # Operation to apply to vehicle variable.  May be "increase", "decrease", "set", or "toggle"
+      operation: "increase",  # Operation to apply to vehicle variable.  May be "increase", "decrease", "set", "toggle", "clamped_increase", or "clamped_decrease"
       scale: {                # Information regarding how the input value is scaled.  Defaults to a scale of source "none" if absent
         source: str,          # Where to obtain the scale factor from.  May be "constant", "score", or "none"
         value: float,         # Amount to scale the input value by when source is "constant"

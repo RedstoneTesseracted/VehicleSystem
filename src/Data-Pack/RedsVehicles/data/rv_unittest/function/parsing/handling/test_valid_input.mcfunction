@@ -93,7 +93,7 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run da
 execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
 
 # Check output
-execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.variable to be \"vehicle.dvel.x\" (was "},{nbt:"working_handling.variable", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.variable to be \"vehicle.nonstandard\" (was "},{nbt:"working_handling.variable", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_handling{precision: 100} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.precision to be 100 (was "},{nbt:"working_handling.precision", storage:"reds_vehicles:definitions"},{text:")"}]
@@ -123,7 +123,7 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run da
 execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
 
 # Check output
-execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.variable to be \"vehicle.dvel.x\" (was "},{nbt:"working_handling.variable", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.variable to be \"vehicle.nonstandard\" (was "},{nbt:"working_handling.variable", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_handling{precision: 1} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.precision to be 100 (was "},{nbt:"working_handling.precision", storage:"reds_vehicles:definitions"},{text:")"}]
@@ -131,6 +131,60 @@ execute unless data storage reds_vehicles:definitions working_handling{precision
 
 execute unless data storage reds_vehicles:definitions working_handling{operation: "toggle"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.operation to be \"toggle\" (was "},{nbt:"working_handling.input_group", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_handling{operation: "toggle"} run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
+
+# Setup - CLAMPED INCREASE
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_handling set value {input: "look.z", operation: "clamped_increase", min: 0, max: 1000, variable: "vehicle.nonstandard"}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/handling/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run data modify storage reds_vehicles:unittest reason set value {text:"Failed to parse valid input"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
+
+# Check output
+execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.variable to be \"vehicle.nonstandard\" (was "},{nbt:"working_handling.variable", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run return run function rv_unittest:common/fail
+
+execute unless data storage reds_vehicles:definitions working_handling{precision: 1} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.precision to be 100 (was "},{nbt:"working_handling.precision", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{precision: 1} run return run function rv_unittest:common/fail
+
+execute unless data storage reds_vehicles:definitions working_handling{operation: "clamped_increase"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.operation to be \"clamped_increase\" (was "},{nbt:"working_handling.input_group", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{operation: "clamped_increase"} run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
+
+# Setup - CLAMPED DECREASE
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_handling set value {input: "look.z", operation: "clamped_decrease", min: 0, max: 1000, variable: "vehicle.nonstandard"}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/handling/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run data modify storage reds_vehicles:unittest reason set value {text:"Failed to parse valid input"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
+
+# Check output
+execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.variable to be \"vehicle.nonstandard\" (was "},{nbt:"working_handling.variable", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{variable: "vehicle.nonstandard"} run return run function rv_unittest:common/fail
+
+execute unless data storage reds_vehicles:definitions working_handling{precision: 1} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.precision to be 100 (was "},{nbt:"working_handling.precision", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{precision: 1} run return run function rv_unittest:common/fail
+
+execute unless data storage reds_vehicles:definitions working_handling{operation: "clamped_decrease"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_handling.operation to be \"clamped_decrease\" (was "},{nbt:"working_handling.input_group", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_handling{operation: "clamped_decrease"} run return run function rv_unittest:common/fail
 
 
 #####################################################################################################

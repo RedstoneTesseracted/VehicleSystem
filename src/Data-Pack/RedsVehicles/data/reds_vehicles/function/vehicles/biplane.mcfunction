@@ -5,7 +5,9 @@ name: biplane,\
 handling: [\
     {\
         input: "input.forward",\
-        operation: "increase",\
+        operation: "clamped_increase",\
+        min: 0,\
+        max: 1000,\
         scale: {\
             source: "constant",\
             value: 0.01d\

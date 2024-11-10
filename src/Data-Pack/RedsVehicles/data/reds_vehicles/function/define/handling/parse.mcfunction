@@ -38,6 +38,13 @@ execute if score vehicle.input_parse_status vehicle.local matches 0 run function
 execute if score vehicle.input_exists vehicle.local matches 0 run function reds_vehicles:define/handling/report/unknown_input
 execute unless score vehicle.input_parse_status vehicle.local matches 1 run return run function reds_vehicles:define/handling/exit_fail
 
+# Handle this particular type of operation
+scoreboard players set vehicle.operation_exists vehicle.local 0
+execute store result score vehicle.operation_parse_status vehicle.local run function reds_vehicles:define/handling/parse_operation_specific with storage reds_vehicles:definitions working_handling
+execute if score vehicle.operation_parse_status vehicle.local matches 0 run function reds_vehicles:define/handling/report/operation_macro_fail
+execute if score vehicle.operation_exists vehicle.local matches 0 run function reds_vehicles:define/handling/report/unknown_operation
+execute unless score vehicle.operation_parse_status vehicle.local matches 1 run return run function reds_vehicles:define/handling/exit_fail
+
 
 # Success!
 return run function reds_vehicles:define/handling/exit_success
