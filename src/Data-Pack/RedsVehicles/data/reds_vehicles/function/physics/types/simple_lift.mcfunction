@@ -42,7 +42,7 @@ scoreboard players remove vehicle.vel.y vehicle.local 7841
 # data modify storage reds_vehicles:physics temp.vx set from entity @s Motion[0]
 # data modify storage reds_vehicles:physics temp.vy set from entity @s Motion[1]
 # data modify storage reds_vehicles:physics temp.vz set from entity @s Motion[2]
-execute summon minecraft:block_display run function reds_vehicles:physics/utility/precision_vector_normalize with storage reds_vehicles:physics temp
+execute summon minecraft:block_display run function reds_vehicles:physics/utility/precision_vector_normalize
 
 # tellraw @a [{"nbt": "temp.vmag","storage": "reds_vehicles:physics"}]
 

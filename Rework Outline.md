@@ -782,6 +782,13 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
       predicates: [                           # List of predicates required for this force to apply (optional)
         "reds_vehicles:environment/in_air"
       ]
+    },
+    {
+      type: "uniform_quadratic_drag",         # Applies a uniform quadratic drag force
+      predicates: [                           # List of predicates required for this force to apply (optional)
+        "reds_vehicles:is_moving"
+      ],
+      value: float                            # Coefficient of drag
     }
   ],
   events: [                     # A list of events that trigger special behavior

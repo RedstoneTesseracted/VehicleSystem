@@ -70,6 +70,13 @@ physics: [\
             "reds_vehicles:is_moving"\
         ],\
         value: 0.05f\
+    },\
+    {\
+        type: "uniform_quadratic_drag",\
+        predicates: [\
+            "reds_vehicles:is_moving"\
+        ],\
+        value: 0.01f\
     }\
 ],\
 parts: [\

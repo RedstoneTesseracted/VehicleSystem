@@ -31,7 +31,7 @@ execute unless data storage reds_vehicles:logging errors[{code: 65}] run return 
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_physics set value {type: "gravity"}
+data modify storage reds_vehicles:definitions working_physics set value {type: "applied"}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/physics/parse
@@ -89,6 +89,160 @@ execute unless function rv_unittest:common/assert_one_error run return run funct
 # Check error code
 execute unless data storage reds_vehicles:logging errors[{code: 64}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 64"}]
 execute unless data storage reds_vehicles:logging errors[{code: 64}] run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
+
+# Setup - ZERO VALUE FOR QUADRATIC LINEAR DRAG
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_physics set value {type: "uniform_quadratic_drag", value: 0.0}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/physics/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"value\" is 0.0"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 78}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 78"}]
+execute unless data storage reds_vehicles:logging errors[{code: 78}] run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
+
+# Setup - BAD VALUE FOR APPLIED
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_physics set value {type: "applied", value: "notagoodvalueforapplied"}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/physics/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"value\" is not a number (\"notagoodvalueforapplied\")"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 80"}]
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
+
+# Setup - BAD VALUE FOR BUOYANT
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_physics set value {type: "buoyant", value: "notagoodvalueforbuoyant"}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/physics/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"value\" is not a number (\"notagoodvalueforbuoyant\")"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 80"}]
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
+
+# Setup - BAD VALUE FOR PLANAR DRAG
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_physics set value {type: "planar_drag", value: "notagoodvalueforplanardrag"}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/physics/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"value\" is not a number (\"notagoodvalueforplanardrag\")"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 80"}]
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
+
+# Setup - BAD VALUE FOR SIDE LINEAR DRAG
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_physics set value {type: "side_linear_drag", value: "notagoodvalueforsidelineardrag"}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/physics/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"value\" is not a number (\"notagoodvalueforsidelineardrag\")"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 80"}]
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
+
+# Setup - BAD VALUE FOR SIMPLE LIFT
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_physics set value {type: "simple_lift", value: "notagoodvalueforsimplelift"}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/physics/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"value\" is not a number (\"notagoodvalueforsimplelift\")"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 80"}]
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run return run function rv_unittest:common/fail
+
+
+#####################################################################################################
+
+# Setup - BAD VALUE FOR UNIFORM QUADRATIC DRAG
+data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
+function reds_vehicles:define/logging/reset
+
+data modify storage reds_vehicles:definitions working_physics set value {type: "uniform_quadratic_drag", value: "notagoodvalueforuniformquadraticdrag"}
+
+# Run functions
+execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/physics/parse
+
+# Analyze and display results
+# Check success/failure status
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"value\" is not a number (\"notagoodvalueforuniformquadraticdrag\")"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
+# Check number of errors
+execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
+# Check error code
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 80"}]
+execute unless data storage reds_vehicles:logging errors[{code: 80}] run return run function rv_unittest:common/fail
 
 
 #####################################################################################################
