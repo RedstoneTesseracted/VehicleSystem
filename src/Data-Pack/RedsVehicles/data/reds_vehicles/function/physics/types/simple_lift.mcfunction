@@ -81,17 +81,19 @@ execute summon minecraft:block_display run function reds_vehicles:physics/utilit
 
 
 # Compute the final lift vector and apply to motion tag
-function reds_vehicles:physics/utility/simple_lift_helper2 with storage reds_vehicles:physics temp
+data merge storage reds_vehicles:physics {temp:{u: 0.0f, w: 0.0f, dx: 0.0f, dy: 0.0f, dz: 0.0f}}
+data modify storage reds_vehicles:physics temp.v set from storage reds_vehicles:physics temp.a
+execute store result storage reds_vehicles:physics temp.roll double 0.0001 run scoreboard players get @s vehicle.rot.roll
+# function reds_vehicles:physics/utility/simple_lift_helper2 with storage reds_vehicles:physics temp
+function reds_vehicles:physics/utility/precision_roll_helper with storage reds_vehicles:physics temp
 
 # title @a actionbar [{"text":"dx: "},{"nbt": "temp.dx","storage": "reds_vehicles:physics"},{"text":", dy: "},{"nbt": "temp.dy","storage": "reds_vehicles:physics"},{"text":", dz: "},{"nbt": "temp.dz","storage": "reds_vehicles:physics"}]
 
-# return fail
+# Apply the change in velocity
 execute store result score vehicle.dv.x vehicle.local run data get storage reds_vehicles:physics temp.dx 100000
 execute store result score vehicle.dv.y vehicle.local run data get storage reds_vehicles:physics temp.dy 100000
 execute store result score vehicle.dv.z vehicle.local run data get storage reds_vehicles:physics temp.dz 100000
 
-# title @a actionbar [{"text":"vx: "},{"score": {"name": "vehicle.dv.x","objective": "vehicle.local"}},{"text":", vy: "},{"score": {"name": "vehicle.dv.y","objective": "vehicle.local"}},{"text":", vz: "},{"score": {"name": "vehicle.dv.z","objective": "vehicle.local"}}]
-# return fail
 scoreboard players operation vehicle.vel.x vehicle.local += vehicle.dv.x vehicle.local
 scoreboard players operation vehicle.vel.y vehicle.local += vehicle.dv.y vehicle.local
 scoreboard players operation vehicle.vel.z vehicle.local += vehicle.dv.z vehicle.local

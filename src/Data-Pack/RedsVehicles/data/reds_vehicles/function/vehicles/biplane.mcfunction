@@ -20,11 +20,19 @@ handling: [\
     {\
         input: "rotation_diff.pitch",\
         operation: "increase",\
+        scale: {\
+            source: "constant",\
+            value: 0.5d\
+        },\
         variable: "vehicle.rot.pitch"\
     },\
     {\
         input: "rotation_diff.yaw",\
         operation: "increase",\
+        scale: {\
+            source: "constant",\
+            value: 0.5d\
+        },\
         variable: "vehicle.rot.yaw"\
     },\
     {\
@@ -32,7 +40,7 @@ handling: [\
         operation: "set",\
         scale: {\
             source: "constant",\
-            value: 4.0d\
+            value: 1.0d\
         },\
         variable: "vehicle.rot.roll"\
     }\
@@ -44,7 +52,7 @@ physics: [\
             "reds_vehicles:has_passenger",\
             "reds_vehicles:environment/mid_air"\
         ],\
-        value: 0.1f,\
+        value: 1.1f,\
         reset: 0b\
     },\
     {\
@@ -59,17 +67,9 @@ physics: [\
     {\
         type: "simple_lift",\
         predicates: [\
-            "reds_vehicles:environment/on_dry_land",\
             "reds_vehicles:is_moving"\
         ],\
         value: 0.05f\
-    },\
-    {\
-        type: "elytra_glide",\
-        predicates: [\
-            "reds_vehicles:environment/mid_air",\
-            "reds_vehicles:is_moving"\
-        ],\
     }\
 ],\
 parts: [\
@@ -118,7 +118,8 @@ events: [\
     },\
     {\
         predicates: [\
-            "reds_vehicles:has_passenger"\
+            "reds_vehicles:has_passenger",\
+            "reds_vehicles:environment/in_lava"\
         ],\
         actions: [\
             {\
