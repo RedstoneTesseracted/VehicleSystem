@@ -12,8 +12,8 @@ scoreboard players operation vehicle.pitch_diff vehicle.local -= @s vehicle.rot.
 # Account for cases where the shortest rotation path crosses the ±180⁰ boundary
 # execute if score @s vehicle.rot.yaw matches ..0 if score vehicle.yaw_diff vehicle.local matches 1800000.. run scoreboard players add vehicle.yaw_diff vehicle.local 3600000
 # execute if score @s vehicle.rot.yaw matches 0.. if score vehicle.yaw_diff vehicle.local matches ..-1800000 run scoreboard players remove vehicle.yaw_diff vehicle.local 3600000
-execute if score vehicle.yaw_diff vehicle.local matches 1800000.. run scoreboard players add vehicle.yaw_diff vehicle.local 3600000
-execute if score vehicle.yaw_diff vehicle.local matches ..-1800000 run scoreboard players remove vehicle.yaw_diff vehicle.local 3600000
+execute if score vehicle.yaw_diff vehicle.local matches 1800000.. run scoreboard players remove vehicle.yaw_diff vehicle.local 3600000
+execute if score vehicle.yaw_diff vehicle.local matches ..-1800000 run scoreboard players add vehicle.yaw_diff vehicle.local 3600000
 
 # Shouldn't occur for yaw since -90⁰ ≤ yaw ≤ 90⁰??
 
