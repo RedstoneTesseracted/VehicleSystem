@@ -76,7 +76,7 @@ physics: [\
         predicates: [\
             "reds_vehicles:is_moving"\
         ],\
-        value: 0.01f\
+        value: 0.05f\
     }\
 ],\
 parts: [\
@@ -125,8 +125,7 @@ events: [\
     },\
     {\
         predicates: [\
-            "reds_vehicles:has_passenger",\
-            "reds_vehicles:environment/in_lava"\
+            "reds_vehicles:has_passenger"\
         ],\
         actions: [\
             {\
