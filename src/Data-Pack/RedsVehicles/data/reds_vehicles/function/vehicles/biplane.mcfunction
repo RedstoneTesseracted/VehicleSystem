@@ -71,7 +71,7 @@ physics: [\
         predicates: [\
             "reds_vehicles:is_moving"\
         ],\
-        value: 0.05f\
+        value: 0.03f\
     },\
     {\
         type: "uniform_quadratic_drag",\

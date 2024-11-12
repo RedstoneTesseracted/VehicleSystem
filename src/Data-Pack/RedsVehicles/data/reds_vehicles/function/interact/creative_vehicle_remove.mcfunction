@@ -9,7 +9,7 @@ execute as @e[tag=vehicle.seat] if function reds_vehicles:interact/check_seat_at
 tag @a remove vehicle.context
 
 # Destroy the targeted vehicle
-execute as @n[tag=vehicle.click_target] on vehicle run function reds_vehicles:summon/destroy
+execute as @n[tag=vehicle.click_target] on vehicle at @s run function reds_vehicles:summon/destroy
 
 # Reset tags
 tag @e remove vehicle.click_target
