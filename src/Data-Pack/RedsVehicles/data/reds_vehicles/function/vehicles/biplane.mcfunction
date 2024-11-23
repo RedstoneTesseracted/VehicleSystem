@@ -86,7 +86,7 @@ parts: [\
         scale: [3.0f, 3.0f, 3.0f],\
         translation: [0.0f, 1.25f, -0.4f],\
         item: "minecraft:glass",\
-        custom_model_data: 1414716,\
+        custom_model_data: 1414717,\
         name: display\
     }\
 ],\
@@ -185,7 +185,7 @@ item: {\
     name: "Biplane",\
     model: ""\
 },\
-ground_offset: 0.7f,\
+ground_offset: 1.4f,\
 step_height: 1.0f,\
 min_version: 1\
 }
