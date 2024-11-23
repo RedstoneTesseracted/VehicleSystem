@@ -15,5 +15,9 @@
     "reds_vehicles.unittest.finish.reload_hint": "It is recommended you run %s after running the test suite",
     "reds_vehicles.spawning.item_spawning_failed": "Failed to summon vehicle \"%s\"",
     "reds_vehicles.welcome.message": "Thank you for using Redstone⁴'s Vehicles!",
-    "reds_vehicles.welcome.not_installed_hint": ""
+    "reds_vehicles.welcome.not_installed_hint": "",
+    "reds_vehicles.item.spawn_egg": "Spawn %s",
+    "reds_vehicles.vehicle.submarine": "Submarine",
+    "reds_vehicles.vehicle.orb": "Orb",
+    "reds_vehicles.vehicle.biplane": "Biplane"
 }
