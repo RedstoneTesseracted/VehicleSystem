@@ -1,7 +1,7 @@
 #### UNIT TEST ####
-# Try to declare a valid "set_custom_model_data" actions
-data modify storage reds_vehicles:unittest name set value "parsing/action/set_custom_model_data/test_invalid_input"
-data modify storage reds_vehicles:unittest description set value {text:"Make sure we can catch invalid input when trying to declare a set_custom_model_data action"}
+# Try to declare a valid "set_model" actions
+data modify storage reds_vehicles:unittest name set value "parsing/action/set_model/test_invalid_input"
+data modify storage reds_vehicles:unittest description set value {text:"Make sure we can catch invalid input when trying to declare a set_model action"}
 data modify storage reds_vehicles:unittest reason set value ""
 
 #####################################################################################################
@@ -10,7 +10,7 @@ data modify storage reds_vehicles:unittest reason set value ""
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_action set value {action: "set_custom_model_data", arguments: {value:42}}
+data modify storage reds_vehicles:definitions working_action set value {action: "set_model", arguments: {value:42}}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/action/parse
@@ -31,7 +31,7 @@ execute unless data storage reds_vehicles:logging errors[{code: 1}] run return r
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_action set value {action: "set_custom_model_data", arguments: {name:"display"}}
+data modify storage reds_vehicles:definitions working_action set value {action: "set_model", arguments: {name:"display"}}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/action/parse

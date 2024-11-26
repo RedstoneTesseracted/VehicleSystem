@@ -738,6 +738,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
         name: str,            # Name of the score to obtain when source is "score"
         score_scale: float    # Multiplied against scoreboard value when source is "score"
       },
+      predicates: [],         # A list of string predicates that determine when this handling tag is applied
       variable: "vehicle.dvel.x", # Name of the affected score
       precision: 100          # Multiplier used to treat variable as a fixed-point decimal (default based on variable)
     }
@@ -832,7 +833,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
           }
         },
         {
-          action: "set_custom_model_data",  # Modify a display entity's custom model data
+          action: "set_model",  # Modify a display entity's custom model data
           arguments: {
             name: str,          # Name of display entity(ies) to affect
             value: int          # New custom model number
@@ -843,6 +844,12 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
           arguments: {
             name: str,          # Name of scoreboard
             value: int          # Value to set
+          }
+        },
+        {
+          action: "toggle_score", # Toggle a score between 0 and 1.  Any nonzero number is interpreted as 1.
+          arguments: {
+            name: str,            # Name of scoreboard
           }
         },
         {
@@ -1257,7 +1264,7 @@ Several action types are possible, including:
   * Delta (float[3])
   * Count (default 1)
   * Speed (default 1.0)
-* set_custom_model_data: sets the custom model data of one of the item displays
+* set_model: sets the custom model data of one of the item displays
   * Display entity name (str)
   * New value (int)
 * set_score:

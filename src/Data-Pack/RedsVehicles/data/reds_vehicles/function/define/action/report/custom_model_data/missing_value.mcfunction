@@ -1,4 +1,4 @@
-data modify storage reds_vehicles:logging error.source set value "reds_vehicles:define/action/type/set_custom_model_data"
+data modify storage reds_vehicles:logging error.source set value "reds_vehicles:define/action/type/set_model"
 data modify storage reds_vehicles:logging error.description set value {text:"Action type \"custom_model\" missing required field \"value\""}
 ## ERROR CODE LINE ##
 data modify storage reds_vehicles:logging error.code set value 2

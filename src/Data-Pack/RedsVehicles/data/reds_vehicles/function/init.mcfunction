@@ -33,6 +33,7 @@ scoreboard objectives add vehicle.last_interaction_uuid2 dummy
 scoreboard objectives add vehicle.last_interaction_uuid3 dummy
 scoreboard objectives add vehicle.last_interaction_uuid4 dummy
 scoreboard objectives add vehicle.button.kill_throttle dummy
+scoreboard objectives add vehicle.button.toggle_engine dummy
 
 # Standard vehicle scoreboards
 # Rotation

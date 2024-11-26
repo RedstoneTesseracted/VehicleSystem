@@ -19,6 +19,14 @@ execute unless data storage reds_vehicles:definitions working_handling.operation
 execute unless data storage reds_vehicles:definitions working_handling.variable run function reds_vehicles:define/handling/report/variable_missing
 execute unless data storage reds_vehicles:definitions working_handling.variable run return run function reds_vehicles:define/handling/exit_fail
 
+# Process predicates list (optional)
+data modify storage reds_vehicles:definitions working_predicate set value ""
+data modify storage reds_vehicles:definitions working_predicates set from storage reds_vehicles:definitions working_handling.predicates
+execute unless data storage reds_vehicles:definitions working_handling.predicates run data modify storage reds_vehicles:definitions working_predicates set value []
+execute unless function reds_vehicles:define/predicate_list/parse run return run function reds_vehicles:define/handling/exit_fail
+data remove storage reds_vehicles:definitions working_handling.predicates
+data modify storage reds_vehicles:definitions working_handling.predicate set from storage reds_vehicles:definitions working_predicate
+
 # Scale field (optional, defaults to no scale)
 execute unless data storage reds_vehicles:definitions working_handling.scale run data modify storage reds_vehicles:definitions working_handling.scale set value {source:"none"}
 data modify storage reds_vehicles:definitions working_scale set from storage reds_vehicles:definitions working_handling.scale

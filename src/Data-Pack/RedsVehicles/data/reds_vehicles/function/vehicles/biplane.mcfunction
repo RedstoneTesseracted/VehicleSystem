@@ -14,11 +14,14 @@ handling: [\
             value: 0.01d\
         },\
         variable: "vehicle.accel.forward",\
+        predicates: [\
+            "reds_vehicles:state/engine_on"\
+        ],\
     },\
     {\
         input: "click.left",\
         operation: "set",\
-        variable: "vehicle.button.kill_throttle",\
+        variable: "vehicle.button.toggle_engine",\
     },\
     {\
         input: "rotation_diff.pitch",\
@@ -27,6 +30,9 @@ handling: [\
             source: "constant",\
             value: 1.0d\
         },\
+        predicates: [\
+            "reds_vehicles:environment/mid_air"\
+        ],\
         variable: "vehicle.rot.pitch"\
     },\
     {\
@@ -45,6 +51,9 @@ handling: [\
             source: "constant",\
             value: 1.1d\
         },\
+        predicates: [\
+            "reds_vehicles:environment/mid_air"\
+        ],\
         variable: "vehicle.rot.roll"\
     }\
 ],\
@@ -87,7 +96,7 @@ parts: [\
         scale: [3.0f, 3.0f, 3.0f],\
         translation: [0.0f, 0.91f, -0.4f],\
         item: "minecraft:glass",\
-        custom_model_data: 1414717,\
+        custom_model_data: 1414718,\
         name: display\
     }\
 ],\
@@ -115,13 +124,86 @@ events: [\
         ]\
     },\
     {\
-        trigger: "vehicle.button.kill_throttle",\
+        trigger: "vehicle.accel.forward",\
+        predicates: [\
+            "reds_vehicles:state/engine_off"\
+        ],\
         actions: [\
             {\
               action: "set_score",\
               arguments: {\
                 name: "vehicle.accel.forward",\
                 value: 0\
+              }\
+            }\
+        ]\
+    },\
+    {\
+        trigger: "vehicle.button.toggle_engine",\
+        predicates: [\
+            "reds_vehicles:state/engine_on"\
+        ],\
+        actions: [\
+            {\
+              action: "set_score",\
+              arguments: {\
+                name: "vehicle.engine",\
+                value: 0\
+              }\
+            },\
+            {\
+              action: "set_score",\
+              arguments: {\
+                name: "vehicle.button.toggle_engine",\
+                value: 0\
+              }\
+            },\
+            {\
+              action: "set_model",\
+              arguments: {\
+                name: "display",\
+                value: 1414718\
+              }\
+            },\
+            {\
+              action: "playsound",\
+              arguments: {\
+                sound: "minecraft:block.note_block.pling"\
+              }\
+            }\
+        ]\
+    },\
+    {\
+        trigger: "vehicle.button.toggle_engine",\
+        predicates: [\
+            "reds_vehicles:state/engine_off"\
+        ],\
+        actions: [\
+            {\
+              action: "set_score",\
+              arguments: {\
+                name: "vehicle.engine",\
+                value: 1\
+              }\
+            },\
+            {\
+              action: "set_score",\
+              arguments: {\
+                name: "vehicle.button.toggle_engine",\
+                value: 0\
+              }\
+            },\
+            {\
+              action: "set_model",\
+              arguments: {\
+                name: "display",\
+                value: 1414717\
+              }\
+            },\
+            {\
+              action: "playsound",\
+              arguments: {\
+                sound: "minecraft:block.note_block.snare"\
               }\
             }\
         ]\
@@ -179,8 +261,8 @@ events: [\
     }\
 ],\
 seat: {\
-    width: 3.0f,\
-    height: 1.5f\
+    width: 4.0f,\
+    height: 1.6f\
 },\
 item: {\
     name: "Biplane",\
