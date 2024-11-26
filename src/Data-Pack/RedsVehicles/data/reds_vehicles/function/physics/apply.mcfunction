@@ -5,11 +5,6 @@
 # It is run BY and AT the base vehicle entity
 
 
-# Test hack
-# execute if entity @s[tag=vehicle.name.biplane] if predicate reds_vehicles:environment/on_land run data modify entity @s Rotation[1] set value 0.0f
-# execute if entity @s[tag=vehicle.name.biplane] if predicate reds_vehicles:environment/on_land run scoreboard players set @s vehicle.rot.pitch 0
-
-
 # # Counteract drag
 # data modify storage reds_vehicles:physics temp.vx set from entity @s Motion[0]
 # data modify storage reds_vehicles:physics temp.vy set from entity @s Motion[1]
