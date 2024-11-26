@@ -17,6 +17,11 @@ execute if score vehicle.min_version vehicle.local > vehicle.current_version veh
 execute if score vehicle.min_version vehicle.local > vehicle.current_version vehicle.local run return run function reds_vehicles:define/root/exit_fail
 
 
+# Ensure vehicle author is present
+execute unless data storage reds_vehicles:definitions working_root.author run function reds_vehicles:define/root/report/author_missing
+execute unless data storage reds_vehicles:definitions working_root.author run return run function reds_vehicles:define/root/exit_fail
+
+
 # Process the handling tag
 data modify storage reds_vehicles:definitions working_input_list set value []
 execute unless data storage reds_vehicles:definitions working_root.handling run data modify storage reds_vehicles:definitions working_root.handling set value []

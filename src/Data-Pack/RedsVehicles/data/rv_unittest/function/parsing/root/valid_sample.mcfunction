@@ -2,6 +2,7 @@
 data modify storage reds_vehicles:definitions working_root set value \
 {\
 name: "orb",\
+author: "Redstone⁴",\
 handling:[\
     {\
         input: "directed.x",\

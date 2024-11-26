@@ -1,7 +1,8 @@
 # Declare the submarine vehicle by appending to reds_vehicles:definitions vehicles
 data modify storage reds_vehicles:definitions vehicles append value \
 {\
-name: submarine,\
+name: "submarine",\
+author: "Redstone⁴",\
 handling: [\
     {\
         input: "directed.x",\

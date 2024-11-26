@@ -25,6 +25,9 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run da
 execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
 
 # Check output
+execute unless data storage reds_vehicles:definitions working_root{author:"Redstone⁴"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_root.author to be \"Redstone⁴\" (was "},{nbt:"working_root.author", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_root{author:"Redstone⁴"} run return run function rv_unittest:common/fail
+
 execute unless data storage reds_vehicles:definitions working_root{base_gravity:0.0f} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_root.base_gravity to be 0.0f (was "},{nbt:"working_root.base_gravity", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_root{base_gravity:0.0f} run return run function rv_unittest:common/fail
 
@@ -90,6 +93,9 @@ execute store result score vehicle.unittest.result vehicle.unittest.local run fu
 # Check success/failure status
 execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run data modify storage reds_vehicles:unittest reason set value {text:"Failed to parse valid input"}
 execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
+
+execute unless data storage reds_vehicles:definitions working_root{author:"Redstone⁴"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_root.author to be \"Redstone⁴\" (was "},{nbt:"working_root.author", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_root{author:"Redstone⁴"} run return run function rv_unittest:common/fail
 
 execute if data storage reds_vehicles:definitions working_root.handling[0] run data modify storage reds_vehicles:unittest reason set value {text:"Minimal vehicle was not declared with any events"}
 execute if data storage reds_vehicles:definitions working_root.handling[0] run return run function rv_unittest:common/fail

@@ -17,6 +17,7 @@
     "reds_vehicles.welcome.message": "Thank you for using Redstone⁴'s Vehicles!",
     "reds_vehicles.welcome.not_installed_hint": "",
     "reds_vehicles.item.spawn_egg": "Spawn %s",
+    "reds_vehicles.item.author_line": "Credit: %s",
     "reds_vehicles.vehicle.submarine": "Submarine",
     "reds_vehicles.vehicle.orb": "Orb",
     "reds_vehicles.vehicle.biplane": "Biplane"

@@ -727,6 +727,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
 ```yaml
 {
   name: str,   # Name of vehicle (required)
+  author: str, # Vehicle creator (required)
   handling: [  # A list of tags that define how the vehicle's variables react to user input (optional)
     {
       input: "look.x",        # Path to the input value in the user input NBT tag
