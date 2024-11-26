@@ -22,8 +22,12 @@ for working_path, subdirs, files in os.walk('.'):
         if not path.isfile(path_to_file): continue
 
         # Check first line
-        with open(path.join(working_path, file), mode='r') as rf:
-            first_line = rf.readline()
+        try:
+            with open(path_to_file, mode='r', encoding='utf-8') as rf:
+                first_line = rf.readline()
+        except Exception as err:
+            print(f"Encountered fatal error on {path_to_file}")
+            raise err
         if not first_line.startswith("#### UNIT TEST ####"): continue
 
         # We found a unit test!
