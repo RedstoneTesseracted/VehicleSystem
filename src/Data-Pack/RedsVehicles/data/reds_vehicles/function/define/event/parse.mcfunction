@@ -25,7 +25,7 @@ data remove storage reds_vehicles:definitions working_event.trigger
 data modify storage reds_vehicles:definitions working_predicate set value ""
 data modify storage reds_vehicles:definitions working_predicates set from storage reds_vehicles:definitions working_event.predicates
 execute unless data storage reds_vehicles:definitions working_event.predicates run data modify storage reds_vehicles:definitions working_predicates set value []
-execute unless function reds_vehicles:define/predicate_list/parse run return run function reds_vehicles:define/physics/exit_fail
+execute unless function reds_vehicles:define/predicate_list/parse run return run function reds_vehicles:define/event/exit_fail
 data remove storage reds_vehicles:definitions working_event.predicates
 
 # Append the result from the predicates list
