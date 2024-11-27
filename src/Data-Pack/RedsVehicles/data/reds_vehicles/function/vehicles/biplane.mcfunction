@@ -16,7 +16,7 @@ handling: [\
         variable: "vehicle.accel.forward",\
         predicates: [\
             "reds_vehicles:state/engine_on"\
-        ],\
+        ]\
     },\
     {\
         input: "click.left",\
@@ -42,7 +42,10 @@ handling: [\
             source: "constant",\
             value: 1.0d\
         },\
-        variable: "vehicle.rot.yaw"\
+        variable: "vehicle.rot.yaw",\
+        predicates: [\
+            "reds_vehicles:state/engine_on"\
+        ]\
     },\
     {\
         input: "heading_diff.yaw",\
@@ -61,7 +64,6 @@ physics: [\
     {\
         type: "applied",\
         predicates: [\
-            "reds_vehicles:has_passenger",\
             "reds_vehicles:environment/mid_air"\
         ],\
         value: 1.1f,\
@@ -79,14 +81,14 @@ physics: [\
     {\
         type: "simple_lift",\
         predicates: [\
-            "reds_vehicles:is_moving"\
+            "reds_vehicles:has_horizontal_movement"\
         ],\
         value: 0.03f\
     },\
     {\
         type: "uniform_quadratic_drag",\
         predicates: [\
-            "reds_vehicles:is_moving"\
+            "reds_vehicles:has_horizontal_movement"\
         ],\
         value: 0.05f\
     }\
