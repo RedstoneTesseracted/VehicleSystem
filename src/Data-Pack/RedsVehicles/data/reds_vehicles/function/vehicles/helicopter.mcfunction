@@ -3,6 +3,7 @@ data modify storage reds_vehicles:definitions vehicles append value \
 {\
 name: "helicopter",\
 author: "Redstone⁴",\
+collection: "builtin",\
 handling:[\
     {\
         input: "directed.x",\
@@ -77,7 +78,7 @@ parts: [\
     },\
     {\
         scale: [4.0f, 4.0f, 4.0f],\
-        translation: [0.0f, 1.75f, -1.625f],\
+        translation: [0.0f, 1.75f, -1.125f],\
         item: "minecraft:glass",\
         groups: ["display"],\
         custom_model_data: 1414721,\

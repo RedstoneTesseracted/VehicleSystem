@@ -3,6 +3,7 @@ data modify storage reds_vehicles:definitions vehicles append value \
 {\
 name: "biplane",\
 author: "Redstone⁴",\
+collection: "builtin",\
 handling: [\
     {\
         input: "input.forward",\

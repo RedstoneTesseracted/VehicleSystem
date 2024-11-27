@@ -3,5 +3,6 @@ data modify storage reds_vehicles:definitions working_root set value \
 {\
 name: "air",\
 min_version: 1,\
-author: "Redstone⁴"\
+author: "Redstone⁴",\
+collection: "test"\
 }
