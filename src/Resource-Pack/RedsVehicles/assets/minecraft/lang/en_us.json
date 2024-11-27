@@ -23,5 +23,6 @@
     "subtitles.reds_vehicles.vehicle.biplane.engine": "Engine hums",
     "reds_vehicles.vehicle.submarine": "Submarine",
     "reds_vehicles.vehicle.orb": "Orb",
-    "reds_vehicles.vehicle.biplane": "Biplane"
+    "reds_vehicles.vehicle.biplane": "Biplane",
+    "reds_vehicles.vehicle.helicopter": "Helicopter"
 }

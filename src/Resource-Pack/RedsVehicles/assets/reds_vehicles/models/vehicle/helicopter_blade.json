@@ -1,0 +1,67 @@
+{
+	"credit": "Made with Blockbench",
+	"elements": [
+		{
+			"from": [6.75, 12, -16],
+			"to": [9.25, 12.5, 6.75],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, -14.75]},
+			"color": 5,
+			"faces": {
+				"north": {"uv": [0, 0, 2.5, 0.5], "texture": "#missing"},
+				"east": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
+				"west": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
+				"up": {"uv": [0, 0, 16, 2.5], "rotation": 270, "texture": "#missing"},
+				"down": {"uv": [0, 0, 16, 2.5], "rotation": 90, "texture": "#missing"}
+			}
+		},
+		{
+			"from": [6.75, 12, 9.25],
+			"to": [9.25, 12.5, 32],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, 9.25]},
+			"color": 5,
+			"faces": {
+				"east": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
+				"south": {"uv": [0, 0, 2.5, 0.5], "texture": "#missing"},
+				"west": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
+				"up": {"uv": [0, 0, 16, 2.5], "rotation": 270, "texture": "#missing"},
+				"down": {"uv": [0, 0, 16, 2.5], "rotation": 90, "texture": "#missing"}
+			}
+		},
+		{
+			"from": [-16, 12, 6.75],
+			"to": [32, 12.5, 9.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, 7]},
+			"color": 5,
+			"faces": {
+				"north": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
+				"east": {"uv": [0, 0, 2.5, 0.5], "texture": "#missing"},
+				"south": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
+				"west": {"uv": [0, 0, 2.5, 0.5], "texture": "#missing"},
+				"up": {"uv": [0, 0, 16, 2.5], "texture": "#missing"},
+				"down": {"uv": [0, 0, 16, 2.5], "texture": "#missing"}
+			}
+		},
+		{
+			"name": "axle",
+			"from": [7.5, 11, 7.5],
+			"to": [8.5, 12, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7, 11, 6.5]},
+			"color": 1,
+			"faces": {
+				"north": {"uv": [0, 0, 1, 1], "texture": "#missing"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#missing"},
+				"south": {"uv": [0, 0, 1, 1], "texture": "#missing"},
+				"west": {"uv": [0, 0, 1, 1], "texture": "#missing"}
+			}
+		}
+	],
+	"display": {},
+	"groups": [
+		{
+			"name": "blade",
+			"origin": [7, 11, 6.5],
+			"color": 0,
+			"children": [0, 1, 2, 3]
+		}
+	]
+}

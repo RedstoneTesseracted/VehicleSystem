@@ -2,6 +2,7 @@
    "values": [
 		"reds_vehicles:vehicles/orb",
 		"reds_vehicles:vehicles/submarine",
-		"reds_vehicles:vehicles/biplane"
+		"reds_vehicles:vehicles/biplane",
+		"reds_vehicles:vehicles/helicopter"
    ]
 }
