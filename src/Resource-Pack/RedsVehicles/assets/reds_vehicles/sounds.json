@@ -1,0 +1,26 @@
+{
+    "vehicle.biplane.engine_on": {
+      "category": "neutral",
+      "subtitle": "subtitles.reds_vehicles.vehicle.biplane.engine_on",
+      "sounds": [
+          "reds_vehicles:biplane/engine_on"
+      ],
+      "attribution": "Lawn tractor startup by ursenfuns -- https://freesound.org/s/440592/ -- License: Creative Commons 0"
+    },
+    "vehicle.biplane.engine_off": {
+      "category": "neutral",
+      "subtitle": "subtitles.reds_vehicles.vehicle.biplane.engine_off",
+      "sounds": [
+          "reds_vehicles:biplane/engine_off"
+      ],
+      "attribution": "JCB_Engine_Shutoff.wav by mickyman5000 -- https://freesound.org/s/340682/ -- License: Creative Commons 0"
+    },
+    "vehicle.biplane.engine_hum": {
+      "category": "neutral",
+      "subtitle": "subtitles.reds_vehicles.vehicle.biplane.engine",
+      "sounds": [
+          "reds_vehicles:biplane/engine"
+      ],
+      "attribution": "ENGINE~1.WAV by MarlonHJ -- https://freesound.org/s/242739/ -- License: Creative Commons 0"
+    }
+}

@@ -100,7 +100,16 @@ parts: [\
         name: display\
     }\
 ],\
-default_scores: [],\
+default_scores: [\
+    {\
+        name: "vehicle.engine",\
+        value: 0\
+    },\
+    {\
+        name: "vehicle.button.toggle_engine",\
+        value: 0\
+    }\
+],\
 events: [\
     {\
         predicates: [\
@@ -168,7 +177,7 @@ events: [\
             {\
               action: "playsound",\
               arguments: {\
-                sound: "minecraft:block.note_block.pling"\
+                sound: "reds_vehicles:vehicle.biplane.engine_off"\
               }\
             }\
         ]\
@@ -203,7 +212,7 @@ events: [\
             {\
               action: "playsound",\
               arguments: {\
-                sound: "minecraft:block.note_block.snare"\
+                sound: "reds_vehicles:vehicle.biplane.engine_on"\
               }\
             }\
         ]\

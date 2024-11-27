@@ -18,6 +18,9 @@
     "reds_vehicles.welcome.not_installed_hint": "",
     "reds_vehicles.item.spawn_egg": "Spawn %s",
     "reds_vehicles.item.author_line": "Credit: %s",
+    "subtitles.reds_vehicles.vehicle.biplane.engine_on": "Engine starts up",
+    "subtitles.reds_vehicles.vehicle.biplane.engine_off": "Engine shuts off",
+    "subtitles.reds_vehicles.vehicle.biplane.engine": "Engine hums",
     "reds_vehicles.vehicle.submarine": "Submarine",
     "reds_vehicles.vehicle.orb": "Orb",
     "reds_vehicles.vehicle.biplane": "Biplane"
