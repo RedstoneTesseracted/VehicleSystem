@@ -726,9 +726,10 @@ All vehicles will have common set of scoreboard values (stored by the root vehic
 This data structure fully defines a vehicle.  Each vehicle definition is added to the master vehicle table upon reload.
 ```yaml
 {
-  name: str,   # Name of vehicle (required)
-  author: str, # Vehicle creator (required)
-  handling: [  # A list of tags that define how the vehicle's variables react to user input (optional)
+  name: str,        # Name of vehicle (required)
+  author: str,      # Vehicle creator (required)
+  collection: str,  # Vehicle collection (required)
+  handling: [       # A list of tags that define how the vehicle's variables react to user input (optional)
     {
       input: "look.x",        # Path to the input value in the user input NBT tag
       operation: "increase",  # Operation to apply to vehicle variable.  May be "increase", "decrease", "set", "toggle", "clamped_increase", or "clamped_decrease"
