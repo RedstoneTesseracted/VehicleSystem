@@ -49,6 +49,10 @@ scoreboard objectives add vehicle.dvel.z dummy
 # Motion control
 scoreboard objectives add vehicle.accel.forward dummy
 
+# Timekeeping
+scoreboard objectives add vehicle.animation.time dummy
+scoreboard objectives add vehicle.spin.time dummy
+
 # State
 scoreboard objectives add vehicle.engine dummy
 scoreboard objectives add vehicle.event.firework dummy
