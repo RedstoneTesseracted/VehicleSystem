@@ -847,6 +847,20 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
           }
         },
         {
+          action: "add_score",  # Add a value to a score
+          arguments: {
+            name: str,          # Name of scoreboard
+            value: int          # Value to add
+          }
+        },
+        {
+          action: "subtract_score",  # Subtract a value from a score
+          arguments: {
+            name: str,          # Name of scoreboard
+            value: int          # Value to subtract
+          }
+        },
+        {
           action: "toggle_score", # Toggle a score between 0 and 1.  Any nonzero number is interpreted as 1.
           arguments: {
             name: str,            # Name of scoreboard

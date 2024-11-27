@@ -5,6 +5,8 @@ data modify storage reds_vehicles:unittest tests set value [\
 "rv_unittest:parsing/action/test_arguments_missing",\
 "rv_unittest:parsing/action/test_garbled_action",\
 "rv_unittest:parsing/action/test_unknown_action",\
+"rv_unittest:parsing/action/add_score/test_invalid_input",\
+"rv_unittest:parsing/action/add_score/test_valid_input",\
 "rv_unittest:parsing/action/effect_passenger/test_invalid_input",\
 "rv_unittest:parsing/action/effect_passenger/test_valid_input",\
 "rv_unittest:parsing/action/message/test_invalid_input",\
@@ -27,6 +29,8 @@ data modify storage reds_vehicles:unittest tests set value [\
 "rv_unittest:parsing/action/set_score/test_valid_input",\
 "rv_unittest:parsing/action/set_transform/test_invalid_input",\
 "rv_unittest:parsing/action/set_transform/test_valid_input",\
+"rv_unittest:parsing/action/subtract_score/test_invalid_input",\
+"rv_unittest:parsing/action/subtract_score/test_valid_input",\
 "rv_unittest:parsing/action/toggle_score/test_invalid_input",\
 "rv_unittest:parsing/action/toggle_score/test_valid_input",\
 "rv_unittest:parsing/action_list/test_multiple",\
