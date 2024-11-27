@@ -148,6 +148,19 @@ events: [\
         ]\
     },\
     {\
+        predicates: [\
+            "reds_vehicles:state/engine_on"\
+        ],\
+        actions: [\
+            {\
+              action: "playsound",\
+              arguments: {\
+                sound: "reds_vehicles:vehicle.biplane.engine_hum"\
+              }\
+            }\
+        ]\
+    },\
+    {\
         trigger: "vehicle.button.toggle_engine",\
         predicates: [\
             "reds_vehicles:state/engine_on"\

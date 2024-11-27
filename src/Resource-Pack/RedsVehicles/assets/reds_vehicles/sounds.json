@@ -19,7 +19,11 @@
       "category": "neutral",
       "subtitle": "subtitles.reds_vehicles.vehicle.biplane.engine",
       "sounds": [
-          "reds_vehicles:biplane/engine"
+          "reds_vehicles:biplane/engine1",
+          "reds_vehicles:biplane/engine2",
+          "reds_vehicles:biplane/engine3",
+          "reds_vehicles:biplane/engine4",
+          "reds_vehicles:biplane/engine5"
       ],
       "attribution": "ENGINE~1.WAV by MarlonHJ -- https://freesound.org/s/242739/ -- License: Creative Commons 0"
     }
