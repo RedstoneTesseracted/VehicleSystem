@@ -1,44 +1,71 @@
 {
 	"credit": "Made with Blockbench",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "reds_vehicles:vehicle/helicopter/helicopter",
+		"particle": "reds_vehicles:vehicle/helicopter/helicopter"
+	},
 	"elements": [
 		{
+			"name": "blade1",
 			"from": [6.75, 12, -16],
 			"to": [9.25, 12.5, 6.75],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, -14.75]},
-			"color": 5,
 			"faces": {
-				"north": {"uv": [0, 0, 2.5, 0.5], "texture": "#missing"},
-				"east": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
-				"west": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
-				"up": {"uv": [0, 0, 16, 2.5], "rotation": 270, "texture": "#missing"},
-				"down": {"uv": [0, 0, 16, 2.5], "rotation": 90, "texture": "#missing"}
+				"north": {"uv": [4.5, 5, 5.125, 5.125], "texture": "#0"},
+				"east": {"uv": [5.75, 12.25, 11.4375, 12.375], "texture": "#0"},
+				"west": {"uv": [5.75, 12.5, 11.4375, 12.625], "texture": "#0"},
+				"up": {"uv": [13.75, 5.6875, 13.125, 0], "texture": "#0"},
+				"down": {"uv": [14.5, 0, 13.875, 5.6875], "texture": "#0"}
 			}
 		},
 		{
+			"name": "blade2",
 			"from": [6.75, 12, 9.25],
 			"to": [9.25, 12.5, 32],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, 9.25]},
-			"color": 5,
 			"faces": {
-				"east": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
-				"south": {"uv": [0, 0, 2.5, 0.5], "texture": "#missing"},
-				"west": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
-				"up": {"uv": [0, 0, 16, 2.5], "rotation": 270, "texture": "#missing"},
-				"down": {"uv": [0, 0, 16, 2.5], "rotation": 90, "texture": "#missing"}
+				"east": {"uv": [5.75, 12.75, 11.4375, 12.875], "texture": "#0"},
+				"south": {"uv": [7.25, 14.5, 7.875, 14.625], "texture": "#0"},
+				"west": {"uv": [5.75, 13, 11.4375, 13.125], "texture": "#0"},
+				"up": {"uv": [15.25, 5.6875, 14.625, 0], "texture": "#0"},
+				"down": {"uv": [16, 0, 15.375, 5.6875], "texture": "#0"}
 			}
 		},
 		{
-			"from": [-16, 12, 6.75],
+			"name": "blade3",
+			"from": [9.25, 12, 6.75],
 			"to": [32, 12.5, 9.25],
-			"rotation": {"angle": 0, "axis": "y", "origin": [7, 12, 7]},
-			"color": 5,
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 12, 7]},
 			"faces": {
-				"north": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
-				"east": {"uv": [0, 0, 2.5, 0.5], "texture": "#missing"},
-				"south": {"uv": [0, 0, 16, 0.5], "texture": "#missing"},
-				"west": {"uv": [0, 0, 2.5, 0.5], "texture": "#missing"},
-				"up": {"uv": [0, 0, 16, 2.5], "texture": "#missing"},
-				"down": {"uv": [0, 0, 16, 2.5], "texture": "#missing"}
+				"north": {"uv": [5.75, 13.25, 11.4375, 13.375], "texture": "#0"},
+				"east": {"uv": [8, 14.25, 8.625, 14.375], "texture": "#0"},
+				"south": {"uv": [5.75, 14, 11.4375, 14.125], "texture": "#0"},
+				"up": {"uv": [5.6875, 14.375, 0, 13.75], "texture": "#0"},
+				"down": {"uv": [5.6875, 14.5, 0, 15.125], "texture": "#0"}
+			}
+		},
+		{
+			"name": "blade_join",
+			"from": [6.75, 12, 6.75],
+			"to": [9.25, 12.5, 9.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5.5, 12, 7]},
+			"faces": {
+				"up": {"uv": [6.375, 14.875, 5.75, 14.25], "texture": "#0"},
+				"down": {"uv": [7.125, 14.25, 6.5, 14.875], "texture": "#0"}
+			}
+		},
+		{
+			"name": "blade4",
+			"from": [-16, 12, 6.75],
+			"to": [6.75, 12.5, 9.25],
+			"rotation": {"angle": 0, "axis": "y", "origin": [-17.15, 12, 7]},
+			"faces": {
+				"north": {"uv": [5.75, 13.75, 11.4375, 13.875], "texture": "#0"},
+				"south": {"uv": [5.75, 13.5, 11.4375, 13.625], "texture": "#0"},
+				"west": {"uv": [8, 14.5, 8.625, 14.625], "texture": "#0"},
+				"up": {"uv": [5.6875, 12.875, 0, 12.25], "texture": "#0"},
+				"down": {"uv": [5.6875, 13, 0, 13.625], "texture": "#0"}
 			}
 		},
 		{
@@ -46,12 +73,11 @@
 			"from": [7.5, 11, 7.5],
 			"to": [8.5, 12, 8.5],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 11, 6.5]},
-			"color": 1,
 			"faces": {
-				"north": {"uv": [0, 0, 1, 1], "texture": "#missing"},
-				"east": {"uv": [0, 0, 1, 1], "texture": "#missing"},
-				"south": {"uv": [0, 0, 1, 1], "texture": "#missing"},
-				"west": {"uv": [0, 0, 1, 1], "texture": "#missing"}
+				"north": {"uv": [7.25, 14.75, 7.5, 15], "texture": "#0"},
+				"east": {"uv": [7.5, 14.75, 7.75, 15], "texture": "#0"},
+				"south": {"uv": [7.75, 14.75, 8, 15], "texture": "#0"},
+				"west": {"uv": [8, 14.75, 8.25, 15], "texture": "#0"}
 			}
 		}
 	],
@@ -61,7 +87,7 @@
 			"name": "blade",
 			"origin": [7, 11, 6.5],
 			"color": 0,
-			"children": [0, 1, 2, 3]
+			"children": [0, 1, 2, 3, 4, 5]
 		}
 	]
 }
