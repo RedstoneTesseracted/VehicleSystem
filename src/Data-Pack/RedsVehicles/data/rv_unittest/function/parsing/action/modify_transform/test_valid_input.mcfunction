@@ -60,8 +60,8 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run da
 execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run return run function rv_unittest:common/fail
 
 # Check output
-execute unless data storage reds_vehicles:definitions working_action.arguments{selector:"@s[tag=foobar]"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.selector to be \"@s[tag=foobar]\" (was "},{nbt:"working_action.arguments.selector", storage:"reds_vehicles:definitions"},{text:")"}]
-execute unless data storage reds_vehicles:definitions working_action.arguments{selector:"@s[tag=foobar]"} run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_action.arguments{selector:"@s[tag=vehicle.group.foobar]"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.selector to be \"@s[tag=foobar]\" (was "},{nbt:"working_action.arguments.selector", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_action.arguments{selector:"@s[tag=vehicle.group.foobar]"} run return run function rv_unittest:common/fail
 
 execute if data storage reds_vehicles:definitions working_action.arguments.group run data modify storage reds_vehicles:unittest reason set value [{text:"working_action.arguments.group was not removed"}]
 execute if data storage reds_vehicles:definitions working_action.arguments.group run return run function rv_unittest:common/fail

@@ -10,7 +10,7 @@
 #   0 = Macro failed
 #
 
-$data modify storage reds_vehicles:definitions working_action.arguments.selector set value "@s[tag=$(group)]"
+$data modify storage reds_vehicles:definitions working_action.arguments.selector set value "@s[tag=vehicle.group.$(group)]"
 
 # Completed without problems
 return 1

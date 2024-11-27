@@ -15,6 +15,9 @@ data merge entity @s {teleport_duration: 2, interpolation_duration: 2}
 data modify entity @s transformation set from storage reds_vehicles:definitions working_entity.transform
 data modify entity @s item_display set value "head"
 
+# Add extra tags
+data modify entity @s Tags append from storage reds_vehicles:definitions working_entity.extra_tags[]
+
 # Set entity name
 data modify entity @s CustomName set from storage reds_vehicles:definitions working_entity.name
 

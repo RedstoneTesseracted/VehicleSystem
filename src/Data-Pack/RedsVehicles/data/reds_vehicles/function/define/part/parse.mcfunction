@@ -16,6 +16,12 @@ execute unless data storage reds_vehicles:definitions working_part.name run retu
 # Set "type" field to "item_display" to be compatible with entity spec
 data modify storage reds_vehicles:definitions working_part.type set value "item_display"
 
+# Prepend "vehicle.group." string to all provided groups (if any)
+data modify storage reds_vehicles:definitions working_part.extra_tags set value []
+scoreboard players set vehicle.groups_prepend_result vehicle.local -1
+execute if data storage reds_vehicles:definitions working_part.groups[0] store result score vehicle.groups_prepend_result vehicle.local run function reds_vehicles:define/part/group_prepend_loop
+execute if score vehicle.groups_prepend_result vehicle.local matches 0 run return run function reds_vehicles:define/part/exit_fail
+data remove storage reds_vehicles:definitions working_part.groups
 
 
 ## MODEL ##

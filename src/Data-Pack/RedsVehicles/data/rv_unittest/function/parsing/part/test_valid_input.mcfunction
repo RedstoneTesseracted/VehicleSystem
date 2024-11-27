@@ -9,7 +9,7 @@ data modify storage reds_vehicles:unittest reason set value ""
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_part set value {name: "display", scale: [1.0f, 2.0f, 3.0f], translation: [4.0f, 5.0f, 6.0f], item: "minecraft:glass", custom_model_data: 42}
+data modify storage reds_vehicles:definitions working_part set value {name: "display", groups: ["foo", "bar"], scale: [1.0f, 2.0f, 3.0f], translation: [4.0f, 5.0f, 6.0f], item: "minecraft:glass", custom_model_data: 42}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/part/parse
@@ -22,6 +22,12 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run re
 # Check output
 execute unless data storage reds_vehicles:definitions working_part{name: "display"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.name to be \"display\" (was "},{nbt:"working_part.name", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_part{name: "display"} run return run function rv_unittest:common/fail
+
+execute if data storage reds_vehicles:definitions working_part.groups run data modify storage reds_vehicles:unittest reason set value {text:"Expected working_part.groups to have been removed"}
+execute if data storage reds_vehicles:definitions working_part.groups run return run function rv_unittest:common/fail
+
+execute unless data storage reds_vehicles:definitions working_part{extra_tags:["vehicle.group.foo", "vehicle.group.bar"]} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.extra_tags to be [\"vehicle.group.foo\", \"vehicle.group.bar\"] (was "},{nbt:"working_part.extra_tags", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_part{extra_tags:["vehicle.group.foo", "vehicle.group.bar"]} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_part{transform: [1.0f, 0.0f, 0.0f, 4.0f, 0.0f, 2.0f, 0.0f, 5.0f, 0.0f, 0.0f, 3.0f, 6.0f, 0.0f, 0.0f, 0.0f, 1.0f]} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.transform to be [1.0f, 0.0f, 0.0f, 4.0f, 0.0f, 2.0f, 0.0f, 5.0f, 0.0f, 0.0f, 3.0f, 6.0f, 0.0f, 0.0f, 0.0f, 1.0f] (was "},{nbt:"working_part.transform", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_part{transform: [1.0f, 0.0f, 0.0f, 4.0f, 0.0f, 2.0f, 0.0f, 5.0f, 0.0f, 0.0f, 3.0f, 6.0f, 0.0f, 0.0f, 0.0f, 1.0f]} run return run function rv_unittest:common/fail

@@ -57,8 +57,8 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 0 run re
 execute unless data storage reds_vehicles:definitions working_action{action: "set_transform"} run data modify storage reds_vehicles:unittest reason set value [{text:"working_action.action was somehow converted to \""},{nbt:"working_action.action", storage:"reds_vehicles:definitions"},{text:"\""}]
 execute unless data storage reds_vehicles:definitions working_action{action: "set_transform"} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_action.arguments{selector:"@s[tag=display]"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.selector to be \"@s[tag=display]\" (was "},{nbt:"working_action.arguments.selector", storage:"reds_vehicles:definitions"},{text:")"}]
-execute unless data storage reds_vehicles:definitions working_action.arguments{selector:"@s[tag=display]"} run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_action.arguments{selector:"@s[tag=vehicle.group.display]"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.selector to be \"@s[tag=display]\" (was "},{nbt:"working_action.arguments.selector", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_action.arguments{selector:"@s[tag=vehicle.group.display]"} run return run function rv_unittest:common/fail
 
 execute if data storage reds_vehicles:definitions working_action.arguments.group run data modify storage reds_vehicles:unittest reason set value [{text:"working_action.arguments.group was not removed"}]
 execute if data storage reds_vehicles:definitions working_action.arguments.group run return run function rv_unittest:common/fail

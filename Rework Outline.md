@@ -931,6 +931,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
       transform: float[16],   # An array of floats representing the display's initial 4x4 transformation matrix
       item: str,              # Name of the item displayed by the entity (required)
       custom_model_data: int, # Item's custom model number (optional)
+      groups: str[],          # A list of strings indicating which groups this part will join
       name: str               # Name assigned to display entity.  Cannot contain spaces.  (required)
     }
   ],
@@ -1015,6 +1016,7 @@ Automatic evaluation only occurs upon reload.
         id: str,              # ID of item displayed by the entity
         components: {}        # Map of item components applied to the item
       },
+      extra_tags: str[],      # Identical to part's "groups" argument, but with "vehicle.group." prepended to every entry
       name: str               # Name assigned to display entity
     }
   ],
