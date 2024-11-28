@@ -8,8 +8,8 @@ handling: [\
     {\
         input: "input.forward",\
         operation: "clamped_increase",\
-        min: 0,\
-        max: 1000,\
+        min: 0.0f,\
+        max: 1.0f,\
         scale: {\
             source: "constant",\
             value: 0.01d\

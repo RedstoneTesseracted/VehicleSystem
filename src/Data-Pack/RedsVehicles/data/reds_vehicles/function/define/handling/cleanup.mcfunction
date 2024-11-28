@@ -2,4 +2,5 @@
 scoreboard players reset vehicle.input_parse_status vehicle.local
 scoreboard players reset vehicle.retrieved_precision vehicle.local
 scoreboard players reset vehicle.input_exists vehicle.local
+scoreboard players reset vehicle.multiply_macro_status vehicle.local
 data remove storage reds_vehicles:definitions working_scale
