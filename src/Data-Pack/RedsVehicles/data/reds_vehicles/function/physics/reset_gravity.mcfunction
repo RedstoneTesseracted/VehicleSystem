@@ -5,7 +5,7 @@
 # It is run BY and AT the base vehicle entity
 
 # Create temporary buffer
-data modify storage reds_vehicles:physics modifiers set from entity @s attributes[{id:"minecraft:generic.gravity"}].modifiers
+data modify storage reds_vehicles:physics modifiers set from entity @s attributes[{id:"minecraft:gravity"}].modifiers
 
 # Loop over modifiers list
 function reds_vehicles:physics/reset_gravity_loop with storage reds_vehicles:physics modifiers[0]

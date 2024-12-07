@@ -6,7 +6,7 @@
 # Reset current modifier if it has the reds_vehicles namespace
 data modify storage reds_vehicles:physics compare set value "reds_vehicles"
 execute store success score vehicle.success vehicle.local run data modify storage reds_vehicles:physics compare set string storage reds_vehicles:physics modifiers 0 13
-$execute if score vehicle.success vehicle.local matches 0 run attribute @s minecraft:generic.gravity modifier remove $(id)
+$execute if score vehicle.success vehicle.local matches 0 run attribute @s minecraft:gravity modifier remove $(id)
 
 # Remove element and execute again if more elements remain
 data remove storage reds_vehicles:physics modifiers[0]

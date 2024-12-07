@@ -1,7 +1,7 @@
 # This function handles application of the buoyant force
 
 # Add an attribute modifier for the buoyant force
-$attribute @s minecraft:generic.gravity modifier add reds_vehicles:buoyancy-$(uid) $(value) add_multiplied_base
+$attribute @s minecraft:gravity modifier add reds_vehicles:buoyancy-$(uid) $(value) add_multiplied_base
 
 
 # # This approach is based off a flawed understanding of how water impacts motion.
@@ -9,7 +9,7 @@ $attribute @s minecraft:generic.gravity modifier add reds_vehicles:buoyancy-$(ui
 # # This complicates things, since we can't just counteract gravity anymore
 
 # # Obtain the buoyancy constant times acceleration due to gravity at x100,000 fixed-point precision
-# $execute store result storage reds_vehicles:physics temp.g double $(value) run attribute @s minecraft:generic.gravity base get 6250
+# $execute store result storage reds_vehicles:physics temp.g double $(value) run attribute @s minecraft:gravity base get 6250
 # execute store result score vehicle.g vehicle.local run data get storage reds_vehicles:physics temp.g
 # data remove storage reds_vehicles:physics temp.g
 

@@ -17,9 +17,9 @@ $tag @s add vehicle.name.$(name)
 data modify entity @s CustomName set from storage reds_vehicles:definitions summon.name
 
 # Set attributes
-$attribute @s minecraft:generic.gravity base set $(base_gravity)
-$attribute @s minecraft:generic.scale base set $(scale)
-$attribute @s minecraft:generic.step_height base set $(step_height)
+$attribute @s minecraft:gravity base set $(base_gravity)
+$attribute @s minecraft:scale base set $(scale)
+$attribute @s minecraft:step_height base set $(step_height)
 
 # Set up scoreboards
 # Declare required scoreboards
