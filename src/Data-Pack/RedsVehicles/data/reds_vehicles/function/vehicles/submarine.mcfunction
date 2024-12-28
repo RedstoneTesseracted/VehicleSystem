@@ -90,7 +90,7 @@ parts: [\
 default_scores: [\
     {\
         name: "vehicle.thrust",\
-        value: 0.1d\
+        value: 0.01d\
     }\
 ],\
 events: [\
@@ -175,6 +175,7 @@ item: {\
     model: "reds_vehicles:vehicle/submarine"\
 },\
 ground_offset: 0.25f,\
+step_height: 1.0f,\
 min_version: 1\
 }
 
