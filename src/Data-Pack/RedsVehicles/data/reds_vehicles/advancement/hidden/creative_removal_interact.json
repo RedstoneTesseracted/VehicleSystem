@@ -6,6 +6,16 @@
             "conditions": {
                 "player": [
                     {
+                        "condition": "minecraft:inverted",
+                        "term": {
+                            "condition": "minecraft:entity_properties",
+                            "entity": "this",
+                            "predicate": {
+                                "vehicle": {}
+                            }
+                        }
+                    },
+                    {
                         "condition": "minecraft:entity_properties",
                         "entity": "this",
                         "predicate": {
@@ -20,27 +30,12 @@
                 ],
                 "entity": [
                     {
-                        "condition": "minecraft:all_of",
-                        "terms": [
-                            {
-                                "condition": "minecraft:inverted",
-                                "term": {
-                                    "condition": "minecraft:entity_properties",
-                                    "entity": "this",
-                                    "predicate": {
-                                        "passenger": {}
-                                    }
-                                }
-                            },
-                            {
-                                "condition": "minecraft:entity_properties",
-                                "entity": "this",
-                                "predicate": {
-                                    "type": "minecraft:interaction",
-                                    "nbt": "{Tags:[\"vehicle.seat\"]}"
-                                }
-                            }
-                        ]
+                        "condition": "minecraft:entity_properties",
+                        "entity": "this",
+                        "predicate": {
+                            "type": "minecraft:interaction",
+                            "nbt": "{Tags:[\"vehicle.hitbox\"]}"
+                        }
                     }
                 ]
             }

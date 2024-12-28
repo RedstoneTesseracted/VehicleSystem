@@ -64,10 +64,15 @@ data modify storage reds_vehicles:definitions working_root.default_scores set fr
 # Create entities list
 data modify storage reds_vehicles:definitions working_entities set value []
 
+# Add hitbox interaction entity
+data merge storage reds_vehicles:definitions {working_hitbox: {type: "interaction", hitbox: 1b, tags: {width: 1.0f, height: 1.0f, response:1b}}}
+execute if data storage reds_vehicles:definitions working_root.seat.width run data modify storage reds_vehicles:definitions working_hitbox.tags.width set from storage reds_vehicles:definitions working_root.seat.width
+execute if data storage reds_vehicles:definitions working_root.seat.height run data modify storage reds_vehicles:definitions working_hitbox.tags.height set from storage reds_vehicles:definitions working_root.seat.height
+data modify storage reds_vehicles:definitions working_entities append from storage reds_vehicles:definitions working_hitbox
+data remove storage reds_vehicles:definitions working_root.seat
+
 # Add seat interaction entity
-data merge storage reds_vehicles:definitions {working_seat: {type: "interaction", pilot: true, tags: {width: 1.0f, height: 1.0f, response:1b}}}
-execute if data storage reds_vehicles:definitions working_root.seat.width run data modify storage reds_vehicles:definitions working_seat.tags.width set from storage reds_vehicles:definitions working_root.seat.width
-execute if data storage reds_vehicles:definitions working_root.seat.height run data modify storage reds_vehicles:definitions working_seat.tags.height set from storage reds_vehicles:definitions working_root.seat.height
+data merge storage reds_vehicles:definitions {working_seat: {type: "interaction", pilot: 1b, tags: {width: 0.0f, height: 0.0f}}}
 data modify storage reds_vehicles:definitions working_entities append from storage reds_vehicles:definitions working_seat
 data remove storage reds_vehicles:definitions working_root.seat
 

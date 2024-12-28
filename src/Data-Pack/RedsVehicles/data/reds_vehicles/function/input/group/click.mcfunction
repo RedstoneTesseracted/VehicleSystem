@@ -5,4 +5,4 @@
 # Compare last clicked time against current time
 data modify storage reds_vehicles:inputs input.click set value {left: 0b, right: 0b}
 execute store result score vehicle.current_time vehicle.local run time query gametime
-execute on passengers if entity @s[tag=vehicle.pilot_seat] run function reds_vehicles:input/group/__click
+execute on passengers if entity @s[tag=vehicle.hitbox] run function reds_vehicles:input/group/__click

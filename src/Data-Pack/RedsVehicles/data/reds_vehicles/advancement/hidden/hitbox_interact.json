@@ -23,7 +23,7 @@
                               "entity": "this",
                               "predicate": {
                                   "type": "minecraft:interaction",
-                                  "nbt": "{Tags:[\"vehicle.seat\"]}"
+                                  "nbt": "{Tags:[\"vehicle.hitbox\"]}"
                               }
                           }
                       ]

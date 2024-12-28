@@ -1,12 +1,15 @@
-# This function is called whenever a player punches a vehicle with the creative vehicle remover tool
+# This function is called whenever a player punches a vehicle while in creative
 # It is triggered using a hidden advancement, and is therefore run BY and AT the player
 
 # Figure out who we've punched
 tag @e remove vehicle.click_target
 tag @a remove vehicle.context
 tag @s add vehicle.context
-execute as @e[tag=vehicle.seat] if function reds_vehicles:interact/check_seat_attacker run tag @s add vehicle.click_target
+execute as @e[tag=vehicle.hitbox] if function reds_vehicles:interact/check_hitbox_attacker run tag @s add vehicle.click_target
 tag @a remove vehicle.context
+
+# Abort if we're riding that vehicle.  This SHOULD be caught by the advancement, but just in case anything changes...
+execute on vehicle on vehicle on passengers run tag @s[tag=vehicle.click_target,tag=vehicle.hitbox] remove vehicle.click_target
 
 # Destroy the targeted vehicle
 execute as @n[tag=vehicle.click_target] on vehicle at @s run function reds_vehicles:summon/destroy

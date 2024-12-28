@@ -22,7 +22,7 @@
                         "entity": "this",
                         "predicate": {
                             "type": "minecraft:interaction",
-                            "nbt": "{Tags:[\"vehicle.pilot_seat\"]}"
+                            "nbt": "{Tags:[\"vehicle.hitbox\"]}"
                         }
                     }
                 ]
@@ -30,6 +30,6 @@
         }
     },
     "rewards": {
-        "function": "reds_vehicles:input/right_click_seat_callback"
+        "function": "reds_vehicles:input/right_click_hitbox_callback"
     }
 }

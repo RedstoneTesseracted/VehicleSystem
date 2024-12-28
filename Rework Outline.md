@@ -1002,12 +1002,20 @@ Automatic evaluation only occurs upon reload.
   ],
   entities: [      # A list of entities to summon that will be riding the root vehicle entity
     {
-      type: "interaction",  # The interaction representing the pilot seat.  Automatically added in
-      pilot: true,          # Whether this interaction is the primary cockpit
+      type: "interaction",  # The interaction representing the vehicle hitbox.  Automatically added in
+      hitbox: true,         # Whether this interaction is the hitbox
       tags: {
         width: float,       # Defaults to 1.0, or set to seat.width if provided
         height: float,      # Defaults to 1.0, or set to seat.width if provided
         response: 1b        # Hard-coded
+      }
+    },
+    {
+      type: "interaction",  # The interaction representing the pilot seat.  Automatically added in
+      pilot: true,          # Whether this interaction is the primary cockpit
+      tags: {
+        width: 0.0f,        # Hard-coded
+        height: 0.0f,       # Hard-coded
       }
     },
     {
