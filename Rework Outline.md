@@ -679,7 +679,8 @@ These fields serve as inputs for vehicle actions/responses.  These are rebuilt f
   },
   input: {
     forward: int, # Whether the player is moving forward/backward in the camera direction; 1=forward, -1=backward.
-    side: int     # Whether the player is moving left/right in the camera direction; 1=left, -1=right.
+    side: int,    # Whether the player is moving left/right in the camera direction; 1=left, -1=right.
+    up: int       # Whether the player is moving up in the camera direction; 1=up
   }
 }
 ```
