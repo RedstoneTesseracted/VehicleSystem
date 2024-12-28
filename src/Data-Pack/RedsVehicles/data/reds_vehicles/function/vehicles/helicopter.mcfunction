@@ -10,10 +10,13 @@ handling:[\
         operation: "increase",\
         scale: {\
             source: "constant",\
-            value: 0.05\
+            value: 0.1\
         },\
         variable: "vehicle.dvel.x",\
-        precision: 1000\
+        predicates: [\
+            "reds_vehicles:state/engine_on",\
+            "reds_vehicles:environment/mid_air"\
+        ]\
     },\
     {\
         input: "directed.y",\
@@ -23,17 +26,22 @@ handling:[\
             value: 0.025\
         },\
         variable: "vehicle.dvel.y",\
-        precision: 1000\
+        predicates: [\
+            "reds_vehicles:state/engine_on"\
+        ]\
     },\
     {\
         input: "directed.z",\
         operation: "increase",\
         scale: {\
             source: "constant",\
-            value: 0.05\
+            value: 0.1\
         },\
         variable: "vehicle.dvel.z",\
-        precision: 1000\
+        predicates: [\
+            "reds_vehicles:state/engine_on",\
+            "reds_vehicles:environment/mid_air"\
+        ]\
     },\
     {\
         input: "click.left",\
@@ -44,6 +52,19 @@ handling:[\
         input: "rotation.yaw",\
         operation: "set",\
         variable: "vehicle.rot.yaw",\
+        predicates: [\
+            "reds_vehicles:state/engine_on",\
+            "reds_vehicles:environment/mid_air"\
+        ]\
+    },\
+    {\
+        input: "input.forward",\
+        operation: "set",\
+        scale: {\
+          source: "constant",\
+          value: 10.0\
+        },\
+        variable: "vehicle.rot.pitch",\
         predicates: [\
             "reds_vehicles:state/engine_on",\
             "reds_vehicles:environment/mid_air"\
@@ -108,7 +129,7 @@ events: [\
             {\
               action: "playsound",\
               arguments: {\
-                sound: "reds_vehicles:vehicle.biplane.engine_hum"\
+                sound: "reds_vehicles:vehicle.helicopter.engine_hum"\
               }\
             },\
             {\
@@ -126,6 +147,24 @@ events: [\
               arguments: {\
                 name: "vehicle.spin.time",\
                 value: 1\
+              }\
+            },\
+            {\
+              action: "relative_particle",\
+              arguments: {\
+                name: "minecraft:smoke",\
+                relative_to: "body",\
+                offset: [1.2f, 0.0f, -2.0f],\
+                count: 1\
+              }\
+            },\
+            {\
+              action: "relative_particle",\
+              arguments: {\
+                name: "minecraft:smoke",\
+                relative_to: "body",\
+                offset: [-1.2f, 0.0f, -2.0f],\
+                count: 1\
               }\
             }\
         ]\
@@ -153,14 +192,14 @@ events: [\
             {\
               action: "set_model",\
               arguments: {\
-                name: "display",\
-                value: 1414718\
+                name: "blade",\
+                value: 1414721\
               }\
             },\
             {\
               action: "playsound",\
               arguments: {\
-                sound: "reds_vehicles:vehicle.biplane.engine_off"\
+                sound: "reds_vehicles:vehicle.helicopter.engine_off"\
               }\
             }\
         ]\
@@ -188,14 +227,14 @@ events: [\
             {\
               action: "set_model",\
               arguments: {\
-                name: "display",\
-                value: 1414717\
+                name: "blade",\
+                value: 1414721\
               }\
             },\
             {\
               action: "playsound",\
               arguments: {\
-                sound: "reds_vehicles:vehicle.biplane.engine_on"\
+                sound: "reds_vehicles:vehicle.helicopter.engine_on"\
               }\
             }\
         ]\
@@ -221,6 +260,22 @@ events: [\
                 group: "display",\
                 transform: "pitch",\
                 property: "angle"\
+              }\
+            }\
+        ]\
+    },\
+    {\
+        trigger: "vehicle.rot.pitch",\
+        predicates: [\
+            "reds_vehicles:has_passenger",\
+            "reds_vehicles:environment/on_land"\
+        ],\
+        actions: [\
+            {\
+              action: "set_score",\
+              arguments: {\
+                name: "vehicle.rot.pitch",\
+                value: 0\
               }\
             }\
         ]\

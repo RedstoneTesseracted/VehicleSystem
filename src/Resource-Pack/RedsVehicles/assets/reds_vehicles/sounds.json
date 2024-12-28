@@ -26,5 +26,33 @@
           "reds_vehicles:biplane/engine5"
       ],
       "attribution": "ENGINE~1.WAV by MarlonHJ -- https://freesound.org/s/242739/ -- License: Creative Commons 0"
+    },
+    "vehicle.helicopter.engine_on": {
+      "category": "neutral",
+      "subtitle": "subtitles.reds_vehicles.vehicle.helicopter.engine_on",
+      "sounds": [
+          "reds_vehicles:helicopter/engine_on"
+      ],
+      "attribution": ""
+    },
+    "vehicle.helicopter.engine_off": {
+      "category": "neutral",
+      "subtitle": "subtitles.reds_vehicles.vehicle.helicopter.engine_off",
+      "sounds": [
+          "reds_vehicles:helicopter/engine_off"
+      ],
+      "attribution": "Helicopter Paasing and engine shut-down at Film Shoot.mp3 by Cymeon -- https://freesound.org/s/205897/ -- License: Creative Commons 0"
+    },
+    "vehicle.helicopter.engine_hum": {
+      "category": "neutral",
+      "subtitle": "subtitles.reds_vehicles.vehicle.helicopter.engine",
+      "sounds": [
+          "reds_vehicles:helicopter/engine1",
+          "reds_vehicles:helicopter/engine2",
+          "reds_vehicles:helicopter/engine3",
+          "reds_vehicles:helicopter/engine4",
+          "reds_vehicles:helicopter/engine5"
+      ],
+      "attribution": "Helicopter Paasing and engine shut-down at Film Shoot.mp3 by Cymeon -- https://freesound.org/s/205897/ -- License: Creative Commons 0"
     }
 }
