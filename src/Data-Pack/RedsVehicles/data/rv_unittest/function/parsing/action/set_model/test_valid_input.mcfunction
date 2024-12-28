@@ -10,7 +10,7 @@ data modify storage reds_vehicles:unittest reason set value ""
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_action set value {action: "set_model", arguments: {name:"display",value:42}}
+data modify storage reds_vehicles:definitions working_action set value {action: "set_model", arguments: {name:"display",value:"reds_vehicles:vehicle/test"}}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/action/parse
@@ -27,8 +27,8 @@ execute unless data storage reds_vehicles:definitions working_action{action: "se
 execute unless data storage reds_vehicles:definitions working_action.arguments{name:"display"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.name to be \"display\" (was "},{nbt:"working_action.arguments.name", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_action.arguments{name:"display"} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_action.arguments{value:42} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.value to be 42 (was "},{nbt:"working_action.arguments.value", storage:"reds_vehicles:definitions"},{text:")"}]
-execute unless data storage reds_vehicles:definitions working_action.arguments{value:42} run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_action.arguments{value:"reds_vehicles:vehicle/test"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_action.arguments.value to be \"reds_vehicles:vehicle/test\" (was "},{nbt:"working_action.arguments.value", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_action.arguments{value:"reds_vehicles:vehicle/test"} run return run function rv_unittest:common/fail
 
 #####################################################################################################
 

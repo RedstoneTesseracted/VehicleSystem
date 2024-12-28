@@ -32,8 +32,8 @@ execute unless data storage reds_vehicles:definitions working_part.item run retu
 # Build up item tag field
 data modify storage reds_vehicles:definitions new_item set value {id: "", components: {}}
 data modify storage reds_vehicles:definitions new_item.id set from storage reds_vehicles:definitions working_part.item
-execute if data storage reds_vehicles:definitions working_part.custom_model_data run data modify storage reds_vehicles:definitions new_item.components."minecraft:custom_model_data" set from storage reds_vehicles:definitions working_part.custom_model_data
-data remove storage reds_vehicles:definitions working_part.custom_model_data
+execute if data storage reds_vehicles:definitions working_part.model run data modify storage reds_vehicles:definitions new_item.components."minecraft:item_model" set from storage reds_vehicles:definitions working_part.model
+data remove storage reds_vehicles:definitions working_part.model
 data modify storage reds_vehicles:definitions working_part.item set from storage reds_vehicles:definitions new_item
 data remove storage reds_vehicles:definitions new_item
 

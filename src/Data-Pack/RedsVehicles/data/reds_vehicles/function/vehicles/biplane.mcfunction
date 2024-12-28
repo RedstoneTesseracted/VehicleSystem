@@ -99,7 +99,7 @@ parts: [\
         scale: [3.0f, 3.0f, 3.0f],\
         translation: [0.0f, 0.91f, -0.4f],\
         item: "minecraft:glass",\
-        custom_model_data: 1414718,\
+        model: "reds_vehicles:vehicle/biplane_off",\
         name: display\
     }\
 ],\
@@ -187,7 +187,7 @@ events: [\
               action: "set_model",\
               arguments: {\
                 name: "display",\
-                value: 1414718\
+                value: "reds_vehicles:vehicle/biplane_off"\
               }\
             },\
             {\
@@ -222,7 +222,7 @@ events: [\
               action: "set_model",\
               arguments: {\
                 name: "display",\
-                value: 1414717\
+                value: "reds_vehicles:vehicle/biplane"\
               }\
             },\
             {\

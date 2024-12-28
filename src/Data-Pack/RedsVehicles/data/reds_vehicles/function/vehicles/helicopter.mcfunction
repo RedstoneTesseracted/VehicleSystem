@@ -94,7 +94,7 @@ parts: [\
         translation: [0.0f, 0.0f, 0.0f],\
         item: "minecraft:glass",\
         groups: ["display"],\
-        custom_model_data: 1414720,\
+        model: "reds_vehicles:vehicle/helicopter",\
         name: body\
     },\
     {\
@@ -102,7 +102,7 @@ parts: [\
         translation: [0.0f, 1.75f, -1.125f],\
         item: "minecraft:glass",\
         groups: ["display"],\
-        custom_model_data: 1414721,\
+        model: "reds_vehicles:vehicle/helicopter_blade",\
         name: blade\
     }\
 ],\
@@ -193,7 +193,7 @@ events: [\
               action: "set_model",\
               arguments: {\
                 name: "blade",\
-                value: 1414721\
+                value: "reds_vehicles:vehicle/helicopter_blade"\
               }\
             },\
             {\
@@ -228,7 +228,7 @@ events: [\
               action: "set_model",\
               arguments: {\
                 name: "blade",\
-                value: 1414721\
+                value: "reds_vehicles:vehicle/helicopter_blade"\
               }\
             },\
             {\

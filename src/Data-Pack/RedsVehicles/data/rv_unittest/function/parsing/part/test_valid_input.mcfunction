@@ -9,7 +9,7 @@ data modify storage reds_vehicles:unittest reason set value ""
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_part set value {name: "display", groups: ["foo", "bar"], scale: [1.0f, 2.0f, 3.0f], translation: [4.0f, 5.0f, 6.0f], item: "minecraft:glass", custom_model_data: 42}
+data modify storage reds_vehicles:definitions working_part set value {name: "display", groups: ["foo", "bar"], scale: [1.0f, 2.0f, 3.0f], translation: [4.0f, 5.0f, 6.0f], item: "minecraft:glass", model: "reds_vehicles:vehicles/test"}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/part/parse
@@ -41,11 +41,11 @@ execute if data storage reds_vehicles:definitions working_part.scale run return 
 execute unless data storage reds_vehicles:definitions working_part.item{id: "minecraft:glass"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.item.id to be \"minecraft:glass\" (was "},{nbt:"working_part.item.id", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_part.item{id: "minecraft:glass"} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_part.item.components{"minecraft:custom_model_data": 42} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.item.components.\"minecraft:custom_model_data\" to be 42 (was "},{nbt:"working_part.item.components.\"minecraft:custom_model_data\"", storage:"reds_vehicles:definitions"},{text:")"}]
-execute unless data storage reds_vehicles:definitions working_part.item.components{"minecraft:custom_model_data": 42} run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_part.item.components{"minecraft:item_model": "reds_vehicles:vehicles/test"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.item.components.\"minecraft:item_model\" to be \"reds_vehicles:vehicles/test\" (was "},{nbt:"working_part.item.components.\"minecraft:item_model\"", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_part.item.components{"minecraft:item_model": "reds_vehicles:vehicles/test"} run return run function rv_unittest:common/fail
 
-execute if data storage reds_vehicles:definitions working_part.custom_model_data run data modify storage reds_vehicles:unittest reason set value {text:"Expected working_part.custom_model_data to have been removed"}
-execute if data storage reds_vehicles:definitions working_part.custom_model_data run return run function rv_unittest:common/fail
+execute if data storage reds_vehicles:definitions working_part.model run data modify storage reds_vehicles:unittest reason set value {text:"Expected working_part.model to have been removed"}
+execute if data storage reds_vehicles:definitions working_part.model run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_part{type: "item_display"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.type to be \"item_display\" (was "},{nbt:"working_part.type", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_part{type: "item_display"} run return run function rv_unittest:common/fail
@@ -82,8 +82,8 @@ execute if data storage reds_vehicles:definitions working_part.scale run return 
 execute unless data storage reds_vehicles:definitions working_part.item{id: "minecraft:stone"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.item.id to be \"minecraft:glass\" (was "},{nbt:"working_part.item.id", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_part.item{id: "minecraft:stone"} run return run function rv_unittest:common/fail
 
-execute if data storage reds_vehicles:definitions working_part.custom_model_data run data modify storage reds_vehicles:unittest reason set value {text:"Expected working_part.custom_model_data to have been removed"}
-execute if data storage reds_vehicles:definitions working_part.custom_model_data run return run function rv_unittest:common/fail
+execute if data storage reds_vehicles:definitions working_part.model run data modify storage reds_vehicles:unittest reason set value {text:"Expected working_part.model to have been removed"}
+execute if data storage reds_vehicles:definitions working_part.model run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_part{type: "item_display"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.type to be \"item_display\" (was "},{nbt:"working_part.type", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_part{type: "item_display"} run return run function rv_unittest:common/fail
@@ -120,8 +120,8 @@ execute if data storage reds_vehicles:definitions working_part.scale run return 
 execute unless data storage reds_vehicles:definitions working_part.item{id: "minecraft:glass"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.item.id to be \"minecraft:glass\" (was "},{nbt:"working_part.item.id", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_part.item{id: "minecraft:glass"} run return run function rv_unittest:common/fail
 
-execute if data storage reds_vehicles:definitions working_part.custom_model_data run data modify storage reds_vehicles:unittest reason set value {text:"Expected working_part.custom_model_data to have been removed"}
-execute if data storage reds_vehicles:definitions working_part.custom_model_data run return run function rv_unittest:common/fail
+execute if data storage reds_vehicles:definitions working_part.model run data modify storage reds_vehicles:unittest reason set value {text:"Expected working_part.model to have been removed"}
+execute if data storage reds_vehicles:definitions working_part.model run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_part{type: "item_display"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_part.type to be \"item_display\" (was "},{nbt:"working_part.type", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_part{type: "item_display"} run return run function rv_unittest:common/fail

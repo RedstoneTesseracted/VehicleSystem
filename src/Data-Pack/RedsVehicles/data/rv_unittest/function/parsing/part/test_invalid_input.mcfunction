@@ -9,7 +9,7 @@ data modify storage reds_vehicles:unittest reason set value ""
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_part set value {scale: [1.0f, 2.0f, 3.0f], translation: [4.0f, 5.0f, 6.0f], item: "minecraft:glass", custom_model_data: 42}
+data modify storage reds_vehicles:definitions working_part set value {scale: [1.0f, 2.0f, 3.0f], translation: [4.0f, 5.0f, 6.0f], item: "minecraft:glass", model: "reds_vehicles:vehicles/test"}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/part/parse
@@ -31,7 +31,7 @@ execute unless data storage reds_vehicles:logging errors[{code: 62}] run return 
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_part set value {name: "display", scale: [1.0f, 2.0f, 3.0f], translation: [4.0f, 5.0f, 6.0f], custom_model_data: 42}
+data modify storage reds_vehicles:definitions working_part set value {name: "display", scale: [1.0f, 2.0f, 3.0f], translation: [4.0f, 5.0f, 6.0f], model: "reds_vehicles:vehicles/test"}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/part/parse
@@ -53,7 +53,7 @@ execute unless data storage reds_vehicles:logging errors[{code: 61}] run return 
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_part set value {name: "display", groups: ["meep\"morp"], scale: [1.0f, 2.0f, 3.0f], translation: [4.0f, 5.0f, 6.0f], custom_model_data: 42}
+data modify storage reds_vehicles:definitions working_part set value {name: "display", groups: ["meep\"morp"], scale: [1.0f, 2.0f, 3.0f], translation: [4.0f, 5.0f, 6.0f], model: "reds_vehicles:vehicles/test"}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/part/parse

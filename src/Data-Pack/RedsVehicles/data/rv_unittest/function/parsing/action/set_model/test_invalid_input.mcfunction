@@ -10,7 +10,7 @@ data modify storage reds_vehicles:unittest reason set value ""
 data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
-data modify storage reds_vehicles:definitions working_action set value {action: "set_model", arguments: {value:42}}
+data modify storage reds_vehicles:definitions working_action set value {action: "set_model", arguments: {value:"reds_vehicles:vehicle/test"}}
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/action/parse

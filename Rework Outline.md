@@ -834,10 +834,10 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
           }
         },
         {
-          action: "set_model",  # Modify a display entity's custom model data
+          action: "set_model",  # Modify a display entity's item model
           arguments: {
             name: str,          # Name of display entity(ies) to affect
-            value: int          # New custom model number
+            value: str          # Resource location of item model
           }
         },
         {
@@ -931,7 +931,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
       translation: float[3],  # Model translation in the x, y, and z directions.  Overridden by transform.
       transform: float[16],   # An array of floats representing the display's initial 4x4 transformation matrix
       item: str,              # Name of the item displayed by the entity (required)
-      custom_model_data: int, # Item's custom model number (optional)
+      model: str,             # Item's custom model (optional)
       groups: str[],          # A list of strings indicating which groups this part will join
       name: str               # Name assigned to display entity.  Cannot contain spaces.  (required)
     }

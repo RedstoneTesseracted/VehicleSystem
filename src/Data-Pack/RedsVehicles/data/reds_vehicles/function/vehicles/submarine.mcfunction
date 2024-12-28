@@ -83,7 +83,7 @@ parts: [\
         scale: [3.0f, 3.0f, 3.0f],\
         translation: [0.0f, 1.25f, -0.4f],\
         item: "minecraft:glass",\
-        custom_model_data: 1414716,\
+        model: "reds_vehicles:vehicle/submarine",\
         name: display\
     }\
 ],\
@@ -172,7 +172,7 @@ seat: {\
 },\
 item: {\
     name: "Submarine",\
-    model: ""\
+    model: "reds_vehicles:vehicle/submarine"\
 },\
 ground_offset: 0.25f,\
 min_version: 1\

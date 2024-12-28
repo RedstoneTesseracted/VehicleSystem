@@ -53,13 +53,11 @@ parts: [\
     {\
         scale: [4.0f, 4.0f, 4.0f],\
         item: "minecraft:glass",\
-        custom_model_data: 0,\
         name: "display.outer"\
     },\
     {\
         scale: [-4.0f, -4.0f, -4.0f],\
         item: "minecraft:glass",\
-        custom_model_data: 0,\
         name: "display.inner"\
     }\
 ],\
