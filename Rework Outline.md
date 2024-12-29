@@ -691,12 +691,12 @@ Inputs are gathered as a group, that is: requesting `look.x` will also gather `l
 | ------------- | --------------- |
 | look          |        -        |
 | look_xz       |        -        |
-| motion        |        -        |
-| directed      | motion          |
+| motion        | input           |
+| directed      | input           |
 | rotation      |        -        |
 | rotation_diff |        -        |
 | click         |        -        |
-| input         | look_xz, motion |
+| input         |        -        |
 | heading_diff  |        -        |
 
 

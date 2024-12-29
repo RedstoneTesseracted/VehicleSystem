@@ -250,10 +250,16 @@ execute store result score vehicle.unittest.input_test_result vehicle.unittest.l
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
 execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "directed", input: "x"}
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
+execute unless data storage reds_vehicles:definitions {working_input_list: ["input", "directed"]} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_input_list to contain \"input\" and \"directed\" (was "},{nbt:"working_input_groups", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions {working_input_list: ["input", "directed"]} run return run function rv_unittest:common/fail
 execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "directed", input: "y"}
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
+execute unless data storage reds_vehicles:definitions {working_input_list: ["input", "directed"]} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_input_list to contain \"input\" and \"directed\" (was "},{nbt:"working_input_groups", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions {working_input_list: ["input", "directed"]} run return run function rv_unittest:common/fail
 execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "directed", input: "z"}
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
+execute unless data storage reds_vehicles:definitions {working_input_list: ["input", "directed"]} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_input_list to contain \"input\" and \"directed\" (was "},{nbt:"working_input_groups", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions {working_input_list: ["input", "directed"]} run return run function rv_unittest:common/fail
 execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "input", input: "forward"}
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
 execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "input", input: "side"}
@@ -270,8 +276,12 @@ execute store result score vehicle.unittest.input_test_result vehicle.unittest.l
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
 execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "motion", input: "x"}
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
+execute unless data storage reds_vehicles:definitions {working_input_list: ["input", "motion"]} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_input_list to contain \"input\" and \"motion\" (was "},{nbt:"working_input_groups", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions {working_input_list: ["input", "motion"]} run return run function rv_unittest:common/fail
 execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "motion", input: "z"}
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
+execute unless data storage reds_vehicles:definitions {working_input_list: ["input", "motion"]} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_input_list to contain \"input\" and \"motion\" (was "},{nbt:"working_input_groups", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions {working_input_list: ["input", "motion"]} run return run function rv_unittest:common/fail
 execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "rotation_diff", input: "pitch"}
 execute if score vehicle.unittest.input_test_result vehicle.unittest.local matches 0 run return fail
 execute store result score vehicle.unittest.input_test_result vehicle.unittest.local run function rv_unittest:parsing/handling/__test_valid_input {group: "rotation_diff", input: "yaw"}
