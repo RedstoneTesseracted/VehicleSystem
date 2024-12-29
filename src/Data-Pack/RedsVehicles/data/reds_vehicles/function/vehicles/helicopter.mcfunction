@@ -285,10 +285,7 @@ seat: {\
     width: 2.0f,\
     height: 2.3f\
 },\
-item: {\
-    name: "Helicopter",\
-    model: ""\
-},\
+preview: "reds_vehicles:vehicle/helicopter_preview",\
 ground_offset: 1.0f,\
 step_height: 0.6f,\
 min_version: 1\

@@ -25,7 +25,8 @@ execute unless data storage reds_vehicles:definitions working_root.author run re
 execute unless data storage reds_vehicles:definitions working_root.collection run function reds_vehicles:define/root/report/collection_missing
 execute unless data storage reds_vehicles:definitions working_root.collection run return run function reds_vehicles:define/root/exit_fail
 
-
+# Ensure preview model is present (defaults to "reds_vehicles:missing")
+execute unless data storage reds_vehicles:definitions working_root.preview run data modify storage reds_vehicles:definitions working_root.preview set value "reds_vehicles:missing"
 
 # Process the handling tag
 data modify storage reds_vehicles:definitions working_input_list set value []

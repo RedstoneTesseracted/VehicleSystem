@@ -948,6 +948,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
       precision: int    # Precision factor to multiple "value" by
     }
   ],
+  preview: str,         # Item model used for the spawn egg preview
   ground_offset: float, # The offset between the root entity's base and the seat (default=1.0)
   step_height: float,   # The maximum block height that a vehicle can climb
   min_version: int,     # The minimum datapack version required for this definition to be loaded (required)

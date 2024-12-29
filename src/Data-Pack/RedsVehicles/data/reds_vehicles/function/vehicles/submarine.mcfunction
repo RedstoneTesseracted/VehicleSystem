@@ -170,10 +170,7 @@ seat: {\
     width: 3.0f,\
     height: 1.5f\
 },\
-item: {\
-    name: "Submarine",\
-    model: "reds_vehicles:vehicle/submarine"\
-},\
+preview: "reds_vehicles:vehicle/submarine",\
 ground_offset: 0.25f,\
 step_height: 1.0f,\
 min_version: 1\

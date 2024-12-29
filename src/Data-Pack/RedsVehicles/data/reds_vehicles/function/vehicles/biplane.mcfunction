@@ -289,10 +289,7 @@ seat: {\
     width: 4.0f,\
     height: 1.6f\
 },\
-item: {\
-    name: "Biplane",\
-    model: ""\
-},\
+preview: "reds_vehicles:vehicle/biplane",\
 ground_offset: 1.7f,\
 step_height: 1.0f,\
 min_version: 1\

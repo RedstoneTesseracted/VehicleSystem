@@ -65,10 +65,7 @@ seat: {\
     width: 4.0f,\
     height: 2.0f\
 },\
-item: {\
-    name: "Orb",\
-    model: ""\
-},\
+preview: "minecraft:glass",\
 ground_offset: 0.05f,\
 step_height: 0.6f,\
 min_version: 1\

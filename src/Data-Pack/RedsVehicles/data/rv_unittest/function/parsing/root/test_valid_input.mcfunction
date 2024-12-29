@@ -31,6 +31,9 @@ execute unless data storage reds_vehicles:definitions working_root{author:"Redst
 execute unless data storage reds_vehicles:definitions working_root{base_gravity:0.0f} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_root.base_gravity to be 0.0f (was "},{nbt:"working_root.base_gravity", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_root{base_gravity:0.0f} run return run function rv_unittest:common/fail
 
+execute unless data storage reds_vehicles:definitions working_root{preview:"reds_vehicles:vehicle/test"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected minimal vehicle's working_root.preview to be \"reds_vehicles:vehicle/test\" (was "},{nbt:"working_root.preview", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_root{preview:"reds_vehicles:vehicle/test"} run return run function rv_unittest:common/fail
+
 execute unless data storage reds_vehicles:definitions working_root{default_scores:[{name:"vehicle.foobar",value:20}]} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_root.default_scores to be [{name:\"vehicle.foobar\",value:20}] (was "},{nbt:"working_root.default_scores", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_root{default_scores:[{name:"vehicle.foobar",value:20}]} run return run function rv_unittest:common/fail
 
@@ -114,6 +117,9 @@ execute if data storage reds_vehicles:definitions working_root.default_scores[0]
 
 execute unless data storage reds_vehicles:definitions working_root.entities[{type:"interaction"}] run data modify storage reds_vehicles:unittest reason set value {text:"Expected minimal vehicle to have an \"interaction\" type entity"}
 execute unless data storage reds_vehicles:definitions working_root.entities[{type:"interaction"}] run return run function rv_unittest:common/fail
+
+execute unless data storage reds_vehicles:definitions working_root{preview:"reds_vehicles:missing"} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected minimal vehicle's working_root.preview to be \"reds_vehicles:missing\" (was "},{nbt:"working_root.preview", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_root{preview:"reds_vehicles:missing"} run return run function rv_unittest:common/fail
 
 execute if data storage reds_vehicles:definitions working_root.entities[2] run data modify storage reds_vehicles:unittest reason set value {text:"Minimal vehicle has more than two entities in its entities list"}
 execute if data storage reds_vehicles:definitions working_root.entities[2] run return run function rv_unittest:common/fail
