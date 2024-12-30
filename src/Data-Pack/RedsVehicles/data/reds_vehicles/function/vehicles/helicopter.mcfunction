@@ -1,4 +1,4 @@
-# Declare the orb vehicle by appending to reds_vehicles:definitions vehicles
+# Declare the helicopter vehicle by appending to reds_vehicles:definitions vehicles
 data modify storage reds_vehicles:definitions vehicles append value \
 {\
 name: "helicopter",\
