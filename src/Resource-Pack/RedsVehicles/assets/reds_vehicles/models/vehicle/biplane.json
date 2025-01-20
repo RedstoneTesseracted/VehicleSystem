@@ -3,7 +3,8 @@
 	"texture_size": [128, 128],
 	"textures": {
 		"1": "reds_vehicles:vehicle/biplane/propeller",
-		"2": "reds_vehicles:vehicle/biplane/biplane"
+		"2": "reds_vehicles:vehicle/biplane/biplane",
+		"particle": "reds_vehicles:vehicle/biplane/biplane"
 	},
 	"elements": [
 		{

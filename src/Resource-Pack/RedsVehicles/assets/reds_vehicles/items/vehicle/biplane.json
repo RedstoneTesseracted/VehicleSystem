@@ -1,0 +1,6 @@
+{
+    "model": {
+        "type": "minecraft:model",
+        "model": "reds_vehicles:item/vehicle/biplane"
+    }
+}
