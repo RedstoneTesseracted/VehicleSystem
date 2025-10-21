@@ -1,16 +1,22 @@
 {
-  "condition": "minecraft:entity_properties",
-  "entity": "this",
-  "predicate": {
-    "location": {
-      "fluid": {
-        "fluids": "minecraft:empty"
-      }
-    },
-    "stepping_on": {
-      "fluid": {
-        "fluids": "#minecraft:water"
-      }
-    }
-  }
+    "condition": "minecraft:all_of",
+    "terms": [
+        {
+            "condition": "minecraft:location_check",
+            "predicate": {
+                "fluid": {
+                    "fluids": "minecraft:empty"
+                }
+            }
+        },
+        {
+            "condition": "minecraft:location_check",
+            "offsetY": -1,
+            "predicate": {
+                "fluid": {
+                    "fluids": "#minecraft:water"
+                }
+            }
+        }
+    ]
 }

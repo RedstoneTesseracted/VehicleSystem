@@ -16,7 +16,7 @@ function rv_unittest:parsing/root/valid_sample
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/root/parse
 
-#tellraw @a {"nbt":"working_root","storage": "reds_vehicles:definitions"}
+#tellraw @a {nbt:"working_root",storage: "reds_vehicles:definitions"}
 # > {base_gravity:0.0f,default_scores:[{name:"vehicle.foobar",value:20}],entities:[{pilot:1b,tags:{height:2.0f,width:4.0f},type:"interaction"},{item:{id:"minecraft:glass"},name:"display.outer",transform:[4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,1.0f],type:"item_display"}],events:[{actions:[{action:"playsound",arguments:{pitch:1.0d,sound:"minecraft:block.stone.break",volume:1.0d}}],predicate:""},{actions:[{action:"particle",arguments:{count:1,deltaX:0.0d,deltaY:0.0d,deltaZ:0.0d,name:"minecraft:bubble",offsetU:0.0d,offsetV:0.0d,offsetW:0.0d,speed:0.0d}}],predicate:""}],handling:[{input:"directed.x",operation:"increase",precision:1000,scale:{source:"constant",value:0.05d},variable:"vehicle.dvel.x"}],inputs:["directed"],min_version:1,name:"orb",physics:[{predicate:"if predicate reds_vehicles:has_passenger ",type:"applied",uid:727297308,value:1.0f}],scale:0.050632913f,seat_count:1,step_height:0.6f}
 
 # Analyze and display results
@@ -89,7 +89,7 @@ function rv_unittest:parsing/root/minimal_sample
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/root/parse
 
-#tellraw @a {"nbt":"working_root","storage": "reds_vehicles:definitions"}
+#tellraw @a {nbt:"working_root",storage: "reds_vehicles:definitions"}
 # > {base_gravity:0.0f,default_scores:[{name:"vehicle.foobar",value:20}],entities:[{pilot:1b,tags:{height:2.0f,width:4.0f},type:"interaction"},{item:{id:"minecraft:glass"},name:"display.outer",transform:[4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,1.0f],type:"item_display"}],events:[{actions:[{action:"playsound",arguments:{pitch:1.0d,sound:"minecraft:block.stone.break",volume:1.0d}}],predicate:""},{actions:[{action:"particle",arguments:{count:1,deltaX:0.0d,deltaY:0.0d,deltaZ:0.0d,name:"minecraft:bubble",offsetU:0.0d,offsetV:0.0d,offsetW:0.0d,speed:0.0d}}],predicate:""}],handling:[{input:"directed.x",operation:"increase",precision:1000,scale:{source:"constant",value:0.05d},variable:"vehicle.dvel.x"}],inputs:["input", "directed"],min_version:1,name:"orb",physics:[{predicate:"if predicate reds_vehicles:has_passenger ",type:"applied",uid:727297308,value:1.0f}],scale:0.050632913f,seat_count:1,step_height:0.6f}
 
 # Analyze and display results

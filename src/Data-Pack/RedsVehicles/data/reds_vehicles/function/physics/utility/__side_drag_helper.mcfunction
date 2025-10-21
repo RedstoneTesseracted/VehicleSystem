@@ -10,12 +10,12 @@ data modify entity @s transformation set from storage reds_vehicles:physics temp
 $data modify storage reds_vehicles:physics temp.arr[-1] set value $(vmag)f
 data modify storage reds_vehicles:physics temp.arr[3] set from entity @s transformation.translation[0]
 data modify entity @s transformation set from storage reds_vehicles:physics temp.arr
-# tellraw @a [{"text":"1/[𝗩•𝗪]: "},{"nbt": "transformation.translation[0]","entity": "@s"}]
+# tellraw @a [{text:"1/[𝗩•𝗪]: "},{nbt: "transformation.translation[0]","entity": "@s"}]
 # > Compute 1/[b(𝗩•𝗪)]
 $data modify storage reds_vehicles:physics temp.arr[-1] set value $(b)f
 data modify storage reds_vehicles:physics temp.arr[3] set from entity @s transformation.translation[0]
 data modify entity @s transformation set from storage reds_vehicles:physics temp.arr
-# tellraw @a [{"text":"1/[b(𝗩•𝗪)]: "},{"nbt": "transformation.translation[0]","entity": "@s"}]
+# tellraw @a [{text:"1/[b(𝗩•𝗪)]: "},{nbt: "transformation.translation[0]","entity": "@s"}]
 
 
 # The final acceleration vector is parallel to 𝗪 with a magnitude proportional by the above factor
@@ -25,8 +25,8 @@ data modify storage reds_vehicles:physics temp.arr[-1] set from entity @s transf
 data modify entity @s transformation set from storage reds_vehicles:physics temp.arr
 
 
-# title @a actionbar [{"nbt": "temp.arr","storage": "reds_vehicles:physics"}]
-# title @a actionbar [{"nbt": "transformation.translation","entity": "@s"}]
+# title @a actionbar [{nbt: "temp.arr",storage: "reds_vehicles:physics"}]
+# title @a actionbar [{nbt: "transformation.translation","entity": "@s"}]
 
 # Since NaN is interpreted as zero, this check helps ensure NaNs aren't getting introduced into calculations
 # The massive scale factor helps prevent small values from being rounded to zero

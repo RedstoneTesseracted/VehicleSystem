@@ -16,7 +16,7 @@
 # execute summon minecraft:block_display run function reds_vehicles:physics/counter_drag
 # function reds_vehicles:physics/after_drag_apply with storage reds_vehicles:physics temp
 
-# title @a actionbar [{"nbt": "temp.my","storage": "reds_vehicles:physics"},{"text":", "},{"nbt": "Motion[1]", "entity":"@s"}]
+# title @a actionbar [{nbt: "temp.my",storage: "reds_vehicles:physics"},{text:", "},{nbt: "Motion[1]", entity:"@s"}]
 
 
 # Reset gravity-affecting attribute modifiers

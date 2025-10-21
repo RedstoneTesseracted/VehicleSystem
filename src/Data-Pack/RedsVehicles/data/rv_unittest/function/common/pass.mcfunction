@@ -7,7 +7,7 @@
 data modify storage reds_vehicles:unittest results.passed append from storage reds_vehicles:unittest name
 
 # Display text
-tellraw @a ["",{"nbt":"name","storage": "reds_vehicles:unittest","hoverEvent": {"action": "show_text","contents": {"nbt": "description", "storage": "reds_vehicles:unittest","interpret": true}}},{"text":" - ","color":"white"},{"text":"SUCCESS","color":"green","bold":true}]
+tellraw @a ["",{nbt:"name",storage: "reds_vehicles:unittest",hover_event: {action: "show_text", value: {nbt: "description", storage: "reds_vehicles:unittest",interpret: true}}},{text:" - ",color:"white"},{text:"SUCCESS",color:"green",bold:true}]
 
 # Clear timeout and prepare to run next test
 schedule clear rv_unittest:common/timeout

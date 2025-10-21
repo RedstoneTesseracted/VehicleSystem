@@ -4,11 +4,11 @@
 execute store result score vehicle.error_count vehicle.local run data get storage reds_vehicles:logging errors
 
 # Exit early if there were no errors
-execute if score vehicle.error_count vehicle.local matches 0 run tellraw @s [{"text":"[Red's Vehicles]: ","color": "#00FF00"},{"translate": "reds_vehicles.notify.errors.header_none","fallback": "No errors logged while reloading vehicle definitions!","color": "green"}]
+execute if score vehicle.error_count vehicle.local matches 0 run tellraw @s [{text:"[Red's Vehicles]: ",color: "#00FF00"},{translate: "reds_vehicles.notify.errors.header_none",fallback: "No errors logged while reloading vehicle definitions!",color: "green"}]
 execute if score vehicle.error_count vehicle.local matches 0 run return 1
 
 # Print error log header
-tellraw @s [{"text":"[Red's Vehicles]: ","color": "#FF0000"},{"translate": "reds_vehicles.notify.errors.header","fallback": "%s errors logged while reloading vehicle definitions","with": [{"score": {"name": "vehicle.error_count","objective": "vehicle.local"},"color": "gold","bold": true}],"color": "red"}]
+tellraw @s [{text:"[Red's Vehicles]: ",color: "#FF0000"},{translate: "reds_vehicles.notify.errors.header",fallback: "%s errors logged while reloading vehicle definitions",with: [{"score": {"name": "vehicle.error_count","objective": "vehicle.local"},color: "gold",bold: true}],color: "red"}]
 
 # Loop over errors array and print each formatted message
 data modify storage reds_vehicles:logging unprinted_errors set from storage reds_vehicles:logging errors

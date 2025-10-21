@@ -25,7 +25,8 @@ scoreboard players operation vehicle.vel.x vehicle.local += @s vehicle.dvel.x
 scoreboard players operation vehicle.vel.y vehicle.local += @s vehicle.dvel.y
 scoreboard players operation vehicle.vel.z vehicle.local += @s vehicle.dvel.z
 
-#title @a actionbar [{"score": {"name": "vehicle.vel.x","objective": "vehicle.local"}},{"text": ", "},{"score": {"name": "vehicle.vel.y","objective": "vehicle.local"}},{"text": ", "},{"score": {"name": "vehicle.vel.z","objective": "vehicle.local"}}]
+#title @a actionbar [{"score": {"name": "@s","objective": "vehicle.dvel.x"}},{text: ", "},{"score": {"name": "@s","objective": "vehicle.dvel.y"}},{text: ", "},{"score": {"name": "@s","objective": "vehicle.dvel.z"}}]
+#title @a actionbar [{"score": {"name": "vehicle.vel.x","objective": "vehicle.local"}},{text: ", "},{"score": {"name": "vehicle.vel.y","objective": "vehicle.local"}},{text: ", "},{"score": {"name": "vehicle.vel.z","objective": "vehicle.local"}}]
 
 # Reset scores if enabled
 execute if predicate reds_vehicles:utility/unapplied_force_no_reset run return 1

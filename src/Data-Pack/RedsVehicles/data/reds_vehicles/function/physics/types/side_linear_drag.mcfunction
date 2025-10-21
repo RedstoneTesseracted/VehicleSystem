@@ -24,7 +24,7 @@ data modify storage reds_vehicles:physics temp.y1 set from entity @s Pos[1]
 data modify storage reds_vehicles:physics temp.z1 set from entity @s Pos[2]
 execute positioned ^1 ^ ^ summon minecraft:marker run function reds_vehicles:physics/utility/precision_vector_calc with storage reds_vehicles:physics temp
 
-# tellraw @a [{"text":"𝗪: "},{"nbt": "temp.dx","storage": "reds_vehicles:physics"},{"text":", "},{"nbt": "temp.dy","storage": "reds_vehicles:physics"},{"text":", "},{"nbt": "temp.dz","storage": "reds_vehicles:physics"}]
+# tellraw @a [{text:"𝗪: "},{nbt: "temp.dx",storage: "reds_vehicles:physics"},{text:", "},{nbt: "temp.dy",storage: "reds_vehicles:physics"},{text:", "},{nbt: "temp.dz",storage: "reds_vehicles:physics"}]
 
 # Next, obtain the velocity vector's magnitude and normalize said vector so that
 # it can be used with fixed-point arithmetic
@@ -60,28 +60,28 @@ scoreboard players operation vehicle.u.x vehicle.local += vehicle.u.z vehicle.lo
 
 execute store result storage reds_vehicles:physics temp.dot float 0.0000000004656803804571454 run scoreboard players get vehicle.u.x vehicle.local
 
-# title @a actionbar [{"nbt": "temp.dot","storage": "reds_vehicles:physics"}]
-# tellraw @a {"nbt": "Motion","entity": "@s"}
+# title @a actionbar [{nbt: "temp.dot",storage: "reds_vehicles:physics"}]
+# tellraw @a {nbt: "Motion","entity": "@s"}
 
 # Now compute the remaining b(|𝗩| norm(𝗩)•𝗪) using display entity funkiness
 data modify storage reds_vehicles:physics temp.b set from storage reds_vehicles:physics unapplied_forces[0].value
 execute summon minecraft:block_display run function reds_vehicles:physics/utility/side_drag_helper
-# tellraw @a {"text":"----------------------------"}
+# tellraw @a {text:"----------------------------"}
 
-# title @a actionbar [{"nbt": "temp.dx","storage": "reds_vehicles:physics"},{"text":", "},{"nbt": "temp.dy","storage": "reds_vehicles:physics"},{"text":", "},{"nbt": "temp.dz","storage": "reds_vehicles:physics"}]
+# title @a actionbar [{nbt: "temp.dx",storage: "reds_vehicles:physics"},{text:", "},{nbt: "temp.dy",storage: "reds_vehicles:physics"},{text:", "},{nbt: "temp.dz",storage: "reds_vehicles:physics"}]
 
 
 # Compute the final drag vector
 # function reds_vehicles:physics/utility/side_drag_helper2 with storage reds_vehicles:physics temp
 
-# title @a actionbar [{"text":"dx: "},{"nbt": "temp.dx","storage": "reds_vehicles:physics"},{"text":", dy: "},{"nbt": "temp.dy","storage": "reds_vehicles:physics"},{"text":", dz: "},{"nbt": "temp.dz","storage": "reds_vehicles:physics"}]
+# title @a actionbar [{text:"dx: "},{nbt: "temp.dx",storage: "reds_vehicles:physics"},{text:", dy: "},{nbt: "temp.dy",storage: "reds_vehicles:physics"},{text:", dz: "},{nbt: "temp.dz",storage: "reds_vehicles:physics"}]
 
 # return fail
 execute store result score vehicle.dv.x vehicle.local run data get storage reds_vehicles:physics temp.dx 100000
 execute store result score vehicle.dv.y vehicle.local run data get storage reds_vehicles:physics temp.dy 100000
 execute store result score vehicle.dv.z vehicle.local run data get storage reds_vehicles:physics temp.dz 100000
 
-# title @a actionbar [{"text":"vx: "},{"score": {"name": "vehicle.dv.x","objective": "vehicle.local"}},{"text":", vy: "},{"score": {"name": "vehicle.dv.y","objective": "vehicle.local"}},{"text":", vz: "},{"score": {"name": "vehicle.dv.z","objective": "vehicle.local"}}]
+# title @a actionbar [{text:"vx: "},{"score": {"name": "vehicle.dv.x","objective": "vehicle.local"}},{text:", vy: "},{"score": {"name": "vehicle.dv.y","objective": "vehicle.local"}},{text:", vz: "},{"score": {"name": "vehicle.dv.z","objective": "vehicle.local"}}]
 # return fail
 scoreboard players operation vehicle.vel.x vehicle.local += vehicle.dv.x vehicle.local
 scoreboard players operation vehicle.vel.y vehicle.local += vehicle.dv.y vehicle.local

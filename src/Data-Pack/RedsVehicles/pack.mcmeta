@@ -1,9 +1,9 @@
 {
    "pack": {
-      "pack_format": 61,
+      "pack_format": 81,
       "supported_formats": {
-         "min_inclusive": 61,
-         "max_inclusive": 61
+         "min_inclusive": 80,
+         "max_inclusive": 81
       },
       "description": [
          {
@@ -19,8 +19,12 @@
    "overlays": {
       "entries": [
          {
-            "formats": 61,
-            "directory": "61"
+            "formats": 80,
+            "directory": "80"
+         },
+         {
+            "formats": 81,
+            "directory": "81"
          }
       ]
    }

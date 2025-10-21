@@ -44,7 +44,7 @@ scoreboard players remove vehicle.vel.y vehicle.local 7841
 # data modify storage reds_vehicles:physics temp.vz set from entity @s Motion[2]
 execute summon minecraft:block_display run function reds_vehicles:physics/utility/precision_vector_normalize
 
-# tellraw @a [{"nbt": "temp.vmag","storage": "reds_vehicles:physics"}]
+# tellraw @a [{nbt: "temp.vmag",storage: "reds_vehicles:physics"}]
 
 # Compute the dot product using fixed-point arithmetic
 # Here, we use the very funky multiplier of 46340, chosen because:
@@ -70,14 +70,14 @@ scoreboard players operation vehicle.u.x vehicle.local += vehicle.u.z vehicle.lo
 execute store result storage reds_vehicles:physics temp.dot float 0.0000000004656803804571454 run scoreboard players get vehicle.u.x vehicle.local
 
 
-# title @a actionbar [{"nbt": "temp.dot","storage": "reds_vehicles:physics"}]
+# title @a actionbar [{nbt: "temp.dot",storage: "reds_vehicles:physics"}]
 
 # Now compute the remaining b(|𝗩| norm(𝗩)•𝗨)² using display entity funkiness
 data modify storage reds_vehicles:physics temp.b set from storage reds_vehicles:physics unapplied_forces[0].value
 execute summon minecraft:block_display run function reds_vehicles:physics/utility/simple_lift_helper
 
-# title @a actionbar [{"nbt": "temp.a","storage": "reds_vehicles:physics"}]
-# tellraw @a [{"nbt": "temp.a","storage": "reds_vehicles:physics"}]
+# title @a actionbar [{nbt: "temp.a",storage: "reds_vehicles:physics"}]
+# tellraw @a [{nbt: "temp.a",storage: "reds_vehicles:physics"}]
 
 
 # Compute the final lift vector and apply to motion tag
@@ -87,7 +87,7 @@ execute store result storage reds_vehicles:physics temp.roll double 0.0001 run s
 # function reds_vehicles:physics/utility/simple_lift_helper2 with storage reds_vehicles:physics temp
 function reds_vehicles:physics/utility/precision_roll_helper with storage reds_vehicles:physics temp
 
-# title @a actionbar [{"text":"dx: "},{"nbt": "temp.dx","storage": "reds_vehicles:physics"},{"text":", dy: "},{"nbt": "temp.dy","storage": "reds_vehicles:physics"},{"text":", dz: "},{"nbt": "temp.dz","storage": "reds_vehicles:physics"}]
+# title @a actionbar [{text:"dx: "},{nbt: "temp.dx",storage: "reds_vehicles:physics"},{text:", dy: "},{nbt: "temp.dy",storage: "reds_vehicles:physics"},{text:", dz: "},{nbt: "temp.dz",storage: "reds_vehicles:physics"}]
 
 # Apply the change in velocity
 execute store result score vehicle.dv.x vehicle.local run data get storage reds_vehicles:physics temp.dx 100000
