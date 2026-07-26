@@ -1,9 +1,7 @@
 # Function macro used to force the "value" field to a double
 # Returns a 1 if the macro ran
 
-$data modify storage reds_vehicles:definitions temp.arr set value [0.0f,$(value)f]
-data modify storage reds_vehicles:definitions working_physics.value set from storage reds_vehicles:definitions temp.arr[1]
-data remove storage reds_vehicles:definitions temp.arr
+$execute facing 0.0 0.0 $(value) run data modify storage reds_vehicles:definitions working_physics.value set value $(value)f
 
 # Success!
 return 1

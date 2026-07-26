@@ -85,8 +85,8 @@ execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run re
 # Check number of errors
 execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
 # Check error code
-execute unless data storage reds_vehicles:logging errors[{code: 59}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 59"}]
-execute unless data storage reds_vehicles:logging errors[{code: 59}] run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:logging errors[{code: 89}] run data modify storage reds_vehicles:unittest reason set value [{text:"Expected error code to be 59"}]
+execute unless data storage reds_vehicles:logging errors[{code: 89}] run return run function rv_unittest:common/fail
 
 
 #####################################################################################################

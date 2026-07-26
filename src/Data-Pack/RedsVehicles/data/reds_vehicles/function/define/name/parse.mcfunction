@@ -11,11 +11,12 @@ execute store result score vehicle.name_length vehicle.local run data get storag
 execute unless score vehicle.name_length vehicle.local matches 1.. run function reds_vehicles:define/name/report/zero_length
 execute unless score vehicle.name_length vehicle.local matches 1.. run return run function reds_vehicles:define/name/exit_fail
 
-# Assert name is a string
+# Cast name to string
 data modify storage reds_vehicles:types check set from storage reds_vehicles:definitions working_root.name
-execute store result score vehicle.name_is_string vehicle.local run function reds_vehicles:util/typing/is_string
-execute if score vehicle.name_is_string vehicle.local matches 0 run function reds_vehicles:define/name/report/wrong_type
+execute store result score vehicle.name_is_string vehicle.local run function reds_vehicles:util/cast/to_string
+execute if score vehicle.name_is_string vehicle.local matches 0 run function reds_vehicles:define/name/report/name_not_stringable
 execute if score vehicle.name_is_string vehicle.local matches 0 run return run function reds_vehicles:define/name/exit_fail
+data modify storage reds_vehicles:types working_root.name set from storage reds_vehicles:definitions check
 
 # Assert that name doesn't conflict with ANY registered name
 # Also, it should be able to work with a function macro

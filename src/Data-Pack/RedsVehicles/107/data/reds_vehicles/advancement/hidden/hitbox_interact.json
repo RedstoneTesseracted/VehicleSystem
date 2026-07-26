@@ -1,0 +1,38 @@
+{
+  "parent": "reds_vehicles:hidden/trigger_root",
+  "criteria": {
+      "requirement": {
+          "trigger": "minecraft:player_interacted_with_entity",
+          "conditions": {
+              "entity": [
+                  {
+                      "condition": "minecraft:all_of",
+                      "terms": [
+                          {
+                              "condition": "minecraft:inverted",
+                              "term": {
+                                  "condition": "minecraft:entity_properties",
+                                  "entity": "this",
+                                  "predicate": {
+                                      "passenger": {}
+                                  }
+                              }
+                          },
+                          {
+                              "condition": "minecraft:entity_properties",
+                              "entity": "this",
+                              "predicate": {
+                                  "minecraft:entity_type": "minecraft:interaction",
+                                  "nbt": "{Tags:[\"vehicle.hitbox\"]}"
+                              }
+                          }
+                      ]
+                  }
+              ]
+          }
+      }
+  },
+  "rewards": {
+      "function": "reds_vehicles:interact/ride_vehicle"
+  }
+}
