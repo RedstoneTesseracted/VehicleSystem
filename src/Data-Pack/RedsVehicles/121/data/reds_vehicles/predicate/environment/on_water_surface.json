@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:all_of",
+    "terms": [
+        {
+            "type": "minecraft:location_check",
+            "predicate": {
+                "fluid": {
+                    "fluids": "minecraft:empty"
+                }
+            }
+        },
+        {
+            "type": "minecraft:location_check",
+            "offsetY": -1,
+            "predicate": {
+                "fluid": {
+                    "fluids": "#minecraft:water"
+                }
+            }
+        }
+    ]
+}

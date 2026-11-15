@@ -1,0 +1,7 @@
+{
+    "type": "minecraft:all_of",
+    "terms": [
+        "reds_vehicles:environment/in_air",
+        "reds_vehicles:environment/on_land"
+    ]
+}

@@ -1,0 +1,39 @@
+{
+    "parent": "reds_vehicles:hidden/trigger_root",
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:player_interacted_with_entity",
+            "conditions": {
+                "player": {
+                    "type": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                        "vehicle": {
+                            "minecraft:entity_type": "minecraft:interaction",
+                            "minecraft:entity_tags": {
+                                "any_of": [
+                                    "vehicle.pilot_seat"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "entity": {
+                    "type": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                        "minecraft:entity_type": "minecraft:interaction",
+                        "minecraft:entity_tags": {
+                            "any_of": [
+                                "vehicle.hitbox"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "reds_vehicles:input/right_click_hitbox_callback"
+    }
+}

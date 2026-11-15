@@ -1,0 +1,36 @@
+{
+    "parent": "reds_vehicles:hidden/trigger_root",
+    "criteria": {
+        "requirement": {
+            "trigger": "minecraft:tick",
+            "conditions": {
+                "player": {
+                    "type": "minecraft:any_of",
+                    "terms": [
+                        {
+                            "type": "minecraft:entity_scores",
+                            "entity": "this",
+                            "scores": {
+                                "vehicle.listvehicles": {
+                                    "min": 1
+                                }
+                            }
+                        },
+                        {
+                            "type": "minecraft:entity_scores",
+                            "entity": "this",
+                            "scores": {
+                                "vehicle.listvehicles": {
+                                    "max": -1
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "rewards": {
+        "function": "reds_vehicles:commands/list_vehicles"
+    }
+}
