@@ -1,7 +1,6 @@
 # Redstone⁴'s Vehicle System
 
 This datapack provides a framework for adding controllable vehicles to Minecraft.  Four examples vehicles are included:
-* The Orb
 * Submarine
 * Biplane
 * Helicopter
