@@ -24,6 +24,7 @@
                 "fallback": "Universal Fuel"
             },
             "minecraft:rarity": "common",
+            "max_stack_size": 16,
             "!minecraft:food": {},
             "!minecraft:consumable": {}
         },
