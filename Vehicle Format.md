@@ -86,6 +86,7 @@ All vehicles will have common set of scoreboard values (stored by the root vehic
 | vehicle.event.honk           | boolean 0 or 1         | Honk the horn                                            |
 | vehicle.event.shoot          | boolean 0 or 1         | Fire a projectile                                        |
 | vehicle.button.kill_throttle | boolean 0 or 1         | Dummy variables for user's discretion                    |
+| vehicle.fuel                 | integer                | Amount of fuel in tank                                   |
 
 
 ## Vehicle Definition Data Structure
@@ -230,6 +231,10 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
           }
         },
         {
+          action: "consume_fuel",  # Decreases vehicle.fuel by 1, but clamps it at zero
+          arguments: {}            # Required, but leave empty
+        },
+        {
           action: "toggle_score", # Toggle a score between 0 and 1.  Any nonzero number is interpreted as 1.
           arguments: {
             name: str,            # Name of scoreboard
@@ -319,7 +324,9 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
   ground_offset: float, # The offset between the root entity's base and the seat (default=1.0)
   step_height: float,   # The maximum block height that a vehicle can climb
   format_version: int,  # The vehicle definition format required for this definition to be loaded (required)
-  do_not_update: bool   # If true, the vehicle will NEVER be updated
+  do_not_update: bool,   # If true, the vehicle will NEVER be updated (do not use)
+  max_fuel: int,        # Maximum capacity of fuel tank (optional, defaults to 8000)
+  accepts_fuel: bool    # Whether the vehicle accepts fuel at all (optional, defaults to true)
 }
 ```
 
@@ -336,6 +343,8 @@ Several of these tags have an option to specify a predicate.  These allow certai
 | reds_vehicles:environment/on_water_surface | Passes when current fluid is air AND stepping on water        |
 | reds_vehicles:state/engine_on              | Passes when the vehicle's `vehicle.engine` score is 1         |
 | reds_vehicles:state/engine_off             | Passes when the vehicle's `vehicle.engine` score is 0         |
+| reds_vehicles:state/has_fuel               | Passes when the vehicle's `vehicle.fuel` score is above 0     |
+| reds_vehicles:state/out_of_fuel            | Passes when the vehicle's `vehicle.fuel` score is 0 or below  |
 | reds_vehicles:has_passenger                | Passes when any player is a passenger in the vehicle          |
 | reds_vehicles:is_moving                    | Passes when the vehicle is moving                             |
 | reds_vehicles:has_applied_force            | Passes when any of the applied force variables are nonzero    |

@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "reds_vehicles:fuel",
+    "category": "misc",
+    "pattern": [
+        "cic",
+        "cbc",
+        "ccc"
+    ],
+    "key": {
+        "i": "minecraft:iron_nugget",
+        "b": "minecraft:blaze_powder",
+        "c": "minecraft:copper_ingot"
+    },
+    "result": {
+        "id": "minecraft:poisonous_potato",
+        "components": {
+            "minecraft:custom_data": {
+                "rv_fuel": true
+            },
+            "minecraft:item_model": "reds_vehicles:fuel",
+            "minecraft:item_name": {
+                "translate": "reds_vehicles.item.fuel",
+                "fallback": "Universal Fuel"
+            },
+            "minecraft:rarity": "common",
+            "!minecraft:food": {},
+            "!minecraft:consumable": {}
+        },
+        "count": 8
+    }
+}

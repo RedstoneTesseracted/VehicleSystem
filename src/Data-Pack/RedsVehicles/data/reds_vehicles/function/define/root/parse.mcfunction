@@ -40,6 +40,12 @@ data modify storage reds_vehicles:definitions working_root.inputs set from stora
 # Set default camera distance multiplier if not already present
 execute unless data storage reds_vehicles:definitions working_root.camera_multiplier run data modify storage reds_vehicles:definitions working_root.camera_multiplier set value 0.0
 
+# Set default max fuel if not specified
+execute unless data storage reds_vehicles:definitions working_root.max_fuel run data modify storage reds_vehicles:definitions working_root.max_fuel set value 8000
+
+# Set default value for accepts_fuel
+execute unless data storage reds_vehicles:definitions working_root.accepts_fuel run data modify storage reds_vehicles:definitions working_root.accepts_fuel set value true
+
 
 # Set default gravity
 data modify storage reds_vehicles:definitions working_base_gravity set value 0.08

@@ -111,6 +111,10 @@ default_scores: [\
     {\
         name: "vehicle.button.toggle_engine",\
         value: 0\
+    },\
+    {\
+        name: "vehicle.fuel",\
+        value: 0\
     }\
 ],\
 events: [\
@@ -160,6 +164,10 @@ events: [\
               arguments: {\
                 sound: "reds_vehicles:vehicle.biplane.engine_hum"\
               }\
+            },\
+            {\
+                action: "consume_fuel",\
+                arguments: {}\
             }\
         ]\
     },\
@@ -235,6 +243,27 @@ events: [\
     },\
     {\
         predicates: [\
+            "reds_vehicles:state/engine_on",\
+            "reds_vehicles:state/out_of_fuel"\
+        ],\
+        actions: [\
+            {\
+              action: "set_score",\
+              arguments: {\
+                name: "vehicle.engine",\
+                value: 0\
+              }\
+            },\
+            {\
+              action: "playsound",\
+              arguments: {\
+                sound: "reds_vehicles:vehicle.biplane.engine_off"\
+              }\
+            }\
+        ]\
+    },\
+    {\
+        predicates: [\
             "reds_vehicles:has_passenger"\
         ],\
         actions: [\
@@ -243,7 +272,11 @@ events: [\
               arguments: {\
                 text: [\
                     {text: "Throttle: "},\
-                    {score: {name: "@s", objective: "vehicle.accel.forward"}}\
+                    {score: {name: "@s", objective: "vehicle.accel.forward"}},\
+                    {text: ", "},\
+                    {text: "Fuel: "},\
+                    {score: {name: "@s", objective: "vehicle.fuel"}},\
+                    {text: " / 8000 mb"},\
                 ]\
               }\
             }\
@@ -293,6 +326,8 @@ camera_multiplier: 1.0,\
 preview: "reds_vehicles:vehicle/biplane",\
 ground_offset: 1.7f,\
 step_height: 1.0f,\
-format_version: 1\
+format_version: 1,\
+max_fuel: 8000,\
+accepts_fuel: true\
 }
 

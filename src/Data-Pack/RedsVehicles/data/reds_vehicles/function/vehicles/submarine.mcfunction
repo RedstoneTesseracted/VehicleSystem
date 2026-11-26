@@ -66,7 +66,8 @@ physics: [\
         type: "applied",\
         predicates: [\
             "reds_vehicles:has_passenger",\
-            "reds_vehicles:environment/in_water"\
+            "reds_vehicles:environment/in_water",\
+            "reds_vehicles:state/has_fuel"\
         ],\
         value: 1.0\
     },\
@@ -91,6 +92,10 @@ default_scores: [\
     {\
         name: "vehicle.thrust",\
         value: 0.01d\
+    },\
+    {\
+        name: "vehicle.fuel",\
+        value: 0\
     }\
 ],\
 events: [\
@@ -122,6 +127,10 @@ events: [\
                     speed: 0.01,\
                     count: 2\
                 }\
+            },\
+            {\
+                action: "consume_fuel",\
+                arguments: {}\
             }\
         ]\
     },\
@@ -162,6 +171,19 @@ events: [\
                 transform: "yaw",\
                 property: "angle"\
               }\
+            },\
+            {\
+              action: "message",\
+              arguments: {\
+                text: {\
+                  translate: "reds_vehicles.messages.fuel_level",\
+                  fallback: "Fuel: %s / %s mb",\
+                  with: [\
+                    {score: {name: "@s", objective: "vehicle.fuel"}},\
+                    {text: "8000"},\
+                  ]\
+                }\
+              }\
             }\
         ]\
     }\
@@ -173,6 +195,8 @@ seat: {\
 preview: "reds_vehicles:vehicle/submarine",\
 ground_offset: 0.25f,\
 step_height: 1.0f,\
-format_version: 1\
+format_version: 1,\
+max_fuel: 8000,\
+accepts_fuel: true\
 }
 

@@ -56,6 +56,7 @@ scoreboard objectives add vehicle.spin.time dummy
 
 # State
 scoreboard objectives add vehicle.engine dummy
+scoreboard objectives add vehicle.fuel dummy
 scoreboard objectives add vehicle.event.firework dummy
 scoreboard objectives add vehicle.event.honk dummy
 scoreboard objectives add vehicle.event.shoot dummy
@@ -65,6 +66,8 @@ scoreboard objectives add vehicle.event.cooldown dummy
 scoreboard objectives add vehicle.thrust dummy
 scoreboard objectives add vehicle.version dummy
 
+# Refresh recipes
+execute as @a run function #reds_vehicles:grant_recipes
 
 # Schedule periodic functions
 schedule function reds_vehicles:20t 1s replace

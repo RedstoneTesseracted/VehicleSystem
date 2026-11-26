@@ -118,6 +118,10 @@ default_scores: [\
     {\
         name: "vehicle.button.toggle_engine",\
         value: 0\
+    },\
+    {\
+        name: "vehicle.fuel",\
+        value: 0\
     }\
 ],\
 events: [\
@@ -166,6 +170,10 @@ events: [\
                 offset: [-1.2f, 0.0f, -2.0f],\
                 count: 1\
               }\
+            },\
+            {\
+                action: "consume_fuel",\
+                arguments: {}\
             }\
         ]\
     },\
@@ -261,6 +269,19 @@ events: [\
                 transform: "pitch",\
                 property: "angle"\
               }\
+            },\
+            {\
+              action: "message",\
+              arguments: {\
+                text: {\
+                  translate: "reds_vehicles.messages.fuel_level",\
+                  fallback: "Fuel: %s / %s mb",\
+                  with: [\
+                    {score: {name: "@s", objective: "vehicle.fuel"}},\
+                    {text: "8000"},\
+                  ]\
+                }\
+              }\
             }\
         ]\
     },\
@@ -289,5 +310,7 @@ camera_multiplier: 1.0,\
 preview: "reds_vehicles:vehicle/helicopter_preview",\
 ground_offset: 1.0f,\
 step_height: 0.6f,\
-format_version: 1\
+format_version: 1,\
+max_fuel: 8000,\
+accepts_fuel: true\
 }

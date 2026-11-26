@@ -33,6 +33,6 @@
       }
   },
   "rewards": {
-      "function": "reds_vehicles:interact/ride_vehicle"
+      "function": "reds_vehicles:interact/interact_callback"
   }
 }
