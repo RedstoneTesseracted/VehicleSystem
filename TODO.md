@@ -3,7 +3,6 @@
 * Implement physics forces
     * `planar_drag`
 * Add way for survival players to break vehicles
-* Fueling vehicles
 * Test in multiple versions
 
 
