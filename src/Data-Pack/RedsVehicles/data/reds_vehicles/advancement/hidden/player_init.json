@@ -1,0 +1,10 @@
+{
+	"criteria":{
+		"setup":{
+			"trigger":"minecraft:tick"
+		}
+	},
+	"rewards":{
+		"function": "reds_vehicles:player_init"
+	}
+}

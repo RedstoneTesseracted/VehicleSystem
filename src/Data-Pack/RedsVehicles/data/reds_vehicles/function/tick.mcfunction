@@ -5,3 +5,6 @@ execute as @e[tag=vehicle.base] at @s run function reds_vehicles:vehicle/root
 
 # Reset camera distance when player unmounts vehicle
 execute as @a[tag=vehicle.riding] unless function reds_vehicles:vehicle/is_riding_vehicle run function reds_vehicles:vehicle/unmount
+
+# Re-logging
+execute as @a[scores={vehicle.leave_game=1..}] run function reds_vehicles:player_rejoin

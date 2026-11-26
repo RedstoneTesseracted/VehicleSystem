@@ -3,6 +3,7 @@
 # Create scoreboard objectives
 scoreboard objectives add vehicle.local dummy
 scoreboard objectives add vehicle.global dummy
+scoreboard objectives add vehicle.leave_game minecraft.custom:minecraft.leave_game
 
 # Global configuration
 # Show number of vehicles upon reload [0=no,1=yes; default=0 (no)]
