@@ -1,7 +1,15 @@
+# Near-Term
+
 * Implement physics forces
-    * `simple_lift`
     * `planar_drag`
-* Flesh out event system
-* Add proper multipart models
-* Animation system?
+* Add way for survival players to break vehicles
+* Fueling vehicles
+* Vehicle crafting recipes
+
+
+# Future
+
+* Rebase to 26.3 and drop support for older versions
+* Rewrite physics calculations using number providers
+* Multipart models
 * Split vehicle definition processing over multiple ticks if too many vehicle definitions are detected
