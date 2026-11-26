@@ -49,5 +49,5 @@ seat: {\
 },\
 ground_offset: 0.05f,\
 step_height: 0.6f,\
-min_version: 1\
+format_version: 1\
 }

@@ -10,3 +10,6 @@ scoreboard players enable @s vehicle.listvehicles
 
 # Reset advancement-based triggers
 advancement revoke @s from reds_vehicles:hidden/trigger_root
+
+# Clear temporary attribute modifiers
+execute unless function reds_vehicles:vehicle/is_riding_vehicle run attribute @s minecraft:camera_distance modifier remove reds_vehicles:camera_multiplier

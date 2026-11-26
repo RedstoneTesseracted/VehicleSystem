@@ -730,6 +730,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
   name: str,        # Name of vehicle (required)
   author: str,      # Vehicle creator (required)
   collection: str,  # Vehicle collection (required)
+  camera_multiplier: float,  # Camera distance multiplier while riding the vehicle (optional, defaults to 1)
   handling: [       # A list of tags that define how the vehicle's variables react to user input (optional)
     {
       input: "look.x",        # Path to the input value in the user input NBT tag
@@ -951,7 +952,7 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
   preview: str,         # Item model used for the spawn egg preview
   ground_offset: float, # The offset between the root entity's base and the seat (default=1.0)
   step_height: float,   # The maximum block height that a vehicle can climb
-  min_version: int,     # The minimum datapack version required for this definition to be loaded (required)
+  format_version: int,  # The vehicle definition format required for this definition to be loaded (required)
   do_not_update: bool   # If true, the vehicle will NEVER be updated
 }
 ```

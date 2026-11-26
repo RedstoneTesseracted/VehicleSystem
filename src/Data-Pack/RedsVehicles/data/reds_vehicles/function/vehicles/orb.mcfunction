@@ -68,5 +68,5 @@ seat: {\
 preview: "minecraft:glass",\
 ground_offset: 2.001f,\
 step_height: 0.6f,\
-min_version: 1\
+format_version: 1\
 }

@@ -10,14 +10,14 @@ data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
 function rv_unittest:parsing/root/valid_sample
-data modify storage reds_vehicles:definitions working_root.min_version set value 1000000
+data modify storage reds_vehicles:definitions working_root.format_version set value 1000000
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/root/parse
 
 # Analyze and display results
 # Check success/failure status
-execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"min_version\" is greater than the current datapack version"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"format_version\" is greater than the current datapack version"}
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
 # Check number of errors
 execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail
@@ -33,14 +33,14 @@ data merge storage reds_vehicles:definitions {vehicles:[],processed:[]}
 function reds_vehicles:define/logging/reset
 
 function rv_unittest:parsing/root/valid_sample
-data remove storage reds_vehicles:definitions working_root.min_version
+data remove storage reds_vehicles:definitions working_root.format_version
 
 # Run functions
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/root/parse
 
 # Analyze and display results
 # Check success/failure status
-execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"min_version\" is missing"}
+execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run data modify storage reds_vehicles:unittest reason set value {text:"Should not have passed when \"format_version\" is missing"}
 execute if score vehicle.unittest.result vehicle.unittest.local matches 1 run return run function rv_unittest:common/fail
 # Check number of errors
 execute unless function rv_unittest:common/assert_one_error run return run function rv_unittest:common/fail

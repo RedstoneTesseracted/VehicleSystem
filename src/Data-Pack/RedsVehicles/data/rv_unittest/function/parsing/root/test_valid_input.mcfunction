@@ -17,7 +17,7 @@ function rv_unittest:parsing/root/valid_sample
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/root/parse
 
 #tellraw @a {nbt:"working_root",storage: "reds_vehicles:definitions"}
-# > {base_gravity:0.0f,default_scores:[{name:"vehicle.foobar",value:20}],entities:[{pilot:1b,tags:{height:2.0f,width:4.0f},type:"interaction"},{item:{id:"minecraft:glass"},name:"display.outer",transform:[4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,1.0f],type:"item_display"}],events:[{actions:[{action:"playsound",arguments:{pitch:1.0d,sound:"minecraft:block.stone.break",volume:1.0d}}],predicate:""},{actions:[{action:"particle",arguments:{count:1,deltaX:0.0d,deltaY:0.0d,deltaZ:0.0d,name:"minecraft:bubble",offsetU:0.0d,offsetV:0.0d,offsetW:0.0d,speed:0.0d}}],predicate:""}],handling:[{input:"directed.x",operation:"increase",precision:1000,scale:{source:"constant",value:0.05d},variable:"vehicle.dvel.x"}],inputs:["directed"],min_version:1,name:"orb",physics:[{predicate:"if predicate reds_vehicles:has_passenger ",type:"applied",uid:727297308,value:1.0f}],scale:0.050632913f,seat_count:1,step_height:0.6f}
+# > {base_gravity:0.0f,default_scores:[{name:"vehicle.foobar",value:20}],entities:[{pilot:1b,tags:{height:2.0f,width:4.0f},type:"interaction"},{item:{id:"minecraft:glass"},name:"display.outer",transform:[4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,1.0f],type:"item_display"}],events:[{actions:[{action:"playsound",arguments:{pitch:1.0d,sound:"minecraft:block.stone.break",volume:1.0d}}],predicate:""},{actions:[{action:"particle",arguments:{count:1,deltaX:0.0d,deltaY:0.0d,deltaZ:0.0d,name:"minecraft:bubble",offsetU:0.0d,offsetV:0.0d,offsetW:0.0d,speed:0.0d}}],predicate:""}],handling:[{input:"directed.x",operation:"increase",precision:1000,scale:{source:"constant",value:0.05d},variable:"vehicle.dvel.x"}],inputs:["directed"],format_version:1,name:"orb",physics:[{predicate:"if predicate reds_vehicles:has_passenger ",type:"applied",uid:727297308,value:1.0f}],scale:0.050632913f,seat_count:1,step_height:0.6f}
 
 # Analyze and display results
 # Check success/failure status
@@ -67,8 +67,8 @@ execute if data storage reds_vehicles:definitions working_root.ground_offset run
 execute unless data storage reds_vehicles:definitions working_root{step_height: 0.6f} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_root.step_height to be 0.6f (was "},{nbt:"working_root.step_height", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_root{step_height: 0.6f} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_root{min_version: 1} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_root.min_version to be 1 (was "},{nbt:"working_root.min_version", storage:"reds_vehicles:definitions"},{text:")"}]
-execute unless data storage reds_vehicles:definitions working_root{min_version: 1} run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_root{format_version: 1} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_root.format_version to be 1 (was "},{nbt:"working_root.format_version", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_root{format_version: 1} run return run function rv_unittest:common/fail
 
 execute unless data storage reds_vehicles:definitions working_root{base_gravity: 0.0f} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected working_root.base_gravity to be 0.0f (was "},{nbt:"working_root.base_gravity", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_root{base_gravity: 0.0f} run return run function rv_unittest:common/fail
@@ -90,7 +90,7 @@ function rv_unittest:parsing/root/minimal_sample
 execute store result score vehicle.unittest.result vehicle.unittest.local run function reds_vehicles:define/root/parse
 
 #tellraw @a {nbt:"working_root",storage: "reds_vehicles:definitions"}
-# > {base_gravity:0.0f,default_scores:[{name:"vehicle.foobar",value:20}],entities:[{pilot:1b,tags:{height:2.0f,width:4.0f},type:"interaction"},{item:{id:"minecraft:glass"},name:"display.outer",transform:[4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,1.0f],type:"item_display"}],events:[{actions:[{action:"playsound",arguments:{pitch:1.0d,sound:"minecraft:block.stone.break",volume:1.0d}}],predicate:""},{actions:[{action:"particle",arguments:{count:1,deltaX:0.0d,deltaY:0.0d,deltaZ:0.0d,name:"minecraft:bubble",offsetU:0.0d,offsetV:0.0d,offsetW:0.0d,speed:0.0d}}],predicate:""}],handling:[{input:"directed.x",operation:"increase",precision:1000,scale:{source:"constant",value:0.05d},variable:"vehicle.dvel.x"}],inputs:["input", "directed"],min_version:1,name:"orb",physics:[{predicate:"if predicate reds_vehicles:has_passenger ",type:"applied",uid:727297308,value:1.0f}],scale:0.050632913f,seat_count:1,step_height:0.6f}
+# > {base_gravity:0.0f,default_scores:[{name:"vehicle.foobar",value:20}],entities:[{pilot:1b,tags:{height:2.0f,width:4.0f},type:"interaction"},{item:{id:"minecraft:glass"},name:"display.outer",transform:[4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,4.0f,0.0f,0.0f,0.0f,0.0f,1.0f],type:"item_display"}],events:[{actions:[{action:"playsound",arguments:{pitch:1.0d,sound:"minecraft:block.stone.break",volume:1.0d}}],predicate:""},{actions:[{action:"particle",arguments:{count:1,deltaX:0.0d,deltaY:0.0d,deltaZ:0.0d,name:"minecraft:bubble",offsetU:0.0d,offsetV:0.0d,offsetW:0.0d,speed:0.0d}}],predicate:""}],handling:[{input:"directed.x",operation:"increase",precision:1000,scale:{source:"constant",value:0.05d},variable:"vehicle.dvel.x"}],inputs:["input", "directed"],format_version:1,name:"orb",physics:[{predicate:"if predicate reds_vehicles:has_passenger ",type:"applied",uid:727297308,value:1.0f}],scale:0.050632913f,seat_count:1,step_height:0.6f}
 
 # Analyze and display results
 # Check success/failure status
@@ -133,8 +133,8 @@ execute unless data storage reds_vehicles:definitions working_root{name: "air"} 
 execute unless data storage reds_vehicles:definitions working_root{scale: 1.0126582f} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected minimal vehicle's working_root.scale to be 1.0126582f (was "},{nbt:"working_root.scale", storage:"reds_vehicles:definitions"},{text:")"}]
 execute unless data storage reds_vehicles:definitions working_root{scale: 1.0126582f} run return run function rv_unittest:common/fail
 
-execute unless data storage reds_vehicles:definitions working_root{min_version: 1} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected minimal vehicle's working_root.min_version to be 1 (was "},{nbt:"working_root.min_version", storage:"reds_vehicles:definitions"},{text:")"}]
-execute unless data storage reds_vehicles:definitions working_root{min_version: 1} run return run function rv_unittest:common/fail
+execute unless data storage reds_vehicles:definitions working_root{format_version: 1} run data modify storage reds_vehicles:unittest reason set value [{text:"Expected minimal vehicle's working_root.format_version to be 1 (was "},{nbt:"working_root.format_version", storage:"reds_vehicles:definitions"},{text:")"}]
+execute unless data storage reds_vehicles:definitions working_root{format_version: 1} run return run function rv_unittest:common/fail
 
 # Everything passed!
 return run function rv_unittest:common/pass

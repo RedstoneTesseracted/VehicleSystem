@@ -9,12 +9,12 @@
 execute unless function reds_vehicles:define/name/parse run return run function reds_vehicles:define/root/exit_fail
 
 # Check if version requirements are met
-execute unless data storage reds_vehicles:definitions working_root.min_version run function reds_vehicles:define/root/report/missing_min_version
-execute unless data storage reds_vehicles:definitions working_root.min_version run return run function reds_vehicles:define/root/exit_fail
-execute store result score vehicle.min_version vehicle.local run data get storage reds_vehicles:definitions working_root.min_version
+execute unless data storage reds_vehicles:definitions working_root.format_version run function reds_vehicles:define/root/report/missing_format_version
+execute unless data storage reds_vehicles:definitions working_root.format_version run return run function reds_vehicles:define/root/exit_fail
+execute store result score vehicle.format_version vehicle.local run data get storage reds_vehicles:definitions working_root.format_version
 execute store result score vehicle.current_version vehicle.local run function reds_vehicles:version
-execute if score vehicle.min_version vehicle.local > vehicle.current_version vehicle.local run function reds_vehicles:define/root/report/wrong_version
-execute if score vehicle.min_version vehicle.local > vehicle.current_version vehicle.local run return run function reds_vehicles:define/root/exit_fail
+execute if score vehicle.format_version vehicle.local > vehicle.current_version vehicle.local run function reds_vehicles:define/root/report/wrong_version
+execute if score vehicle.format_version vehicle.local > vehicle.current_version vehicle.local run return run function reds_vehicles:define/root/exit_fail
 
 
 # Ensure vehicle author is present
@@ -35,6 +35,10 @@ data modify storage reds_vehicles:definitions working_handling_list set from sto
 execute unless function reds_vehicles:define/handling_list/parse run return run function reds_vehicles:define/root/exit_fail
 data modify storage reds_vehicles:definitions working_root.handling set from storage reds_vehicles:definitions working_handling_list
 data modify storage reds_vehicles:definitions working_root.inputs set from storage reds_vehicles:definitions working_input_list
+
+
+# Set default camera distance multiplier if not already present
+execute unless data storage reds_vehicles:definitions working_root.camera_multiplier run data modify storage reds_vehicles:definitions working_root.camera_multiplier set value 0.0
 
 
 # Set default gravity
