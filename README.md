@@ -5,6 +5,24 @@ This datapack provides a framework for adding controllable, data-driven vehicles
 * Biplane
 * Helicopter
 
+![Biplane on runway](images/biplane.png)
+
+
+# Built-In Vehicles
+
+**Submarine**:
+* WASD + mouse to move around
+* Does not sink in water
+
+**Biplane**:
+* Left-click to toggle engine
+* Forward/Backward to increase/decrease thrust
+
+**Helicopter**:
+* Left-click to toggle engine
+* WASD + mouse to move around
+* Jump to move upwards
+
 
 # Adding Vehicles
 
