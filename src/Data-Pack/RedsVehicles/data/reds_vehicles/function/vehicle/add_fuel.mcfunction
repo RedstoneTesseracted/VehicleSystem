@@ -15,10 +15,7 @@ scoreboard players set vehicle.current_fuel vehicle.local 0
 
 # Grab this vehicle's definition
 # If there is no matching definition, exit early
-data remove storage reds_vehicles:definitions args
-data modify storage reds_vehicles:definitions args.name set from entity @s CustomName
-execute store result score vehicle.exists vehicle.local run function reds_vehicles:vehicle/grab_definition with storage reds_vehicles:definitions args
-execute unless score vehicle.exists vehicle.local matches 1 run return 0
+execute unless function reds_vehicles:vehicle/grab_executor_definition run return 0
 
 # Determine how much fuel we can add
 execute if data storage reds_vehicles:definitions current{accepts_fuel: false} run return 0

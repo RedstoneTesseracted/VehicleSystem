@@ -51,7 +51,8 @@
                 "data": {
                     "name": "helicopter"
                 }
-            }
+            },
+            "minecraft:max_stack_size": 1
         }
     }
 }

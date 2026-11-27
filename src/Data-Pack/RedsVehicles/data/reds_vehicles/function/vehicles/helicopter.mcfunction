@@ -275,7 +275,6 @@ events: [\
               arguments: {\
                 text: {\
                   translate: "reds_vehicles.messages.fuel_level",\
-                  fallback: "Fuel: %s / %s mb",\
                   with: [\
                     {score: {name: "@s", objective: "vehicle.fuel"}},\
                     {text: "8000"},\

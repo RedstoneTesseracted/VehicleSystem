@@ -16,17 +16,6 @@
                                 },
                                 "type": "minecraft:entity_properties"
                             }
-                        },
-                        {
-                            "type": "minecraft:entity_properties",
-                            "entity": "this",
-                            "predicate": {
-                                "minecraft:type_specific/player": {
-                                    "gamemode": [
-                                        "creative"
-                                    ]
-                                }
-                            }
                         }
                     ]
                 },
@@ -46,6 +35,6 @@
         }
     },
     "rewards": {
-        "function": "reds_vehicles:interact/creative_vehicle_remove"
+        "function": "reds_vehicles:interact/break_vehicle"
     }
 }

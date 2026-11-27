@@ -14,17 +14,6 @@
                                 "vehicle": {}
                             }
                         }
-                    },
-                    {
-                        "condition": "minecraft:entity_properties",
-                        "entity": "this",
-                        "predicate": {
-                            "minecraft:type_specific/player": {
-                                "gamemode": [
-                                    "creative"
-                                ]
-                            }
-                        }
                     }
                 ],
                 "entity": [
@@ -32,7 +21,7 @@
                         "condition": "minecraft:entity_properties",
                         "entity": "this",
                         "predicate": {
-                            "minecraft:entity_type": "minecraft:interaction",
+                            "type": "minecraft:interaction",
                             "nbt": "{Tags:[\"vehicle.hitbox\"]}"
                         }
                     }
@@ -41,6 +30,6 @@
         }
     },
     "rewards": {
-        "function": "reds_vehicles:interact/creative_vehicle_remove"
+        "function": "reds_vehicles:interact/break_vehicle"
     }
 }

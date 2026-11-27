@@ -4,10 +4,7 @@
 
 # Grab this vehicle's definition
 # If there is no matching definition, exit early
-data remove storage reds_vehicles:definitions args
-data modify storage reds_vehicles:definitions args.name set from entity @s CustomName
-execute store result score vehicle.exists vehicle.local run function reds_vehicles:vehicle/grab_definition with storage reds_vehicles:definitions args
-execute unless score vehicle.exists vehicle.local matches 1 run return fail
+execute unless function reds_vehicles:vehicle/grab_executor_definition run return fail
 
 # Gather input IF AND ONLY IF a pilot is present
 data modify storage reds_vehicles:inputs input set value {}

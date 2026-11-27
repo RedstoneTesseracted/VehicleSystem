@@ -52,7 +52,8 @@
                 "data": {
                     "name": "biplane"
                 }
-            }
+            },
+            "minecraft:max_stack_size": 1
         }
     }
 }

@@ -4,7 +4,7 @@
 # Insert fuel into target
 scoreboard players set vehicle.inserted_fuel vehicle.local 0
 execute store result score vehicle.inserted_fuel vehicle.local as @e[tag=vehicle.click_target,limit=1] on vehicle run function reds_vehicles:vehicle/add_fuel
-title @s actionbar {translate: "reds_vehicles.messages.fuel_level", fallback: "Fuel: %s / %s", with: [{score: {name: "vehicle.current_fuel", objective: "vehicle.local"}}, {score: {name: "vehicle.max_fuel", objective: "vehicle.local"}}]}
+title @s actionbar {translate: "reds_vehicles.messages.fuel_level", with: [{score: {name: "vehicle.current_fuel", objective: "vehicle.local"}}, {score: {name: "vehicle.max_fuel", objective: "vehicle.local"}}]}
 
 # Consume fuel from main hand
 execute if score vehicle.inserted_fuel vehicle.local matches 1.. run function reds_vehicles:interact/consume_fuel_can
