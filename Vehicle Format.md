@@ -324,9 +324,10 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
   ground_offset: float, # The offset between the root entity's base and the seat (default=1.0)
   step_height: float,   # The maximum block height that a vehicle can climb
   format_version: int,  # The vehicle definition format required for this definition to be loaded (required)
-  do_not_update: bool,   # If true, the vehicle will NEVER be updated (do not use)
+  do_not_update: bool,  # If true, the vehicle will NEVER be updated (do not use)
   max_fuel: int,        # Maximum capacity of fuel tank (optional, defaults to 8000)
-  accepts_fuel: bool    # Whether the vehicle accepts fuel at all (optional, defaults to true)
+  accepts_fuel: bool,   # Whether the vehicle accepts fuel at all (optional, defaults to true)
+  help_text:: nbt       # Help text shown in chat whenever the player mounts the vehicle (optional)
 }
 ```
 

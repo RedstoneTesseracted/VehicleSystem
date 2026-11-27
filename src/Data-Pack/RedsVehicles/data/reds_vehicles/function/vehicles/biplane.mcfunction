@@ -328,6 +328,13 @@ ground_offset: 1.7f,\
 step_height: 1.0f,\
 format_version: 1,\
 max_fuel: 8000,\
-accepts_fuel: true\
+accepts_fuel: true,\
+help_text: [\
+  {translate: "reds_vehicles.messages.controls.header", underlined: true, color: "green"},\
+  {text: "\n\n", underlined: false, color: "white"},\
+  {translate: "reds_vehicles.messages.controls.line", with: [{keybind: "key.attack"}, {translate: "reds_vehicles.messages.controls.toggle_engine"}], underlined: false, color: "white"},\
+  {text: "\n", underlined: false, color: "white"},\
+  {translate: "reds_vehicles.messages.controls.line_two_key", with: [{keybind: "key.forward"}, {keybind: "key.back"}, {translate: "reds_vehicles.messages.controls.throttle_up_down"}], underlined: false, color: "white"},\
+]\
 }
 

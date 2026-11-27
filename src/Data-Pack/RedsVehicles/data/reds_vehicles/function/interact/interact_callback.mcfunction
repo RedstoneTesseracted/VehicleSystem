@@ -26,5 +26,10 @@ ride @s mount @e[tag=vehicle.seat,tag=vehicle.next_available_seat,limit=1]
 tag @s add vehicle.riding
 function reds_vehicles:interact/apply_camera_multiplier
 
+# Show help text
+tag @s add vehicle.player.context
+execute on vehicle on vehicle run function reds_vehicles:vehicle/show_help_text
+tag @s remove vehicle.player.context
+
 # Reset state
 return run function reds_vehicles:interact/interact_callback_return

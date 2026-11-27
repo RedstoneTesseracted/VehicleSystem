@@ -44,6 +44,18 @@ handling:[\
         ]\
     },\
     {\
+        input: "input.up",\
+        operation: "increase",\
+        scale: {\
+            source: "constant",\
+            value: 0.01\
+        },\
+        variable: "vehicle.dvel.y",\
+        predicates: [\
+            "reds_vehicles:state/engine_on"\
+        ]\
+    },\
+    {\
         input: "click.left",\
         operation: "set",\
         variable: "vehicle.button.toggle_engine",\
@@ -311,5 +323,16 @@ ground_offset: 1.0f,\
 step_height: 0.6f,\
 format_version: 1,\
 max_fuel: 8000,\
-accepts_fuel: true\
+accepts_fuel: true,\
+help_text: [\
+  {translate: "reds_vehicles.messages.controls.header", underlined: true, color: "green"},\
+  {text: "\n\n", underlined: false, color: "white"},\
+  {translate: "reds_vehicles.messages.controls.line", with: [{keybind: "key.attack"}, {translate: "reds_vehicles.messages.controls.toggle_engine"}], underlined: false, color: "white"},\
+  {text: "\n", underlined: false, color: "white"},\
+  {translate: "reds_vehicles.messages.controls.line_two_key", with: [{keybind: "key.left"}, {keybind: "key.right"}, {translate: "reds_vehicles.messages.controls.strafe_left_right"}], underlined: false, color: "white"},\
+  {text: "\n", underlined: false, color: "white"},\
+  {translate: "reds_vehicles.messages.controls.line_two_key", with: [{keybind: "key.forward"}, {keybind: "key.back"}, {translate: "reds_vehicles.messages.controls.forward_backward"}], underlined: false, color: "white"},\
+  {text: "\n", underlined: false, color: "white"},\
+  {translate: "reds_vehicles.messages.controls.line", with: [{keybind: "key.jump"}, {translate: "reds_vehicles.messages.controls.up"}], underlined: false, color: "white"},\
+]\
 }
