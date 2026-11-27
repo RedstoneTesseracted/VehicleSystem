@@ -20,8 +20,7 @@
             },
             "minecraft:item_model": "reds_vehicles:fuel",
             "minecraft:item_name": {
-                "translate": "reds_vehicles.item.fuel",
-                "fallback": "Universal Fuel"
+                "translate": "reds_vehicles.item.fuel"
             },
             "minecraft:rarity": "common",
             "max_stack_size": 16,
