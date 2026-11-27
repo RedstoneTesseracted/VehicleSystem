@@ -1,5 +1,5 @@
-# This function grants the player a camera distance attribute modifier when mounting a vehicle
-# This assumed the player has mounted the vehicle
+# This function applies special attribute modifiers to the player when mounting a vehicle.
+# This assumed the player has already mounted the vehicle by this point.
 
 # Retrieve the camera distance multiplier from the vehicle
 data remove storage reds_vehicles:definitions args
@@ -10,4 +10,8 @@ execute unless score vehicle.exists vehicle.local matches 1 run return fail
 # Add attribute modifier
 data remove storage reds_vehicles:definitions args
 data modify storage reds_vehicles:definitions args.amount set from storage reds_vehicles:definitions current.camera_multiplier
-function reds_vehicles:interact/__apply_camera_multiplier with storage reds_vehicles:definitions args
+function reds_vehicles:interact/__apply_attributes with storage reds_vehicles:definitions args
+
+# Protect from fall damage
+attribute @s minecraft:fall_damage_multiplier modifier remove reds_vehicles:fall_protection
+attribute @s minecraft:fall_damage_multiplier modifier add reds_vehicles:fall_protection -1.0 add_multiplied_total

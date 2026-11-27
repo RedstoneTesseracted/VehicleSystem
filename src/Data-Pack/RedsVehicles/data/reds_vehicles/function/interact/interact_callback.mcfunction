@@ -22,9 +22,9 @@ execute as @e[tag=vehicle.hitbox,tag=vehicle.click_target,limit=1] on vehicle ru
 # Make the player mount the first available seat
 ride @s mount @e[tag=vehicle.seat,tag=vehicle.next_available_seat,limit=1]
 
-# Apply camera multiplier
+# Apply attribute modifiers
 tag @s add vehicle.riding
-function reds_vehicles:interact/apply_camera_multiplier
+function reds_vehicles:interact/apply_attributes
 
 # Show help text
 tag @s add vehicle.player.context
