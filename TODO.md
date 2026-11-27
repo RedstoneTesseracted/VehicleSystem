@@ -1,9 +1,9 @@
 # Near-Term
 
 * Test in multiple versions
-* Make helicopter noise less terrible
 * Images
     * Banner
+* Redo fuel texture
 
 # Future
 
