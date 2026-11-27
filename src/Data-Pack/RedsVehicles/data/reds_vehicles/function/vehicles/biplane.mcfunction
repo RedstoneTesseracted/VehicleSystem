@@ -9,7 +9,7 @@ handling: [\
         input: "input.forward",\
         operation: "clamped_increase",\
         min: 0.0f,\
-        max: 1.0f,\
+        max: 0.5f,\
         scale: {\
             source: "constant",\
             value: 0.01d\
