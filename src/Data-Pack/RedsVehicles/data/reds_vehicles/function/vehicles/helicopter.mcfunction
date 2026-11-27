@@ -311,7 +311,28 @@ events: [\
               }\
             }\
         ]\
-    }\
+    },\
+    {\
+        predicates: [\
+            "reds_vehicles:state/engine_on",\
+            "reds_vehicles:state/out_of_fuel"\
+        ],\
+        actions: [\
+            {\
+              action: "set_score",\
+              arguments: {\
+                name: "vehicle.engine",\
+                value: 0\
+              }\
+            },\
+            {\
+              action: "playsound",\
+              arguments: {\
+                sound: "reds_vehicles:vehicle.helicopter.engine_off"\
+              }\
+            }\
+        ]\
+    },\
 ],\
 seat: {\
     width: 2.0f,\
