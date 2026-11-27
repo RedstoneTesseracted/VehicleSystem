@@ -71,6 +71,7 @@ execute as @a run function #reds_vehicles:grant_recipes
 
 # Schedule periodic functions
 schedule function reds_vehicles:20t 1s replace
+schedule function reds_vehicles:3t 3t replace
 
 # Trigger variables
 scoreboard objectives add vehicle.showlog trigger
