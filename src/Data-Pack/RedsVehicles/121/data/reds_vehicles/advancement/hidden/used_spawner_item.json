@@ -7,8 +7,10 @@
                 "location": {
                     "type": "minecraft:match_tool",
                     "predicate": {
-                        "components": {
-                            "minecraft:custom_data": "{rv_spawner_item:1b}"
+                        "predicates": {
+                            "minecraft:custom_data": {
+                                "rv_spawner_item": true
+                            }
                         }
                     }
                 }

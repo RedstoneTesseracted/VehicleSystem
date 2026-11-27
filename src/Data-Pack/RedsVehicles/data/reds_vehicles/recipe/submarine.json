@@ -17,7 +17,8 @@
         "id": "minecraft:pig_spawn_egg",
         "components": {
             "minecraft:custom_data": {
-                "rv_spawner_item": true
+                "rv_spawner_item": true,
+                "rv_id": "submarine"
             },
             "minecraft:lore": [
                 {

@@ -1,0 +1,38 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:paper",
+            "components": {
+                "minecraft:item_model": "reds_vehicles:fuel"
+            }
+        },
+        "frame": "task",
+        "title": {
+            "translate": "advancements.reds_vehicles.fuel.title",
+            "fallback": "Blazing Fuel"
+        },
+        "description": {
+            "translate": "advancements.reds_vehicles.fuel.description",
+            "fallback": "Craft some blazing fuel"
+        },
+        "show_toast": true,
+        "announce_to_chat": true
+    },
+    "parent": "reds_vehicles:vehicles/root",
+    "criteria": {
+        "range_upgrade": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "predicates": {
+                            "minecraft:custom_data": {
+                                "rv_fuel": true
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

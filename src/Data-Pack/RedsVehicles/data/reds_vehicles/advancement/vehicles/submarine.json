@@ -1,0 +1,38 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:paper",
+            "components": {
+                "minecraft:item_model": "reds_vehicles:vehicle/submarine"
+            }
+        },
+        "frame": "task",
+        "title": {
+            "translate": "advancements.reds_vehicles.submarine.title",
+            "fallback": "Submarine"
+        },
+        "description": {
+            "translate": "advancements.reds_vehicles.submarine.description",
+            "fallback": "Craft a submarine"
+        },
+        "show_toast": true,
+        "announce_to_chat": true
+    },
+    "parent": "reds_vehicles:vehicles/fuel",
+    "criteria": {
+        "range_upgrade": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "predicates": {
+                            "minecraft:custom_data": {
+                                "rv_id": "submarine"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

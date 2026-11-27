@@ -1,0 +1,24 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:minecart"
+        },
+        "frame": "task",
+        "title": {
+            "translate": "advancements.reds_vehicles.root.title",
+            "fallback": "Redstone⁴'s Vehicles"
+        },
+        "description": {
+            "translate": "advancements.reds_vehicles.root.description",
+            "fallback": "Welcome to Redstone⁴'s Vehicles!"
+        },
+        "background": "reds_vehicles:gui/advancements/backgrounds/light_blue_concrete",
+        "show_toast": true,
+        "announce_to_chat": true
+    },
+    "criteria": {
+        "start": {
+            "trigger": "minecraft:impossible"
+        }
+    }
+}

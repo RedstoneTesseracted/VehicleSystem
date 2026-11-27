@@ -1,0 +1,38 @@
+{
+    "display": {
+        "icon": {
+            "id": "minecraft:paper",
+            "components": {
+                "minecraft:item_model": "reds_vehicles:vehicle/biplane_off"
+            }
+        },
+        "frame": "task",
+        "title": {
+            "translate": "advancements.reds_vehicles.biplane.title",
+            "fallback": "Biplane"
+        },
+        "description": {
+            "translate": "advancements.reds_vehicles.biplane.description",
+            "fallback": "Craft a biplane"
+        },
+        "show_toast": true,
+        "announce_to_chat": true
+    },
+    "parent": "reds_vehicles:vehicles/fuel",
+    "criteria": {
+        "range_upgrade": {
+            "trigger": "minecraft:inventory_changed",
+            "conditions": {
+                "items": [
+                    {
+                        "predicates": {
+                            "minecraft:custom_data": {
+                                "rv_id": "biplane"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

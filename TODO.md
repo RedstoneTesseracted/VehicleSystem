@@ -1,8 +1,6 @@
 # Near-Term
 
 * Test in multiple versions
-* In-game guides
-    * Advancements for crafting items
 * Make helicopter noise less terrible
 * Images
     * Banner
