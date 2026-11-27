@@ -3,7 +3,6 @@
 * Test in multiple versions
 * Images
     * Banner
-* Redo fuel texture
 
 # Future
 
