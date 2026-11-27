@@ -24,3 +24,13 @@ Redstone⁴'s Vehicles is a datapack that adds three new vehicles to the game:
 * Left-click to toggle engine
 * WASD + mouse to move around
 * Jump to move upwards
+
+
+# Cheats
+
+To give yourself all vehicles:
+
+```
+function reds_vehicles:items/give_spawn_eggs
+```
+
