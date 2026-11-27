@@ -1,8 +1,6 @@
 # Near-Term
 
-* Test in multiple versions
-* Images
-    * Banner
+
 
 # Future
 
