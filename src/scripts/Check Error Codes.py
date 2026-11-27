@@ -11,7 +11,7 @@ from os import path
 
 
 # Global constants
-datapack_path = path.join('src', 'Data-Pack', 'RedsVehicles')
+datapack_path = path.join(path.pardir, 'Data-Pack', 'RedsVehicles')
 
 
 def main():

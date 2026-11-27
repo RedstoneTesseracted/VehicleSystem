@@ -10,7 +10,7 @@ import json
 
 # Declare global constants
 FIRST_OVERLAY_VERSION = 16
-pack_root = path.join('src', 'Data-Pack', 'RedsVehicles')
+pack_root = path.join(path.pardir, 'Data-Pack', 'RedsVehicles')
 
 # Obtain current pack.mcmeta JSON and extract compatible versions
 with open(path.join(pack_root, 'pack.mcmeta'), mode='r', encoding='utf-8') as rf:
