@@ -1,9 +1,28 @@
 # Redstone⁴'s Vehicle System
 
-This datapack provides a framework for adding controllable vehicles to Minecraft.  Four examples vehicles are included:
+This datapack provides a framework for adding controllable, data-driven vehicles to Minecraft.  Three vehicles are included with the pack:
 * Submarine
 * Biplane
 * Helicopter
+
+
+# Adding Vehicles
+
+All vehicle definitions are declared in the global `vehicles` array under the `reds_vehicles:definitions` storage.  These vehicles are then processed and validated upon reload.
+
+To add a new vehicle, create a new function that appends its definition to the `vehicles` array.  This function must then be added to the `#reds_vehicles:declare_vehicles` function tag to ensure it's run at reload.
+
+For example vehicle definitions, see [`src/Data-Pack/RedsVehicles/data/reds_vehicles/function/vehicles/`](src/Data-Pack/RedsVehicles/data/reds_vehicles/function/vehicles/).  The full vehicle spec is outlined in `Vehicle Format.md`.
+
+
+# Version Support
+
+This datapack uses overlays to support multiple versions of the game with a single ZIP file.
+
+|  Game Version  | Data Pack Version |
+| -------------- | ----------------- |
+| 1.21.6-26.3    | 1.0.0-alpha       |
+
 
 # Credits
 
