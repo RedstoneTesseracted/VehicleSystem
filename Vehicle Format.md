@@ -178,7 +178,8 @@ This data structure fully defines a vehicle.  Each vehicle definition is added t
           arguments: {
             sound: str,         # Name of sound to play (required)
             pitch: float,       # Pitch of sound (optional, defaults to 1.0)
-            volume: float       # Volume of sound (optional, defaults to 1.0)
+            volume: float,      # Volume of sound (optional, defaults to 1.0)
+            period: int         # Play this sound every N ticks (optional, defaults to 1)
           }
         },
         {

@@ -145,7 +145,8 @@ events: [\
             {\
               action: "playsound",\
               arguments: {\
-                sound: "reds_vehicles:vehicle.helicopter.engine_hum"\
+                sound: "reds_vehicles:vehicle.helicopter.engine_hum",\
+                period: 2\
               }\
             },\
             {\

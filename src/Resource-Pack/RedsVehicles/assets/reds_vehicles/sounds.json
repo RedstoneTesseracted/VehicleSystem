@@ -49,9 +49,7 @@
       "sounds": [
           "reds_vehicles:helicopter/engine1",
           "reds_vehicles:helicopter/engine2",
-          "reds_vehicles:helicopter/engine3",
-          "reds_vehicles:helicopter/engine4",
-          "reds_vehicles:helicopter/engine5"
+          "reds_vehicles:helicopter/engine3"
       ],
       "attribution": "Helicopter Paasing and engine shut-down at Film Shoot.mp3 by Cymeon -- https://freesound.org/s/205897/ -- License: Creative Commons 0"
     }
